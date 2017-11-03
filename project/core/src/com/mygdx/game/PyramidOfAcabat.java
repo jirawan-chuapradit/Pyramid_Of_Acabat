@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class PyramidOfAcabat extends Game {
 
 
-	public static final int V_WIDTH = 1080;
+	public static final int V_WIDTH = 1280;
 	public static final int V_HEIGHT = 720;
 	
 	
