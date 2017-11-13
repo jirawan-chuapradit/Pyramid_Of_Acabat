@@ -15,8 +15,8 @@ public class Player extends B2DSprite{
 		super(body);
 		
 		Texture tex =  Game.res.getTexture("bluePlayer");
-		TextureRegion[] sprites = TextureRegion.split(tex, 100, 100)[0];
-
+		TextureRegion[] sprites = TextureRegion.split(tex, 70, 70)[0];
+		
 		setAnimaiton(sprites, 1 / 12f);
 		
 	}

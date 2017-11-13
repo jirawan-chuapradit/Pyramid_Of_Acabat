@@ -5,6 +5,8 @@ import static com.handlers.B2DVars.PPM;
 import java.security.CryptoPrimitive;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapLayer;
@@ -39,6 +41,7 @@ public class Play extends GameState {
 
 	private World world;
 	private Box2DDebugRenderer b2dr;
+//	public Body b2body;
 
 	private OrthographicCamera b2dCam;
 	private MyContactListener cl;
@@ -67,7 +70,7 @@ public class Play extends GameState {
 		createTiles();
 		
 		// create flag
-		createFlag();
+//		createFlag();
 		
 
 		// set up box2d cam
@@ -83,24 +86,37 @@ public class Play extends GameState {
 		// player jump
 
 		if (MyInput.isPreessed(MyInput.BUTTON1)) {
-			if (cl.isPlayerOnGround()) {
-				player.getBody().applyForceToCenter(0, 100, true);
+			if (player.getBody().getLinearVelocity().y == 0) {
+				player.getBody().applyForceToCenter(0, 200, true);
 			}
+		}
+			
+		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.getBody().getLinearVelocity().x <= 2) {
+			player.getBody().applyLinearImpulse( new Vector2(0.1f, 0), player.getBody().getWorldCenter() , true);
+		}
+		
+		if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.getBody().getLinearVelocity().x >= -2) {
+			player.getBody().applyLinearImpulse( new Vector2(-0.1f, 0), player.getBody().getWorldCenter() , true);
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+			player.getBody().setLinearVelocity(0 , 0);
 		}
 
 	}
 
 	public void update(float dt) {
-
+		// handle user input first
 		handleInput();
 
 		world.step(dt, 6, 2);
+
+		
 		
 		player.update(dt);
 		
-		for(int i = 0; i < flag.size; i++) {
-			flag.get(i).update(dt);
-		}
+//		for(int i = 0; i < flag.size; i++) {
+//			flag.get(i).update(dt);
+//		}
 
 	}
 
@@ -150,14 +166,15 @@ public class Play extends GameState {
 		shape.setAsBox(25 / PPM, 45 / PPM);
 		fdef.shape = shape;
 		fdef.filter.categoryBits = B2DVars.BIT_PLAYER;
-		fdef.filter.maskBits = B2DVars.BIT_BLUE;
+		fdef.filter.maskBits = B2DVars.BIT_BLUE | B2DVars.BIT_GROUND;
 		body.createFixture(fdef).setUserData("player");
 
 		// crate foot sensor
 		shape.setAsBox(25 / PPM, 5 / PPM, new Vector2(0, -45 / PPM), 0);
 		fdef.shape = shape;
-		fdef.filter.categoryBits = B2DVars.BIT_PLAYER;
+		fdef.filter.categoryBits = B2DVars.BIT_PLAYER | B2DVars.BIT_GROUND;
 		fdef.filter.maskBits = B2DVars.BIT_BLUE;
+
 		fdef.isSensor = true;
 		body.createFixture(fdef).setUserData("foot");
 		
@@ -181,6 +198,10 @@ public class Play extends GameState {
 		layer = (TiledMapTileLayer) tileMap.getLayers().get("blue");
 		System.out.print(layer);
 		 createLayer(layer, B2DVars.BIT_BLUE);
+		 
+		 layer = (TiledMapTileLayer) tileMap.getLayers().get("ground");
+			System.out.print(layer);
+			 createLayer(layer, B2DVars.BIT_GROUND);
 		
 		
 		layer = (TiledMapTileLayer) tileMap.getLayers().get("pink");
@@ -229,46 +250,16 @@ public class Play extends GameState {
 		}
 	}
 	
-	private void createFlag() {
-		
-		flag = new Array<Flag>();
-		
-		MapLayer layer = tileMap.getLayers().get("Flag");
-		
-		BodyDef bdef = new BodyDef();
-		FixtureDef fdef = new FixtureDef();
-		
-		
-//		for(MapObject mo: layer.getObjects()) {
-			
-			bdef.type = BodyType.StaticBody;
-			
-//			float x = Float.parseFloat((mo.getProperties().get("x").toString()))/PPM;
-//			float y = Float.parseFloat((mo.getProperties().get("y").toString()))/PPM;﻿	
-			
-//			bdef.position.set(x, y);
-			
-			CircleShape cshape = new CircleShape();
-			cshape.setRadius(8/PPM);
-			
-			fdef.shape = cshape;
-			fdef.isSensor = true;
-			fdef.filter.categoryBits = B2DVars.BIT_FLAG;
-			fdef.filter.maskBits = B2DVars.BIT_PLAYER;
-			
-			Body body = world.createBody(bdef);
-			body.createFixture(fdef);
-			
-			Flag f = new Flag(body);
-			flag.add(f);
-			
-			body.setUserData(f);
-			
-			
-					
-			
-			
-		}
+//	private void createFlag() {
+//		BodyDef bdef = new BodyDef();
+//		FixtureDef fdef = new FixtureDef();
+//		Polygonshape shape = Polygonshape();
+//		bdef.type = BodyType.StaticBody;
+//		bdef.position.set();
+//		world.createBody(bdef).createFixture(fdef);
+//			
+//			
+//		}
 	}
 
 //}
