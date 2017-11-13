@@ -40,7 +40,7 @@ public class HUD {
 				);
 		
 		stage = new Stage(viewport,sb);
-		
+		stage.setDebugAll(true);
 		Table table = new Table();
 		table.top();
 		table.setFillParent(true);
@@ -76,9 +76,8 @@ public class HUD {
 		table.row();
 		table.add(scoreLabel).expandX();
 		table.add(leveLabel).expandX();
-		table.add(countdownLabel).expand();
-		
-		stage.addActor(table);		
+		table.add(countdownLabel).expandX();
+		stage.addActor(table);
 	}
 	
 	

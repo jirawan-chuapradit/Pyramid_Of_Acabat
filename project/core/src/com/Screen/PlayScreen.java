@@ -1,7 +1,9 @@
 package com.Screen;
 
 import com.Scenes.HUD;
+import com.Sprite.playerPink;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -32,6 +34,7 @@ public class PlayScreen implements Screen {
 	private HUD hud;
 	
 	
+	
 	//Tile map variables
 	private TmxMapLoader maploader;
 	private TiledMap map;
@@ -41,7 +44,7 @@ public class PlayScreen implements Screen {
 	private World world;
 	private Box2DDebugRenderer b2dr;
 	
-	
+	private playerPink playerPink;
 	
 	
 //	Texture texture;
@@ -53,7 +56,7 @@ public class PlayScreen implements Screen {
 		gameCam = new OrthographicCamera();
 		
 		// create a FitViewport to maintain virtual aspect ratio despite screen
-		gamePort = new FitViewport(PyramidOfAcabat.V_WIDTH, PyramidOfAcabat.V_HEIGHT, gameCam);
+		gamePort = new FitViewport(PyramidOfAcabat.V_WIDTH/PyramidOfAcabat.PPM, PyramidOfAcabat.V_HEIGHT/PyramidOfAcabat.PPM, gameCam);
 		
 		// create our game HUD for scores / timers/ level info
 		hud = new HUD(game.sb);
@@ -61,12 +64,12 @@ public class PlayScreen implements Screen {
 		// load our map and setup our map renderer
 		maploader = new TmxMapLoader();
 		map = maploader.load("level1.tmx");
-		tmr = new OrthogonalTiledMapRenderer(map);
+		tmr = new OrthogonalTiledMapRenderer(map, 1 /PyramidOfAcabat.PPM);
 		
-		// initially set our gamcam to be centered correctly at the start of of
-		gameCam.position.set(PyramidOfAcabat.V_WIDTH/2, PyramidOfAcabat.V_HEIGHT/2, 0);
+		// initially set our gamcam to be centered correctly at the start of of map
+		gameCam.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight()/2, 0);
 	
-		world = new World(new Vector2(0, 0), true);
+		world = new World(new Vector2(0, -10), true);
 		b2dr = new Box2DDebugRenderer();
 		
 		BodyDef bdef = new BodyDef();
@@ -77,17 +80,16 @@ public class PlayScreen implements Screen {
 		
 		// create ground bodies/fixtures
 		// playerPink
-		for(MapObject object:
-			map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
+		for(MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
 			
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();
 			
 			bdef.type = BodyDef.BodyType.StaticBody;
-			bdef.position.set(rect.getX() + rect.getWidth() /2, rect.getY() + rect.getHeight()/ 2);
+			bdef.position.set((rect.getX() + rect.getWidth() /2)/PyramidOfAcabat.PPM, (rect.getY() + rect.getHeight()/ 2)/PyramidOfAcabat.PPM);
 			
 			body = world.createBody(bdef);
 			
-			shape.setAsBox(rect.getWidth() /2, rect.getHeight() /2);
+			shape.setAsBox(rect.getWidth() /2/PyramidOfAcabat.PPM, rect.getHeight() /2/PyramidOfAcabat.PPM);
 			fdef.shape = shape;
 			body.createFixture(fdef);
 			
@@ -142,19 +144,36 @@ public class PlayScreen implements Screen {
 	}
 	
 	public void handleInput(float dt) {
-//		if(Gdx.input.isTouched()) {
-//			gameCam.position.x += 100*dt;
-//		}
+
+		// if our user is holding down mouse move our camera tough the game world.
+		if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+			playerPink.b2body.applyLinearImpulse(new Vector2(0, 4f), playerPink.b2body.getWorldCenter(), true);
+		}
+		
+		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && playerPink.b2body.getLinearVelocity().x <= 2) {
+			playerPink.b2body.applyLinearImpulse(new Vector2(0.1f, 0),  playerPink.b2body.getWorldCenter(), true);
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && playerPink.b2body.getLinearVelocity().x >= -2) {
+			playerPink.b2body.applyLinearImpulse(new Vector2(-0.1f, 0),  playerPink.b2body.getWorldCenter(), true);
+		}
 		
 	}
 	
 
 	public void update(float dt) {
 
+		// handle user input first
 		handleInput(dt);
 		
+		world.step(1/60f, 6, 2);
+		
+		
+//		gameCam.position.x = playerPink.b2body.getPosition().x;
+		
+		
+		
 //		update our gamecam with correct coordinates after changes.
-//		gameCam.update();
+		gameCam.update();
 		
 		// tell our render to draw only what our camers can see in our game world.
 		tmr.setView(gameCam);
@@ -172,7 +191,7 @@ public class PlayScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 //		game.sb.setProjectionMatrix(gameCam.combined);
-//		
+		
 //		game.sb.begin();
 //		game.sb.draw(texture, 0, 0);
 //		game.sb.end();

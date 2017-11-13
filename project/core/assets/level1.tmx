@@ -25,10 +25,4 @@
  <objectgroup name="flag">
   <object id="4" x="985" y="241" width="33" height="29"/>
  </objectgroup>
- <objectgroup name="playerPink">
-  <object id="3" x="1126" y="663" width="33" height="24"/>
- </objectgroup>
- <objectgroup name="playerBlue">
-  <object id="1" x="56" y="663" width="30" height="25"/>
- </objectgroup>
 </map>
