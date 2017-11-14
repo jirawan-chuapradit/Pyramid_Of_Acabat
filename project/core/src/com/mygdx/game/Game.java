@@ -25,6 +25,7 @@ public class Game implements ApplicationListener{
 	private GameStateManager gsm;
 	
 	public static Content res;
+	public static Content resBlue;
 	
 	
 	public void create() {
@@ -36,6 +37,7 @@ public class Game implements ApplicationListener{
 		res = new Content();
 		res.loadTexture("bluePlayer.gif", "bluePlayer");
 		res.loadTexture("flag.png", "flag");
+
 		
 		
 		sb = new SpriteBatch();

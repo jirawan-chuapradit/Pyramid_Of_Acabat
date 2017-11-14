@@ -87,7 +87,7 @@ public class Play extends GameState {
 
 		if (MyInput.isPreessed(MyInput.BUTTON1)) {
 			if (player.getBody().getLinearVelocity().y == 0) {
-				player.getBody().applyForceToCenter(0, 200, true);
+				player.getBody().applyForceToCenter(0, 500, true);
 			}
 		}
 			
@@ -101,6 +101,7 @@ public class Play extends GameState {
 		if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
 			player.getBody().setLinearVelocity(0 , 0);
 		}
+
 
 	}
 
@@ -156,14 +157,14 @@ public class Play extends GameState {
 		FixtureDef fdef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();
 
-		// create player
+		// create player  น้องฟ้า
 		bdef.position.set(160 / PPM, 200 / PPM);
 		bdef.type = BodyType.DynamicBody;
 		bdef.linearVelocity.set(.1f, 0);
 		Body body = world.createBody(bdef);
 		
 		
-		shape.setAsBox(25 / PPM, 45 / PPM);
+		shape.setAsBox(25 / PPM, 30 / PPM);
 		fdef.shape = shape;
 		fdef.filter.categoryBits = B2DVars.BIT_PLAYER;
 		fdef.filter.maskBits = B2DVars.BIT_BLUE | B2DVars.BIT_GROUND;
@@ -181,7 +182,7 @@ public class Play extends GameState {
 		// create player
 		player = new Player(body);
 		
-		body.setUserData(player);
+		body.setUserData(player);		
 
 	}
 
