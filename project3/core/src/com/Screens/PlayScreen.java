@@ -1,6 +1,8 @@
 package com.Screens;
 
 import com.Sprites.BluePlayer;
+import com.Sprites.PinkPlayer;
+import com.Tools.B2WorldCreator;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -40,8 +42,11 @@ public class PlayScreen implements Screen {
 	private Box2DDebugRenderer b2dr;
 	
 	private BluePlayer bluePlayer;
-	
-	
+	private PinkPlayer pinkPlayer;
+
+	private B2WorldCreator b2WorldCreator;
+	private float time;
+	private boolean enableSwitchColor;
 	public PlayScreen(Pyramid game) {
 		
 		this.game = game;
@@ -57,73 +62,26 @@ public class PlayScreen implements Screen {
 		// initially set our gamcam to be centered correctly at the start of of map
 		gameCam.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight()/2, 0);
 	
-	
+		time = 0;
+		enableSwitchColor = true;
 		
 		world = new World(new Vector2(0, -10), true);
 		// allows for debug lines of our box2d world
 		b2dr = new Box2DDebugRenderer();
-	
+		
+		b2WorldCreator = new B2WorldCreator(world, map);
+		
+//		public void handleInput(float dt) {
+//
+//			// control our player using inmudiate impulse 
+//			if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+//				b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
+//			}
+//		}
+		
+		// create BluePlayer in our game world
 		bluePlayer = new BluePlayer(world);
-		
-		BodyDef bdef = new BodyDef();
-		PolygonShape shape = new PolygonShape();
-		FixtureDef fdef = new FixtureDef();
-		Body body;
-		
-		
-		// create ground bodies/fixtures
-		// playerPink
-		for(MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
-			
-			Rectangle rect = ((RectangleMapObject) object).getRectangle();
-			
-			bdef.type = BodyDef.BodyType.StaticBody;
-			bdef.position.set((rect.getX() + rect.getWidth() /2)/Pyramid.PPM, (rect.getY() + rect.getHeight()/ 2)/Pyramid.PPM);
-			
-			body = world.createBody(bdef);
-			
-			shape.setAsBox(rect.getWidth() /2/Pyramid.PPM, rect.getHeight() /2/Pyramid.PPM);
-			fdef.shape = shape;
-			body.createFixture(fdef);
-			
-			
-		}
-		
-		// create BlueBock bodies / fixtures
-		for(MapObject object: map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)) {
-			
-			Rectangle rect = ((RectangleMapObject) object).getRectangle();
-			
-			bdef.type = BodyDef.BodyType.StaticBody;
-			bdef.position.set((rect.getX() + rect.getWidth() /2)/Pyramid.PPM, (rect.getY() + rect.getHeight()/ 2)/Pyramid.PPM);
-			
-			body = world.createBody(bdef);
-			
-			shape.setAsBox(rect.getWidth() /2/Pyramid.PPM, rect.getHeight() /2/Pyramid.PPM);
-			fdef.shape = shape;
-			body.createFixture(fdef);
-			
-			
-		}
-		
-		// create PinkBlock bodies / fixtures
-
-		for(MapObject object: map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)) {
-			
-			Rectangle rect = ((RectangleMapObject) object).getRectangle();
-			
-			bdef.type = BodyDef.BodyType.StaticBody;
-			bdef.position.set((rect.getX() + rect.getWidth() /2)/Pyramid.PPM, (rect.getY() + rect.getHeight()/ 2)/Pyramid.PPM);
-			
-			body = world.createBody(bdef);
-			
-			shape.setAsBox(rect.getWidth() /2/Pyramid.PPM, rect.getHeight() /2/Pyramid.PPM);
-			fdef.shape = shape;
-			body.createFixture(fdef);
-			
-			
-		}
-		
+		pinkPlayer = new PinkPlayer(world);
 		
 	}
 	
@@ -134,27 +92,37 @@ public class PlayScreen implements Screen {
 		
 	}
 	
-	public void handleInput(float dt) {
-
-		// control our player using inmudiate impulse 
-		if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-			bluePlayer.b2body.applyLinearImpulse(new Vector2(0, 4f), bluePlayer.b2body.getWorldCenter(), true);
-		}
-		
-		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && bluePlayer.b2body.getLinearVelocity().x <= 2) {
-			bluePlayer.b2body.applyLinearImpulse(new Vector2(0.1f, 0),  bluePlayer.b2body.getWorldCenter(), true);
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && bluePlayer.b2body.getLinearVelocity().x >= -2) {
-			bluePlayer.b2body.applyLinearImpulse(new Vector2(-0.1f, 0),  bluePlayer.b2body.getWorldCenter(), true);
-		}
-		
-	}
 	
 
 	public void update(float dt) {
-
+		
+		if(enableSwitchColor) {
+			if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+				
+				b2WorldCreator.switchColor();
+				enableSwitchColor = false;
+			}
+		}
+		else {
+			if(time >= 2) {
+				enableSwitchColor = true;
+				time = 0;
+			}
+			else {
+				time += dt;
+			}
+			System.out.println(time);
+		}
+		
 		// handle user input first
-		handleInput(dt);
+	
+		if (b2WorldCreator.getCurrentColor() == 0) {
+			pinkPlayer.handleInput(dt);
+		}
+		else {
+			bluePlayer.handleInput(dt);
+		}
+		
 		
 		world.step(1/60f, 6, 2);
 		
@@ -183,7 +151,7 @@ public class PlayScreen implements Screen {
 		
 		// render our game map
 		tmr.render();
-		
+
 		// renderer our Box2DDubugLines
 		b2dr.render(world, gameCam.combined);
 		
@@ -230,5 +198,6 @@ public class PlayScreen implements Screen {
 //		hud.dispose();
 		
 	}
+	
 
 }

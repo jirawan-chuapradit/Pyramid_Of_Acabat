@@ -16,6 +16,8 @@ public class Pyramid extends Game {
 	public void create () {
 		sb = new SpriteBatch();
 		setScreen(new PlayScreen(this));
+		
+		
 	}
 
 	@Override

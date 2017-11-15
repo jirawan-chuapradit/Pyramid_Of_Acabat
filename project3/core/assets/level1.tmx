@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="160" height="90" tilewidth="8" tileheight="8" nextobjectid="24">
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="160" height="90" tilewidth="8" tileheight="8" nextobjectid="26">
  <tileset firstgid="1" source="background.tsx"/>
  <tileset firstgid="14401" source="block.tsx"/>
  <tileset firstgid="14586" name="flag" tilewidth="8" tileheight="8" tilecount="279" columns="9">
@@ -52,5 +52,8 @@
   <object id="9" x="224.667" y="593.333" width="30.6667" height="95.3333"/>
   <object id="10" x="192" y="625.333" width="31.3333" height="64"/>
   <object id="11" x="160.667" y="656" width="31.3333" height="31.3333"/>
+ </objectgroup>
+ <objectgroup name="flag">
+  <object id="24" x="1012" y="43" width="43" height="226"/>
  </objectgroup>
 </map>

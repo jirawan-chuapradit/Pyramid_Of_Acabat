@@ -12,21 +12,22 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Pyramid;
 
-public class BluePlayer extends Sprite{
-	
+public class PinkPlayer extends Sprite{
 	public World world;
 	public Body b2body;
+	
 	private B2WorldCreator b2WorldCreator;
-	public int currentColorBlue = 1;
+	public int currentColorPink = 0;
 	
-	public BluePlayer(World world) {
+	public PinkPlayer(World world) {
 		this.world = world;
-		defineBluePlayer();
+		definePinkPlayr();
+		
 	}
-	
-	private void defineBluePlayer() {
+
+	private void definePinkPlayr() {
 		BodyDef bdef = new BodyDef();
-		bdef.position.set(340/Pyramid.PPM,200/Pyramid.PPM);
+		bdef.position.set(120/Pyramid.PPM,200/Pyramid.PPM);
 		bdef.type = BodyDef.BodyType.DynamicBody;
 		b2body = world.createBody(bdef);
 		
@@ -51,10 +52,7 @@ public class BluePlayer extends Sprite{
 		if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && b2body.getLinearVelocity().x >= -2) {
 			b2body.applyLinearImpulse(new Vector2(-0.1f, 0),  b2body.getWorldCenter(), true);
 		}
-		
-		// switch
-		
-		
-	}
 
+		// switch
+	}
 }
