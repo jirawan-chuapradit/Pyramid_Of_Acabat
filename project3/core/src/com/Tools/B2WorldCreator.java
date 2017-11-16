@@ -74,9 +74,15 @@ public class B2WorldCreator {
 		}
 		
 		// disable pink block because blue player start first
+<<<<<<< HEAD
 		for(PinkBlock pink: pinkBlocks) {
 			pink.switchState();			
 		}
+=======
+//		for(PinkBlock pink: pinkBlocks) {
+//			pink.switchState();			
+//		}
+>>>>>>> ่JugJig
 		
 	}
 	
@@ -87,7 +93,11 @@ public class B2WorldCreator {
 		else {
 			currentColor = 1;
 		}
+<<<<<<< HEAD
 		switchBlock();
+=======
+//		switchBlock();
+>>>>>>> ่JugJig
 	}
 	
 	public void switchBlock() {

@@ -23,12 +23,23 @@ public class BlueBlock extends InteractiveTileObject {
 		bdef.type = BodyDef.BodyType.StaticBody;
 		bdef.position.set((bounds.getX() + bounds.getWidth() / 2) / Pyramid.PPM, (bounds.getY() + bounds.getHeight() / 2) / Pyramid.PPM);
 		
+<<<<<<< HEAD
+=======
+		
+>>>>>>> ่JugJig
 		body = world.createBody(bdef);
 		
 		shape.setAsBox(bounds.getWidth() / 2 / Pyramid.PPM, bounds.getHeight() / 2 / Pyramid.PPM);
 		fdef.shape = shape;
+<<<<<<< HEAD
 		
 		fixture = body.createFixture(fdef);
+=======
+		fdef.filter.groupIndex = -2;
+		fixture = body.createFixture(fdef);
+		
+
+>>>>>>> ่JugJig
 	
 	}
 	

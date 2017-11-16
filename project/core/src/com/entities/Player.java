@@ -19,6 +19,8 @@ public class Player extends B2DSprite{
 		
 		setAnimaiton(sprites, 1 / 12f);
 		
+		
+		
 	}
 	
 	public void collectCrystal() {

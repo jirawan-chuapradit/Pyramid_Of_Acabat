@@ -25,6 +25,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.PyramidOfAcabat;
+import com.tools.B2WorldCreator;
 
 public class PlayScreen implements Screen {
 	
@@ -60,7 +61,7 @@ public class PlayScreen implements Screen {
 		
 		// create our game HUD for scores / timers/ level info
 		hud = new HUD(game.sb);
-		
+		 
 		// load our map and setup our map renderer
 		maploader = new TmxMapLoader();
 		map = maploader.load("level1.tmx");
@@ -70,71 +71,10 @@ public class PlayScreen implements Screen {
 		gameCam.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight()/2, 0);
 	
 		world = new World(new Vector2(0, -10), true);
+		// allows for debug lines of our box2d world
 		b2dr = new Box2DDebugRenderer();
-		
-		BodyDef bdef = new BodyDef();
-		PolygonShape shape = new PolygonShape();
-		FixtureDef fdef = new FixtureDef();
-		Body body;
-		
-		
-		// create ground bodies/fixtures
-		// playerPink
-		for(MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
-			
-			Rectangle rect = ((RectangleMapObject) object).getRectangle();
-			
-			bdef.type = BodyDef.BodyType.StaticBody;
-			bdef.position.set((rect.getX() + rect.getWidth() /2)/PyramidOfAcabat.PPM, (rect.getY() + rect.getHeight()/ 2)/PyramidOfAcabat.PPM);
-			
-			body = world.createBody(bdef);
-			
-			shape.setAsBox(rect.getWidth() /2/PyramidOfAcabat.PPM, rect.getHeight() /2/PyramidOfAcabat.PPM);
-			fdef.shape = shape;
-			body.createFixture(fdef);
-			
-			
-		}
-		
-		// playerBlue
-		for(MapObject object:
-			map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)) {
-			
-			Rectangle rect = ((RectangleMapObject) object).getRectangle();
-			
-			bdef.type = BodyDef.BodyType.StaticBody;
-			bdef.position.set(rect.getX() + rect.getWidth() /2, rect.getY() + rect.getHeight()/ 2);
-			
-			body = world.createBody(bdef);
-			
-			shape.setAsBox(rect.getWidth() /2, rect.getHeight() /2);
-			fdef.shape = shape;
-			body.createFixture(fdef);
-			
-			
-		}
-		
-		// create flag bodies/fixtures
-		for(MapObject object:
-			map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
-			
-			Rectangle rect = ((RectangleMapObject) object).getRectangle();
-			
-			bdef.type = BodyDef.BodyType.StaticBody;
-			bdef.position.set(rect.getX() + rect.getWidth() /2, rect.getY() + rect.getHeight()/ 2);
-			
-			body = world.createBody(bdef);
-			
-			shape.setAsBox(rect.getWidth() /2, rect.getHeight() /2);
-			fdef.shape = shape;
-			body.createFixture(fdef);
-			
-			
-		}
-		
-		
-		
-		
+
+		new B2WorldCreator(world, map);
 	}
 
 	@Override
@@ -145,7 +85,7 @@ public class PlayScreen implements Screen {
 	
 	public void handleInput(float dt) {
 
-		// if our user is holding down mouse move our camera tough the game world.
+		// control our player using inmudiate impulse 
 		if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
 			playerPink.b2body.applyLinearImpulse(new Vector2(0, 4f), playerPink.b2body.getWorldCenter(), true);
 		}
@@ -237,7 +177,12 @@ public class PlayScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		
+		map.dispose();
+		tmr.dispose();
+		world.dispose();
+		b2dr.dispose();
+		hud.dispose();
 		
 	}
 

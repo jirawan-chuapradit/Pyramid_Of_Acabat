@@ -9,11 +9,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.Disableable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.PyramidOfAcabat;
 
-public class HUD {
+public class HUD implements Disableable {
 	
 	public Stage stage;
 	private Viewport viewport;
@@ -28,6 +29,8 @@ public class HUD {
 	Label worldLabel;
 	Label PyramidLabel;
 	
+
+
 	public HUD(SpriteBatch sb) {
 		worldTimer = 300;
 		timeCount = 0;
@@ -79,6 +82,26 @@ public class HUD {
 		table.add(countdownLabel).expandX();
 		stage.addActor(table);
 	}
+	
+
+	public void dispose() {
+		stage.dispose();
+	}
+
+
+	@Override
+	public void setDisabled(boolean isDisabled) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public boolean isDisabled() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
 	
 	
 	

@@ -26,6 +26,10 @@ public class PinkBlock extends InteractiveTileObject {
 		
 		shape.setAsBox(bounds.getWidth() / 2 / Pyramid.PPM, bounds.getHeight() / 2 / Pyramid.PPM);
 		fdef.shape = shape;
+<<<<<<< HEAD
+=======
+		fdef.filter.groupIndex = -1;
+>>>>>>> ่JugJig
 		fixture = body.createFixture(fdef);
 	}
 	

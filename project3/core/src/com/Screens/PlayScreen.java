@@ -1,5 +1,10 @@
 package com.Screens;
 
+<<<<<<< HEAD
+=======
+import java.awt.Component.BaselineResizeBehavior;
+
+>>>>>>> ่JugJig
 import com.Sprites.BluePlayer;
 import com.Sprites.PinkPlayer;
 import com.Tools.B2WorldCreator;
@@ -9,6 +14,11 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+<<<<<<< HEAD
+=======
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+>>>>>>> ่JugJig
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -41,10 +51,19 @@ public class PlayScreen implements Screen {
 	private World world;
 	private Box2DDebugRenderer b2dr;
 	
+<<<<<<< HEAD
+=======
+	private SpriteBatch sb;
+	
+>>>>>>> ่JugJig
 	private BluePlayer bluePlayer;
 	private PinkPlayer pinkPlayer;
 
 	private B2WorldCreator b2WorldCreator;
+<<<<<<< HEAD
+=======
+	
+>>>>>>> ่JugJig
 	private float time;
 	private boolean enableSwitchColor;
 	public PlayScreen(Pyramid game) {
@@ -65,12 +84,21 @@ public class PlayScreen implements Screen {
 		time = 0;
 		enableSwitchColor = true;
 		
+<<<<<<< HEAD
+=======
+		
+>>>>>>> ่JugJig
 		world = new World(new Vector2(0, -10), true);
 		// allows for debug lines of our box2d world
 		b2dr = new Box2DDebugRenderer();
 		
 		b2WorldCreator = new B2WorldCreator(world, map);
 		
+<<<<<<< HEAD
+=======
+		sb = new SpriteBatch();
+		
+>>>>>>> ่JugJig
 //		public void handleInput(float dt) {
 //
 //			// control our player using inmudiate impulse 
@@ -81,14 +109,23 @@ public class PlayScreen implements Screen {
 		
 		// create BluePlayer in our game world
 		bluePlayer = new BluePlayer(world);
+<<<<<<< HEAD
 		pinkPlayer = new PinkPlayer(world);
 		
+=======
+		pinkPlayer = new PinkPlayer(world);	
+		
+//		pinkPlayer.switchTypePlayer();
+>>>>>>> ่JugJig
 	}
 	
 	
 	@Override
 	public void show() {
+<<<<<<< HEAD
 		// TODO Auto-generated method stub
+=======
+>>>>>>> ่JugJig
 		
 	}
 	
@@ -97,9 +134,17 @@ public class PlayScreen implements Screen {
 	public void update(float dt) {
 		
 		if(enableSwitchColor) {
+<<<<<<< HEAD
 			if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
 				
 				b2WorldCreator.switchColor();
+=======
+			if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+//				
+				b2WorldCreator.switchColor();
+
+				
+>>>>>>> ่JugJig
 				enableSwitchColor = false;
 			}
 		}
@@ -160,6 +205,12 @@ public class PlayScreen implements Screen {
 //		game.sb.setProjectionMatrix(hud.stage.getCamera().combined);
 //		hud.stage.draw();
 		
+<<<<<<< HEAD
+=======
+		sb.begin();
+		sb.draw(pinkPlayer.getFramePink(delta), pinkPlayer. b2body.getPosition().x/2 /Pyramid.PPM, pinkPlayer. b2body.getPosition().y/2/Pyramid.PPM, 100, 100);
+		sb.end();
+>>>>>>> ่JugJig
 	}
 
 	@Override
