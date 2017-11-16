@@ -51,7 +51,7 @@ public class BluePlayer extends Sprite{
 		
 		// control our player using inmudiate impulse 
 		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && currentY% 4 == 0) {
-			b2body.applyLinearImpulse(new Vector2(0, 5f), b2body.getWorldCenter(), true);
+			b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
 		}
 		
 		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && b2body.getLinearVelocity().x <= 2) {
