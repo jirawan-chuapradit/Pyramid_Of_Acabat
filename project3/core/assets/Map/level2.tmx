@@ -3,11 +3,11 @@
  <tileset firstgid="1" source="background.tsx"/>
  <tileset firstgid="14401" source="flag.tsx"/>
  <tileset firstgid="14913" source="block.tsx"/>
- <tileset firstgid="15098" name="thorn1" tilewidth="8" tileheight="8" tilecount="0" columns="5">
-  <image source="thorn1.png" trans="0000ff" width="40" height="40"/>
+ <tileset firstgid="15098" name="thorn1" tilewidth="8" tileheight="8" tilecount="1024" columns="32">
+  <image source="thorn1.png" trans="0000ff" width="256" height="256"/>
  </tileset>
- <tileset firstgid="15098" name="thorn2" tilewidth="8" tileheight="8" tilecount="0" columns="5">
-  <image source="thorn2.png" trans="0000ff" width="40" height="40"/>
+ <tileset firstgid="16122" name="thorn2" tilewidth="8" tileheight="8" tilecount="1024" columns="32">
+  <image source="thorn2.png" trans="0000ff" width="256" height="256"/>
  </tileset>
  <layer name="background" width="160" height="90">
   <data encoding="base64" compression="zlib">
