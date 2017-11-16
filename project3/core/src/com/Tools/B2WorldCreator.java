@@ -35,7 +35,7 @@ public class B2WorldCreator {
 		
 		// create ground bodies/fixtures
 		// playerPink
-		for(MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
+		for(MapObject object: map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
 			
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();
 			
@@ -51,7 +51,7 @@ public class B2WorldCreator {
 		}
 		
 		// create BlueBock bodies / fixtures
-		for(MapObject object: map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)) {
+		for(MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
 			
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();
 			blueBlocks.add(new BlueBlock(world, map, rect));
@@ -59,7 +59,7 @@ public class B2WorldCreator {
 		}
 		
 		// create PinkBlock bodies / fixtures
-		for(MapObject object: map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)) {
+		for(MapObject object: map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();	
 			//ยังไมได้เขียนให้เหยียบได้ ไปดูที่ sprite PinkBlock กับ bLueBlock สิ
 			
@@ -67,7 +67,7 @@ public class B2WorldCreator {
 		}
 		
 		// crate flag bodies / fixtures
-		for(MapObject object: map.getLayers().get(8).getObjects().getByType(RectangleMapObject.class)) {
+		for(MapObject object: map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)) {
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();
 			
 			new Flag(world, map, rect);

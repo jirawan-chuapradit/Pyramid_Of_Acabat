@@ -35,9 +35,8 @@ public class BluePlayer extends Sprite{
 
 		FixtureDef fdef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(20/Pyramid.PPM, 20/Pyramid.PPM);
-//		CircleShape shape = new CircleShape();
-//		shape.setRadius(15/Pyramid.PPM);
+		shape.setAsBox(20/Pyramid.PPM, 10/Pyramid.PPM);
+
 		
 		fdef.shape = shape;
 		fdef.filter.groupIndex = -1;
