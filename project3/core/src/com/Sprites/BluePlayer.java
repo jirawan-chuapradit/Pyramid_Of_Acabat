@@ -28,7 +28,7 @@ public class BluePlayer extends Sprite{
 	
 	private void defineBluePlayer() {
 		BodyDef bdef = new BodyDef();
-		bdef.position.set(340/Pyramid.PPM,200/Pyramid.PPM);
+		bdef.position.set(1160/Pyramid.PPM,400/Pyramid.PPM); //Set new position
 		bdef.type = BodyDef.BodyType.DynamicBody;
 		b2body = world.createBody(bdef);
 		

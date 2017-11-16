@@ -35,7 +35,7 @@ public class PinkPlayer extends Sprite{
 	private void definePinkPlayr() {
 		
 		BodyDef bdef = new BodyDef();
-		bdef.position.set(120/Pyramid.PPM,200/Pyramid.PPM);
+		bdef.position.set(120/Pyramid.PPM,400/Pyramid.PPM); //Set new position
 		bdef.type = BodyDef.BodyType.DynamicBody;
 		b2body = world.createBody(bdef);
 		
