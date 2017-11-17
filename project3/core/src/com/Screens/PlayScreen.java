@@ -1,12 +1,28 @@
 package com.Screens;
 
+<<<<<<< HEAD
+=======
+import java.awt.Component.BaselineResizeBehavior;
+
+>>>>>>> ่JugJig
 import com.Sprites.BluePlayer;
+import com.Sprites.PinkPlayer;
+import com.Tools.B2WorldCreator;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+<<<<<<< HEAD
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+=======
+<<<<<<< HEAD
+=======
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+>>>>>>> ่JugJig
+>>>>>>> d452d3d1a216d7e9f1846da044acae02b61506b9
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -39,10 +55,28 @@ public class PlayScreen implements Screen {
 	private World world;
 	private Box2DDebugRenderer b2dr;
 	
+<<<<<<< HEAD
+=======
+	private SpriteBatch sb;
+	
+<<<<<<< HEAD
+	private TextureAtlas atlas;
+=======
+>>>>>>> ่JugJig
 	private BluePlayer bluePlayer;
+	private PinkPlayer pinkPlayer;
+
+	private B2WorldCreator b2WorldCreator;
+<<<<<<< HEAD
+=======
+>>>>>>> d452d3d1a216d7e9f1846da044acae02b61506b9
 	
-	
+>>>>>>> ่JugJig
+	private float time;
+	private boolean enableSwitchColor;
 	public PlayScreen(Pyramid game) {
+		
+		atlas = new TextureAtlas("BluePlayer_Ac.pack");
 		
 		this.game = game;
 		gameCam = new OrthographicCamera();
@@ -51,19 +85,25 @@ public class PlayScreen implements Screen {
 		
 		// load our map and setup our map renderer
 		maploader = new TmxMapLoader();
-		map = maploader.load("level1.tmx");
+		map = maploader.load("Map/level1.tmx");
 		tmr = new OrthogonalTiledMapRenderer(map, 1 /Pyramid.PPM);
 		
 		// initially set our gamcam to be centered correctly at the start of of map
 		gameCam.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight()/2, 0);
 	
-	
+		time = 0;
+		enableSwitchColor = true;
 		
+<<<<<<< HEAD
+=======
+		
+>>>>>>> ่JugJig
 		world = new World(new Vector2(0, -10), true);
 		// allows for debug lines of our box2d world
 		b2dr = new Box2DDebugRenderer();
+<<<<<<< HEAD
 	
-		bluePlayer = new BluePlayer(world);
+		bluePlayer = new BluePlayer(world, this);
 		
 		BodyDef bdef = new BodyDef();
 		PolygonShape shape = new PolygonShape();
@@ -73,7 +113,7 @@ public class PlayScreen implements Screen {
 		
 		// create ground bodies/fixtures
 		// playerPink
-		for(MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
+		for(MapObject object: map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
 			
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();
 			
@@ -90,7 +130,7 @@ public class PlayScreen implements Screen {
 		}
 		
 		// create BlueBock bodies / fixtures
-		for(MapObject object: map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)) {
+		for(MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
 			
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();
 			
@@ -108,7 +148,7 @@ public class PlayScreen implements Screen {
 		
 		// create PinkBlock bodies / fixtures
 
-		for(MapObject object: map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)) {
+		for(MapObject object: map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
 			
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();
 			
@@ -123,45 +163,103 @@ public class PlayScreen implements Screen {
 			
 			
 		}
+=======
 		
+		b2WorldCreator = new B2WorldCreator(world, map);
 		
+<<<<<<< HEAD
+=======
+		sb = new SpriteBatch();
+		
+>>>>>>> ่JugJig
+//		public void handleInput(float dt) {
+//
+//			// control our player using inmudiate impulse 
+//			if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+//				b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
+//			}
+//		}
+>>>>>>> d452d3d1a216d7e9f1846da044acae02b61506b9
+		
+		// create BluePlayer in our game world
+		bluePlayer = new BluePlayer(world);
+<<<<<<< HEAD
+		pinkPlayer = new PinkPlayer(world);
+		
+=======
+		pinkPlayer = new PinkPlayer(world);	
+		
+//		pinkPlayer.switchTypePlayer();
+>>>>>>> ่JugJig
 	}
 	
-	
+	public TextureAtlas getAtlas() {
+		return atlas;
+	}
 	@Override
 	public void show() {
+<<<<<<< HEAD
 		// TODO Auto-generated method stub
+=======
+>>>>>>> ่JugJig
 		
 	}
 	
+<<<<<<< HEAD
 	public void handleInput(float dt) {
-
+		float current = bluePlayer.b2body.getLinearVelocity().y;
 		// control our player using inmudiate impulse 
-		if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && current%4 == 0) {
 			bluePlayer.b2body.applyLinearImpulse(new Vector2(0, 4f), bluePlayer.b2body.getWorldCenter(), true);
 		}
-		
-		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && bluePlayer.b2body.getLinearVelocity().x <= 2) {
-			bluePlayer.b2body.applyLinearImpulse(new Vector2(0.1f, 0),  bluePlayer.b2body.getWorldCenter(), true);
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && bluePlayer.b2body.getLinearVelocity().x >= -2) {
-			bluePlayer.b2body.applyLinearImpulse(new Vector2(-0.1f, 0),  bluePlayer.b2body.getWorldCenter(), true);
-		}
-		
-	}
+=======
 	
 
 	public void update(float dt) {
+>>>>>>> d452d3d1a216d7e9f1846da044acae02b61506b9
+		
+		if(enableSwitchColor) {
+<<<<<<< HEAD
+			if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+				
+				b2WorldCreator.switchColor();
+=======
+			if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+//				
+				b2WorldCreator.switchColor();
 
+				
+>>>>>>> ่JugJig
+				enableSwitchColor = false;
+			}
+		}
+		else {
+			if(time >= 2) {
+				enableSwitchColor = true;
+				time = 0;
+			}
+			else {
+				time += dt;
+			}
+			System.out.println(time);
+		}
+		
 		// handle user input first
-		handleInput(dt);
+	
+		if (b2WorldCreator.getCurrentColor() == 0) {
+			pinkPlayer.handleInput(dt);
+		}
+		else {
+			bluePlayer.handleInput(dt);
+		}
+		
 		
 		world.step(1/60f, 6, 2);
 		
 		
 //		gameCam.position.x = playerPink.b2body.getPosition().x;
 		
-		
+		bluePlayer.update(dt);
 		
 //		update our gamecam with correct coordinates after changes.
 		gameCam.update();
@@ -183,15 +281,24 @@ public class PlayScreen implements Screen {
 		
 		// render our game map
 		tmr.render();
-		
+
 		// renderer our Box2DDubugLines
 		b2dr.render(world, gameCam.combined);
 		
-		
+		game.sb.setProjectionMatrix(gameCam.combined);
+		game.sb.begin();
+		bluePlayer.draw(game.sb);
+		game.sb.end();
 		// Set our batch to now draw what the Hud camera see.
 //		game.sb.setProjectionMatrix(hud.stage.getCamera().combined);
 //		hud.stage.draw();
 		
+<<<<<<< HEAD
+=======
+		sb.begin();
+		sb.draw(pinkPlayer.getFramePink(delta), pinkPlayer. b2body.getPosition().x/2 /Pyramid.PPM, pinkPlayer. b2body.getPosition().y/2/Pyramid.PPM, 100, 100);
+		sb.end();
+>>>>>>> ่JugJig
 	}
 
 	@Override
@@ -230,5 +337,6 @@ public class PlayScreen implements Screen {
 //		hud.dispose();
 		
 	}
+	
 
 }

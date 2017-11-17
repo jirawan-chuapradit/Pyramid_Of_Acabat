@@ -1,6 +1,10 @@
 package com.mygdx.game;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
 import com.Screens.PlayScreen;
+import com.Sprites.BluePlayer;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -16,11 +20,15 @@ public class Pyramid extends Game {
 	public void create () {
 		sb = new SpriteBatch();
 		setScreen(new PlayScreen(this));
+		
+		
 	}
 
 	@Override
 	public void render () {
 		super.render();
+		
+		
 	}
 	
 	@Override

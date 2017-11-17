@@ -19,6 +19,8 @@ public class MyInputProcessor extends InputAdapter{
 			MyInput.setKey(MyInput.BUTTON2, true);
 		}
 		
+
+		
 		if(	k == Keys.RIGHT) {	
 			MyInput.setKey(MyInput.BUTTON3, true);
 		}
@@ -26,6 +28,7 @@ public class MyInputProcessor extends InputAdapter{
 		if (k == Keys.LEFT) {
 			MyInput.setKey(MyInput.BUTTON4, true);
 		}
+		
 		return true;
 	}
 	
