@@ -41,7 +41,7 @@ public class PinkPlayer extends Sprite{
 		
 		FixtureDef fdef = new FixtureDef();
 		CircleShape shape = new CircleShape();
-		shape.setRadius(15/Pyramid.PPM);
+//		shape.setRadius(15/Pyramid.PPM);
 		
 		fdef.shape = shape;
 		fdef.filter.groupIndex = -2;

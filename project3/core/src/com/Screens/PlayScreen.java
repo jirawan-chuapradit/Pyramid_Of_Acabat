@@ -63,7 +63,7 @@ public class PlayScreen implements Screen {
 		
 		// load our map and setup our map renderer
 		maploader = new TmxMapLoader();
-		map = maploader.load("Map/level1.tmx");
+		map = maploader.load("Map/level4.tmx");
 		tmr = new OrthogonalTiledMapRenderer(map, 1 /Pyramid.PPM);
 		
 		// initially set our gamcam to be centered correctly at the start of of map
@@ -172,8 +172,9 @@ public class PlayScreen implements Screen {
 //		game.sb.setProjectionMatrix(hud.stage.getCamera().combined);
 //		hud.stage.draw();
 		
+		System.out.println(pinkPlayer.b2body.getPosition());
 		sb.begin();
-		sb.draw(pinkPlayer.getFramePink(delta), pinkPlayer. b2body.getPosition().x/2 /Pyramid.PPM, pinkPlayer. b2body.getPosition().y/2/Pyramid.PPM, 100, 100);
+		sb.draw(pinkPlayer.getFramePink(delta), (pinkPlayer. b2body.getPosition().x*Pyramid.PPM) -50, (pinkPlayer. b2body.getPosition().y*Pyramid.PPM)-5 , 50, 50);
 		sb.end();
 	}
 
