@@ -1,17 +1,23 @@
 package com.Sprites;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.awt.image.BufferedImage;
 
 import com.Screens.PlayScreen;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 =======
+=======
+>>>>>>> d452d3d1a216d7e9f1846da044acae02b61506b9
 import com.Tools.B2WorldCreator;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+<<<<<<< HEAD
+>>>>>>> d452d3d1a216d7e9f1846da044acae02b61506b9
+=======
 >>>>>>> d452d3d1a216d7e9f1846da044acae02b61506b9
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -31,11 +37,14 @@ public class BluePlayer extends Sprite {
 	public World world;
 	public Body b2body;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private TextureRegion bluePlayerStand;
 
 	public BluePlayer(World world, PlayScreen screen) {
 		super(screen.getAtlas().findRegion("Walk1"));
 =======
+=======
+>>>>>>> d452d3d1a216d7e9f1846da044acae02b61506b9
 	private B2WorldCreator b2WorldCreator;
 	public int currentColorBlue = 1;
 	
@@ -47,6 +56,7 @@ public class BluePlayer extends Sprite {
 		setBounds(0, 0, 80 / Pyramid.PPM, 80 / Pyramid.PPM);
 		setRegion(bluePlayerStand);
 	}
+<<<<<<< HEAD
 
 	public void update(float dt) {
 		setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 5);
@@ -63,11 +73,19 @@ public class BluePlayer extends Sprite {
 	
 	private void defineBluePlayer() {
 		BodyDef bdef = new BodyDef();
+=======
+	
+	private void defineBluePlayer() {
+		BodyDef bdef = new BodyDef();
+>>>>>>> d452d3d1a216d7e9f1846da044acae02b61506b9
 		bdef.position.set(340/Pyramid.PPM,200/Pyramid.PPM);
 		bdef.type = BodyDef.BodyType.DynamicBody;
 		b2body = world.createBody(bdef);
 		
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> d452d3d1a216d7e9f1846da044acae02b61506b9
+=======
 >>>>>>> d452d3d1a216d7e9f1846da044acae02b61506b9
 		FixtureDef fdef = new FixtureDef();
 		CircleShape shape = new CircleShape();
@@ -89,6 +107,50 @@ public class BluePlayer extends Sprite {
 		System.out.println(body.getFilterData().groupIndex);
 				
 >>>>>>> ่JugJig
+<<<<<<< HEAD
+=======
+	}
+	
+	public void handleInput(float dt) {
+
+<<<<<<< HEAD
+		// control our player using inmudiate impulse 
+		if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+			b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
+=======
+		float currentY = b2body.getLinearVelocity().y;
+		
+		// control our player using inmudiate impulse 
+		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && currentY% 4 == 0) {
+			b2body.applyLinearImpulse(new Vector2(0, 5f), b2body.getWorldCenter(), true);
+>>>>>>> ่JugJig
+		}
+		
+		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && b2body.getLinearVelocity().x <= 2) {
+			b2body.applyLinearImpulse(new Vector2(0.1f, 0),  b2body.getWorldCenter(), true);
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && b2body.getLinearVelocity().x >= -2) {
+			b2body.applyLinearImpulse(new Vector2(-0.1f, 0),  b2body.getWorldCenter(), true);
+		}
+		
+<<<<<<< HEAD
+		// switch
+		
+		
+=======
+		
+	}
+	
+	public void switchTypePlayer() {
+		
+		if(b2body.getType() == BodyType.StaticBody) {
+			b2body.setType(BodyType.DynamicBody);
+		}
+		else if (b2body.getType() == BodyType.DynamicBody) {
+			b2body.setType(BodyType.StaticBody);
+		}
+>>>>>>> ่JugJig
+>>>>>>> d452d3d1a216d7e9f1846da044acae02b61506b9
 	}
 	
 	public void handleInput(float dt) {

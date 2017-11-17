@@ -15,13 +15,19 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 =======
 <<<<<<< HEAD
 =======
+>>>>>>> d452d3d1a216d7e9f1846da044acae02b61506b9
+=======
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 >>>>>>> ่JugJig
+<<<<<<< HEAD
+>>>>>>> d452d3d1a216d7e9f1846da044acae02b61506b9
+=======
 >>>>>>> d452d3d1a216d7e9f1846da044acae02b61506b9
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -60,14 +66,20 @@ public class PlayScreen implements Screen {
 	private SpriteBatch sb;
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private TextureAtlas atlas;
 =======
+=======
+>>>>>>> d452d3d1a216d7e9f1846da044acae02b61506b9
 >>>>>>> ่JugJig
 	private BluePlayer bluePlayer;
 	private PinkPlayer pinkPlayer;
 
 	private B2WorldCreator b2WorldCreator;
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> d452d3d1a216d7e9f1846da044acae02b61506b9
 =======
 >>>>>>> d452d3d1a216d7e9f1846da044acae02b61506b9
 	
@@ -101,6 +113,7 @@ public class PlayScreen implements Screen {
 		world = new World(new Vector2(0, -10), true);
 		// allows for debug lines of our box2d world
 		b2dr = new Box2DDebugRenderer();
+<<<<<<< HEAD
 <<<<<<< HEAD
 	
 		bluePlayer = new BluePlayer(world, this);
@@ -181,14 +194,39 @@ public class PlayScreen implements Screen {
 //		}
 >>>>>>> d452d3d1a216d7e9f1846da044acae02b61506b9
 		
+=======
+		
+		b2WorldCreator = new B2WorldCreator(world, map);
+		
+<<<<<<< HEAD
+=======
+		sb = new SpriteBatch();
+		
+>>>>>>> ่JugJig
+//		public void handleInput(float dt) {
+//
+//			// control our player using inmudiate impulse 
+//			if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+//				b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
+//			}
+//		}
+		
+>>>>>>> d452d3d1a216d7e9f1846da044acae02b61506b9
 		// create BluePlayer in our game world
 		bluePlayer = new BluePlayer(world);
 <<<<<<< HEAD
 		pinkPlayer = new PinkPlayer(world);
+<<<<<<< HEAD
 		
 =======
 		pinkPlayer = new PinkPlayer(world);	
 		
+=======
+		
+=======
+		pinkPlayer = new PinkPlayer(world);	
+		
+>>>>>>> d452d3d1a216d7e9f1846da044acae02b61506b9
 //		pinkPlayer.switchTypePlayer();
 >>>>>>> ่JugJig
 	}
@@ -206,12 +244,18 @@ public class PlayScreen implements Screen {
 	}
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public void handleInput(float dt) {
 		float current = bluePlayer.b2body.getLinearVelocity().y;
 		// control our player using inmudiate impulse 
 		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && current%4 == 0) {
 			bluePlayer.b2body.applyLinearImpulse(new Vector2(0, 4f), bluePlayer.b2body.getWorldCenter(), true);
 		}
+=======
+	
+
+	public void update(float dt) {
+>>>>>>> d452d3d1a216d7e9f1846da044acae02b61506b9
 =======
 	
 

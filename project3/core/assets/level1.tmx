@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="160" height="90" tilewidth="8" tileheight="8" nextobjectid="38">
+=======
+<map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="160" height="90" tilewidth="8" tileheight="8" nextobjectid="26">
+>>>>>>> d452d3d1a216d7e9f1846da044acae02b61506b9
 =======
 <map version="1.0" tiledversion="1.0.3" orientation="orthogonal" renderorder="right-down" width="160" height="90" tilewidth="8" tileheight="8" nextobjectid="26">
 >>>>>>> d452d3d1a216d7e9f1846da044acae02b61506b9
@@ -64,6 +68,9 @@
   <object id="30" x="1002.27" y="274.364">
    <polyline points="0,0 -0.0909091,-208.727 -1.54545,-209.727 -1.90909,-211.636 -0.363636,-213.182 5.90909,-213.182 7.36364,-211.455 5.72727,-209 14.2727,-200.636 23.7273,-199.364 32.3939,-200.364 41.7273,-202.697 51.0606,-200.697 64.0606,-198.03 81.0606,-201.697 85.7273,-201.697 98.3939,-198.697 112.394,-200.697 115.727,-201.364 118.061,-189.697 122.727,-177.364 122.477,-166.989 118.727,-156.864 116.477,-150.239 116.102,-143.489 117.102,-135.114 117.227,-133.114 110.852,-131.364 97.6023,-131.489 82.9773,-134.364 65.6023,-130.489 53.8523,-132.364 45.3523,-134.364 27.6023,-130.989 19.6023,-131.364 13.9773,-131.989 6.10227,0.0113636 -0.0227273,0.0113636"/>
   </object>
+ </objectgroup>
+ <objectgroup name="flag">
+  <object id="24" x="1012" y="43" width="43" height="226"/>
  </objectgroup>
  <objectgroup name="flag">
   <object id="24" x="1012" y="43" width="43" height="226"/>
