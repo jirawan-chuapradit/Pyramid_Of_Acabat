@@ -28,14 +28,14 @@ public class BluePlayer extends Sprite{
 	
 	private void defineBluePlayer() {
 		BodyDef bdef = new BodyDef();
-		bdef.position.set(1160/Pyramid.PPM,400/Pyramid.PPM); //Set new position
+		bdef.position.set(1250/Pyramid.PPM,400/Pyramid.PPM); //Set new position
 		bdef.type = BodyDef.BodyType.DynamicBody;
 		b2body = world.createBody(bdef);
 		
 
 		FixtureDef fdef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(20/Pyramid.PPM, 10/Pyramid.PPM);
+		shape.setAsBox(10/Pyramid.PPM, 15/Pyramid.PPM);
 
 		
 		fdef.shape = shape;

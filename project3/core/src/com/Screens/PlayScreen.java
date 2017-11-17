@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -33,6 +34,9 @@ import com.mygdx.game.Pyramid;
 public class PlayScreen implements Screen {
 	private Pyramid game;
 	Texture texture;
+	
+	private TextureAtlas atlas;
+	
 	private OrthographicCamera gameCam;	
 	private Viewport gamePort;
 
@@ -55,6 +59,7 @@ public class PlayScreen implements Screen {
 	private float time;
 	private boolean enableSwitchColor;
 	public PlayScreen(Pyramid game) {
+		atlas = new TextureAtlas("Animation/Player_Animation.pack");
 		
 		this.game = game;
 		gameCam = new OrthographicCamera();
@@ -63,7 +68,7 @@ public class PlayScreen implements Screen {
 		
 		// load our map and setup our map renderer
 		maploader = new TmxMapLoader();
-		map = maploader.load("Map/level4.tmx");
+		map = maploader.load("Map/level1.tmx");
 		tmr = new OrthogonalTiledMapRenderer(map, 1 /Pyramid.PPM);
 		
 		// initially set our gamcam to be centered correctly at the start of of map
@@ -91,11 +96,14 @@ public class PlayScreen implements Screen {
 		
 		// create BluePlayer in our game world
 		bluePlayer = new BluePlayer(world);
-		pinkPlayer = new PinkPlayer(world);	
+		pinkPlayer = new PinkPlayer(world, this);	
 		
 //		pinkPlayer.switchTypePlayer();
 	}
 	
+	public TextureAtlas getAtlas() {
+		return atlas;
+	}
 	
 	@Override
 	public void show() {
@@ -128,7 +136,7 @@ public class PlayScreen implements Screen {
 		
 		// handle user input first
 	
-		if (b2WorldCreator.getCurrentColor() == 0) {
+		if (b2WorldCreator.getCurrentColor() != 0) {
 			pinkPlayer.handleInput(dt);
 		}
 		else {
@@ -138,6 +146,7 @@ public class PlayScreen implements Screen {
 		
 		world.step(1/60f, 6, 2);
 		
+		pinkPlayer.update(dt);
 		
 //		gameCam.position.x = playerPink.b2body.getPosition().x;
 		
@@ -167,15 +176,18 @@ public class PlayScreen implements Screen {
 		// renderer our Box2DDubugLines
 		b2dr.render(world, gameCam.combined);
 		
-		
+		game.sb.setProjectionMatrix(gameCam.combined);
+		game.sb.begin();
+		pinkPlayer.draw(game.sb);
+		game.sb.end();
 		// Set our batch to now draw what the Hud camera see.
 //		game.sb.setProjectionMatrix(hud.stage.getCamera().combined);
 //		hud.stage.draw();
 		
-		System.out.println(pinkPlayer.b2body.getPosition());
-		sb.begin();
-		sb.draw(pinkPlayer.getFramePink(delta), (pinkPlayer. b2body.getPosition().x*Pyramid.PPM) -50, (pinkPlayer. b2body.getPosition().y*Pyramid.PPM)-5 , 50, 50);
-		sb.end();
+//		System.out.println(pinkPlayer.b2body.getPosition());
+//		sb.begin();
+//		sb.draw(pinkPlayer.getFramePink(delta), (pinkPlayer. b2body.getPosition().x*Pyramid.PPM) -25, (pinkPlayer. b2body.getPosition().y*Pyramid.PPM)-15 , 50, 50);
+//		sb.end();
 	}
 
 	@Override
