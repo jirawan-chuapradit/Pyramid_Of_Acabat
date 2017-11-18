@@ -73,7 +73,7 @@ public class PlayScreen implements Screen {
 		
 		// load our map and setup our map renderer
 		maploader = new TmxMapLoader();
-		map = maploader.load("Map/level5.tmx");
+		map = maploader.load("Map/level2.tmx");
 		tmr = new OrthogonalTiledMapRenderer(map, 1 /Pyramid.PPM);
 		
 		// initially set our gamcam to be centered correctly at the start of of map
@@ -133,7 +133,7 @@ public class PlayScreen implements Screen {
 			if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
 				
 				Pyramid.manager.get("sounds/shift.wav", Sound.class).play();
-				
+
 				b2WorldCreator.switchColor();
 
 				enableSwitchColor = false;
@@ -199,7 +199,7 @@ public class PlayScreen implements Screen {
 		tmr.render();
 
 		// renderer our Box2DDubugLines
-		b2dr.render(world, gameCam.combined);
+//		b2dr.render(world, gameCam.combined);
 		
 		// Set our batch to now draw what the Hud camera see.
 		game.sb.setProjectionMatrix(gameCam.combined);
