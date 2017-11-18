@@ -3,20 +3,13 @@ package Sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-<<<<<<< HEAD
-import com.badlogic.gdx.audio.Sound;
-=======
->>>>>>> Beer
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-<<<<<<< HEAD
-=======
 import com.badlogic.gdx.physics.box2d.EdgeShape;
->>>>>>> Beer
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -33,22 +26,6 @@ public class PinkPlayer extends Sprite{
 	
 	private B2WorldCreator b2WorldCreator;
 	
-<<<<<<< HEAD
-	public int currentColorPink = 0;
-	
-	// animation --- beer
-	public State currentState;
-	public State previousState;
-	private Animation pinkPlayerRunRight;
-	private float stateTimer;
-	private boolean runningRight;
-	private boolean stateRunRight;
-	private Animation pinkPlayerStand;
-	private	Array<TextureRegion> playerStandRight = new Array<TextureRegion>();
-	private	Array<TextureRegion> playerStandLeft = new Array<TextureRegion>();
-	private Array<TextureRegion> playerRunRight = new Array<TextureRegion>();
-	private Array<TextureRegion> playerRunLeft = new Array<TextureRegion>();
-=======
 	private Animation animation;
 	public int currentColorPink = 0;
 	
@@ -63,7 +40,6 @@ public class PinkPlayer extends Sprite{
 	private boolean runningRight;
 	private TextureRegion pinkPlayerStand;
 	
->>>>>>> Beer
 	
 	
 	public PinkPlayer(World world,  PlayScreen screen) {
@@ -75,15 +51,6 @@ public class PinkPlayer extends Sprite{
 		previousState = State.STANDING;
 		stateTimer = 0;
 		runningRight = true;
-<<<<<<< HEAD
-		stateRunRight = true;
-
-		state();
-		
-		definePinkPlayer();
-		
-		setBounds(0, 0, 50 / Pyramid.PPM, 65 / Pyramid.PPM);	
-=======
 		
 
 		Array<TextureRegion> frames = new Array<TextureRegion>();
@@ -99,7 +66,6 @@ public class PinkPlayer extends Sprite{
 		setBounds(0, 0, 50 / Pyramid.PPM, 65 / Pyramid.PPM);
 		setRegion(pinkPlayerStand);
 		
->>>>>>> Beer
 	}
 	
 	public enum State {
@@ -111,68 +77,12 @@ public class PinkPlayer extends Sprite{
 		setRegion(getFrame(dt));
 	}
 
-<<<<<<< HEAD
-	public void state() {
-		if (runningRight == true) {
-			for (int i = 2; i < 4; i++) {
-				playerStandRight.add(new TextureRegion(getTexture(),(i * 54), 226, 55, 92));
-			}
-			pinkPlayerStand = new Animation(1f, playerStandRight);
-			playerStandRight.clear();
-			if (stateRunRight==true) {
-				for (int i = 1; i < 7; i++) {
-					playerRunRight.add(new TextureRegion(getTexture(),(i * 54), 521, 55, 92));
-				}
-				pinkPlayerRunRight = new Animation(0.1f, playerRunRight);
-				playerRunRight.clear();
-			}
-		}
-		else {
-			for (int i = 0; i < 2; i++) {
-				playerStandLeft.add(new TextureRegion(getTexture(),(i * 54), 226, 55, 92));
-			}
-			pinkPlayerStand = new Animation(1f, playerStandLeft);
-			playerStandLeft.clear();
-			runningRight = true;
-			if (stateRunRight==false) {
-				for (int i = 1; i < 7; i++) {
-					playerRunLeft.add(new TextureRegion(getTexture(),(i * 54), 422, 55, 92));
-				}
-				pinkPlayerRunRight = new Animation(0.1f, playerRunLeft);
-				playerRunRight.clear();
-			}
-			stateRunRight = true;
-		}
-	}
-	
-=======
->>>>>>> Beer
 	public TextureRegion getFrame(float dt) {
 		currentState = getState();
 
 		TextureRegion region;
 		switch (currentState) {
 			case RUNNING:
-<<<<<<< HEAD
-				region = (TextureRegion) pinkPlayerRunRight.getKeyFrame(stateTimer, true);
-				break;
-			case STANDING:
-				default:
-					region = (TextureRegion) pinkPlayerStand.getKeyFrame(stateTimer, true);
-					break;
-		}
-		if (b2body.getLinearVelocity().x < 0 || !(runningRight) || !(stateRunRight)) {
-//			region.flip(true, false);
-			runningRight = false;
-			stateRunRight = false;
-			state();
-		}
-		else if (b2body.getLinearVelocity().x > 0) {
-//			region.flip(true, false);
-			runningRight = true;
-			stateRunRight = true;
-			state();
-=======
 				region = (TextureRegion) pinkPlayerRun.getKeyFrame(stateTimer, true);
 				break;
 			case STANDING:
@@ -187,7 +97,6 @@ public class PinkPlayer extends Sprite{
 		else if (b2body.getLinearVelocity().x > 0 || !(runningRight) && !region.isFlipX()) {
 			region.flip(true, false);
 			runningRight = true;
->>>>>>> Beer
 		}
 		
 		stateTimer = currentState == previousState ? stateTimer + dt : 0;
@@ -202,11 +111,7 @@ public class PinkPlayer extends Sprite{
 			return State.STANDING;
 	}
 
-<<<<<<< HEAD
-	private void definePinkPlayer() {
-=======
 	private void definePinkPlayr() {
->>>>>>> Beer
 		
 		BodyDef bdef = new BodyDef();
 		bdef.position.set(30/Pyramid.PPM,700/Pyramid.PPM); //Set new position
@@ -221,8 +126,6 @@ public class PinkPlayer extends Sprite{
 		fdef.filter.groupIndex = -2;
 		b2body.createFixture(fdef);
 		
-<<<<<<< HEAD
-=======
 		// foot sensor 
 		EdgeShape foot = new EdgeShape();
 		foot.set(new Vector2( -10/ Pyramid.PPM, -15 / Pyramid.PPM), new Vector2( 10/ Pyramid.PPM, -15 / Pyramid.PPM));
@@ -231,7 +134,6 @@ public class PinkPlayer extends Sprite{
 		
 		b2body.createFixture(fdef).setUserData("footPink");
 
->>>>>>> Beer
 //		Array<TextureRegion> framePink = new Array<TextureRegion>();
 //		for(int i = 1; i < 3; i++) {
 //			framePink.add(new TextureRegion(new Texture(Gdx.files.internal("pinkPlayer" + i + ".png"))));
@@ -242,20 +144,13 @@ public class PinkPlayer extends Sprite{
 		
 	}
 
-<<<<<<< HEAD
-=======
 	
->>>>>>> Beer
 	public void handleInput(float dt) {
 
 		float currentY = b2body.getLinearVelocity().y;
 		// control our player using inmudiate impulse 
 		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && currentY%4 == 0) {
-<<<<<<< HEAD
-			Pyramid.manager.get("sounds/jump.wav", Sound.class).play();
-=======
 			
->>>>>>> Beer
 			b2body.applyLinearImpulse(new Vector2(0, 5f), b2body.getWorldCenter(), true);
 		}
 		
@@ -269,8 +164,6 @@ public class PinkPlayer extends Sprite{
 		// switch
 	}
 	
-<<<<<<< HEAD
-=======
 	public TextureRegion getFramePink(float dt) {
 		TextureRegion region;
 		region = (TextureRegion) animation.getKeyFrame(dt, false);
@@ -278,7 +171,6 @@ public class PinkPlayer extends Sprite{
 	}
 	
 	
->>>>>>> Beer
 	public void switchTypePlayer() {
 		
 		if(b2body.getType() == BodyType.StaticBody) {

@@ -25,13 +25,7 @@
    eJzt0sOSIFgABdEa27bVdndV27Zt27Zt27Zt27ZtjXO+4S06KiYz4uzv4kZEmJmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmVl0KUZkRERMxEJsxEFcxEN8JEBCJEJiJEFSJENk5LNeb9G9KD6UHCmQEqmQGmmQFumQHhmQEZmQGVmQ1f9ZYNn4UHbkQE7kQm7kQV7kQ34UQEEUQmEUQVH/Z4EV40PFUQIlUQqlUQZlUQ7lUQEVUQmVUQVV/Z8FVo0PVUcN1EQt1EYd1EU91EcDNEQjNEYTNPV/FlgzPtQcLdASrdAabdAW7dAeHdARndAZXdDV/1lg3fhQd/RAT/RCb/RBX/RDfwzAQAzCYAzBUP9ngQ3jQ8MxAiMxCqMxBmMxDuMxARMxCZMxBVP9nwU2jQ9NxwzMxCzMxhzMxTzMxwIsxCIsxhIs9X8W2DI+tBwrsBKrsBprsBbrsB4bsBGbsBlbsNX/WWDb+NB27MBO7MJu7MFe7MN+HMBBHMJhHMFR/2eBHeNDx3ECJ3EKp3EGZ3EO53EBF3EJl3EFV/2fBXaND13HDdzELdzGHdzFPdzHAzzEIzzGEzz1fxbY73zoD/yJv/A3/vnvV1EREc/hebyAF/ESXsYreBWvRT3r9Rbde50PvYE38Rbexjt4F+/hfXyAD/ERPsYn+BSf+T8L7HM+9AW+xFf4Gt/gW3yH7/EDfsRP+Bm/4Ff85v8ssBh8KCZiITbiIC7iIT4SICESITGSICmSIdL/WWBRfCg5UiAlUiE10iAt0iE9MiAjMiEzsiCr/7PAsvGh7MiBnMiF3MiDvMiH/CiAgiiEwiiCov7PAivGh4qjBEqiFEqjDMqiHMqjAiqiEiqjCqr6PwusGh+qjhqoiVqojTqoi3qojwZoiEZojCZo6v8ssGZ8qDlaoCVaoTXaoC3aoT06oCM6oTO6oKv/s8C68aHu6IGe6IXe6IO+6If+GICBGITBGIKh/s8CG8aHhmMERmIURmMMxmIcxmMCJmISJmMKpvo/C2waH5qOGZiJWZiNOZiLeZiPBViIRViMJVjq/yywZXxoOVZgJVZhNdZgLdZhPTZgIzZhM7Zgq/+zwLbxoe3YgZ3Yhd3Yg73Yh/04gIM4hMM4gqP+zwI7xoeO4wRO4hRO4wzO4hzO4wIu4hIu4wqu+j8L7Bofuo4buIlbuI07uIt7uI8HeIhHeIwneOr/zMzMzMzMzMzMzMzMzMz+N/0LypleEg==
   </data>
  </layer>
-<<<<<<< HEAD:project3/core/assets/Map/level5.tmx
- <objectgroup name="groundOb">
-  <object id="20" x="1024" y="625.333" width="224" height="30.6667"/>
- </objectgroup>
-=======
  <objectgroup name="groundOb"/>
->>>>>>> Beer:project3/core/assets/Map/level5.tmx
  <objectgroup name="pinkOb">
   <object id="5" x="8" y="352" width="255.848" height="32"/>
   <object id="6" x="455.606" y="321" width="207.894" height="29.5"/>
@@ -48,10 +42,6 @@
   <object id="22" x="960.25" y="657" width="63.75" height="30.5"/>
  </objectgroup>
  <objectgroup name="flagOb">
-<<<<<<< HEAD:project3/core/assets/Map/level5.tmx
-  <object id="19" x="1090" y="402" width="4.5" height="223"/>
-=======
   <object id="19" x="1024.67" y="624.667" width="221.833" height="29"/>
->>>>>>> Beer:project3/core/assets/Map/level5.tmx
  </objectgroup>
 </map>
