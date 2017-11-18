@@ -1,9 +1,0 @@
-
-*.prefs
-project3/.project
-project3/core/bin/com/mygdx/game/Pyramid.class
-*.class
-project3/desktop/.classpath
-project3/core/.classpath
-project3/desktop/.project
-project3/core/.project
