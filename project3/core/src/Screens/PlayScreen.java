@@ -24,9 +24,12 @@ import Sprites.BluePlayer;
 import Sprites.PinkPlayer;
 import State.Menu;
 import Tools.B2WorldCreator;
+import State.LevelSelect;
+import Tools.WorldContactListener;
 
 public class PlayScreen implements Screen {
 	private Pyramid game;
+//	private LevelSelect game;
 	Texture texture;
 	
 	// beer
@@ -49,7 +52,7 @@ public class PlayScreen implements Screen {
 	
 	private BluePlayer bluePlayer;
 	private PinkPlayer pinkPlayer;
-
+	
 	private B2WorldCreator b2WorldCreator;
 	
 	private float time;
@@ -57,19 +60,19 @@ public class PlayScreen implements Screen {
 	
 	private Music music;
 	
-	public PlayScreen(Pyramid game) {
+	public PlayScreen(Pyramid gsm) {
 		
-		atlas = new TextureAtlas("Animation/pinkPlayer_test.pack");
+		atlas = new TextureAtlas("Animation/Player_Animation.pack");
 		
-		this.game = game;
-		
+		this.game = gsm;
+
 		gameCam = new OrthographicCamera();
 		// create a FitViewport to maintain virtual aspect ratio despite screen
 		gamePort = new FitViewport(Pyramid.V_WIDTH/Pyramid.PPM, Pyramid.V_HEIGHT/Pyramid.PPM, gameCam);
 		
 		// load our map and setup our map renderer
 		maploader = new TmxMapLoader();
-		map = maploader.load("Map/level3.tmx");
+		map = maploader.load("Map/level5.tmx");
 		tmr = new OrthogonalTiledMapRenderer(map, 1 /Pyramid.PPM);
 		
 		// initially set our gamcam to be centered correctly at the start of of map
@@ -78,7 +81,6 @@ public class PlayScreen implements Screen {
 		time = 0;
 		enableSwitchColor = true;
 		
-		
 		world = new World(new Vector2(0, -10), true);
 		// allows for debug lines of our box2d world
 		b2dr = new Box2DDebugRenderer();
@@ -86,7 +88,7 @@ public class PlayScreen implements Screen {
 		b2WorldCreator = new B2WorldCreator(world, map);
 		
 		sb = new SpriteBatch();
-		
+
 //		public void handleInput(float dt) {
 //
 //			// control our player using inmudiate impulse 
@@ -95,7 +97,7 @@ public class PlayScreen implements Screen {
 //			}
 //		}
 		
-		// create BluePlayer in our game world
+		// create BluePlayer and PinkPlayer in our game world
 		bluePlayer = new BluePlayer(world, this);
 		pinkPlayer = new PinkPlayer(world, this);	
 		
@@ -103,12 +105,13 @@ public class PlayScreen implements Screen {
 		music.setLooping(true);
 		music.play();
 		
-//		pinkPlayer.switchTypePlayer();
+		world.setContactListener(new WorldContactListener());
+		
 	}
 	
 	public TextureAtlas getAtlas() {
 		return atlas;
-	}
+		}
 
 
 	@Override
@@ -124,10 +127,7 @@ public class PlayScreen implements Screen {
 		if(enableSwitchColor) {
 			if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
 				Pyramid.manager.get("sounds/shift.wav", Sound.class).play();
-				
 				b2WorldCreator.switchColor();
-
-				
 				enableSwitchColor = false;
 			}
 		}
@@ -151,9 +151,10 @@ public class PlayScreen implements Screen {
 			bluePlayer.handleInput(dt);
 		}
 		
-		
-		
 		world.step(1/60f, 6, 2);
+		//  check two player Stay on the Flag
+		
+		CheckNextLevel();
 		
 		pinkPlayer.update(dt);
 		bluePlayer.update(dt);
@@ -166,11 +167,6 @@ public class PlayScreen implements Screen {
 		
 		// tell our render to draw only what our camers can see in our game world.
 		tmr.setView(gameCam);
-		if(PinkPlayer.count == 1) {
-			PinkPlayer.count = 0;
-			music.stop();
-			this.game.setScreen(new Menu(this.game));
-		}
 	}
 	
 	@Override
@@ -239,6 +235,17 @@ public class PlayScreen implements Screen {
 		b2dr.dispose();
 //		hud.dispose();
 		
+	}
+	
+	public void CheckNextLevel() {
+		System.out.println(WorldContactListener.CHECKPINK);
+		System.out.println(WorldContactListener.CHECKBLUE);
+		// check Next Stage
+		if(WorldContactListener.CHECKPINK == true && WorldContactListener.CHECKBLUE == true) {
+			System.out.println("worldContactListener.checkPink == true");
+
+				game.setScreen(new LevelSelect(game));
+		}
 	}
 	
 

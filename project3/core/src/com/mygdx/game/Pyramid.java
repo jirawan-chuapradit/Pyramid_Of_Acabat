@@ -48,8 +48,13 @@ public class Pyramid extends Game {
 		manager.load("sounds/win_stage.wav", Sound.class);
 		manager.load("sounds/shift.wav", Sound.class);
 		manager.load("sounds/button1.wav", Sound.class);
+		manager.load("sounds/button2.wav", Sound.class);
 		manager.finishLoading();
 		
+		Gdx.gl.glClearColor(0, 1, 0, 1);
+		this.setScreen(new Menu(this));
+	
+		sb = new SpriteBatch();
 		Gdx.gl.glClearColor(0, 1, 0, 1);
 		this.setScreen(new Menu(this));
 	

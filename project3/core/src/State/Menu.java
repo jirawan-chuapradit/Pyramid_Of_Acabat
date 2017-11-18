@@ -4,6 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -25,13 +30,12 @@ public class Menu implements Screen{
 	private Stage buttonStage;
 	private ImageButton playButton;
 	final Pyramid game;
-	SpriteBatch sb;
+	public SpriteBatch sb;
+	
 	public Menu(final Pyramid gsm) {
-		
-		
 		this.game = gsm;
 		buttonStage = new Stage();
-		Gdx.input.setInputProcessor(buttonStage);	
+		Gdx.input.setInputProcessor(buttonStage);		
 		background = new Texture("menu.jpg");
 		playButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("playButton.png")))));
 		playButton.setBounds((Pyramid.V_WIDTH/2) - 50, 100, 100, 100);
@@ -46,6 +50,10 @@ public class Menu implements Screen{
 				super.clicked(event, x , y);
 				game.setScreen(new PlayScreen(game));
 				
+				Pyramid.manager.get("sounds/button2.wav", Sound.class).play();
+				super.clicked(event, x , y);
+				game.setScreen(new LevelSelect(game));
+//				game.setScreen(new PlayScreen(game));
 			}
 		});
 		
@@ -53,10 +61,6 @@ public class Menu implements Screen{
 		//Play music
 		Pyramid.manager.get("music/music3.ogg", Music.class).play();
 	}
-
-
-
-
 
 	@Override
 	public void dispose() {

@@ -1,5 +1,6 @@
 package Sprites;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -20,7 +21,6 @@ public class Flag extends InteractiveTileObject{
 		BodyDef bdef = new BodyDef();
 		FixtureDef fdef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();
-		
 		bdef.type = BodyDef.BodyType.StaticBody;
 		bdef.position.set((bounds.getX() + bounds.getWidth() / 2) / Pyramid.PPM, (bounds.getY() + bounds.getHeight() / 2) / Pyramid.PPM);
 		System.out.println((bounds.getX() + bounds.getWidth() / 2) / Pyramid.PPM);
@@ -33,6 +33,17 @@ public class Flag extends InteractiveTileObject{
 		
 		
 		fixture = body.createFixture(fdef);
+//		fdef.filter.groupIndex = 3;
+		
+		
+		fixture = body.createFixture(fdef);
+		fixture.setUserData("Flag");
+	}
+	
+
+	@Override
+	public void underFootHit() {
+		Gdx.app.log("Flag", "Collision");
 	}
 	
 }

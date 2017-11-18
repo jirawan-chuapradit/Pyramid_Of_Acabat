@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -40,6 +41,9 @@ public class PinkPlayer extends Sprite{
 	private	Array<TextureRegion> playerStandLeft = new Array<TextureRegion>();
 	private Array<TextureRegion> playerRunRight = new Array<TextureRegion>();
 	private Array<TextureRegion> playerRunLeft = new Array<TextureRegion>();
+	private Animation animation;
+	
+	private int checkPink = 0;
 	
 	private float check_posision;
 	public static int count;
@@ -59,7 +63,8 @@ public class PinkPlayer extends Sprite{
 		
 		definePinkPlayer();
 		
-		setBounds(0, 0, 50 / Pyramid.PPM, 80 / Pyramid.PPM);	
+		setBounds(0, 0, 50 / Pyramid.PPM, 65 / Pyramid.PPM);
+		
 	}
 	
 	public enum State {
@@ -68,12 +73,7 @@ public class PinkPlayer extends Sprite{
 	
 	public void update(float dt) {
 		setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 3);
-		//System.out.println(b2body.getPosition().x);
 		setRegion(getFrame(dt));
-		check_posision = Flag.posision_flag;
-		if (check_posision - b2body.getPosition().x <= 0.25 && check_posision - b2body.getPosition().x >= -0.25) {
-			count=1;
-		}
 	}
 
 	public void state() {
@@ -135,6 +135,14 @@ public class PinkPlayer extends Sprite{
 			stateRunRight = true;
 			state();
 		}
+		if (b2body.getLinearVelocity().x < 0 || !(runningRight) && !region.isFlipX()) {
+			region.flip(true, false);
+			runningRight = false;
+		}
+		else if (b2body.getLinearVelocity().x > 0 || !(runningRight) && !region.isFlipX()) {
+			region.flip(true, false);
+			runningRight = true;
+		}
 		
 		stateTimer = currentState == previousState ? stateTimer + dt : 0;
 		previousState = currentState;
@@ -149,7 +157,6 @@ public class PinkPlayer extends Sprite{
 	}
 
 	private void definePinkPlayer() {
-		
 		BodyDef bdef = new BodyDef();
 		bdef.position.set(30/Pyramid.PPM,700/Pyramid.PPM); //Set new position
 		bdef.type = BodyDef.BodyType.DynamicBody;
@@ -163,6 +170,14 @@ public class PinkPlayer extends Sprite{
 		fdef.filter.groupIndex = -2;
 		b2body.createFixture(fdef);
 		
+		// foot sensor 
+		EdgeShape foot = new EdgeShape();
+		foot.set(new Vector2( -10/ Pyramid.PPM, -15 / Pyramid.PPM), new Vector2( 10/ Pyramid.PPM, -15 / Pyramid.PPM));
+		fdef.shape = foot;
+		fdef.isSensor = true;
+		
+		b2body.createFixture(fdef).setUserData("footPink");
+
 //		Array<TextureRegion> framePink = new Array<TextureRegion>();
 //		for(int i = 1; i < 3; i++) {
 //			framePink.add(new TextureRegion(new Texture(Gdx.files.internal("pinkPlayer" + i + ".png"))));
@@ -190,6 +205,12 @@ public class PinkPlayer extends Sprite{
 		}
 
 		// switch
+	}
+	
+	public TextureRegion getFramePink(float dt) {
+		TextureRegion region;
+		region = (TextureRegion) animation.getKeyFrame(dt, false);
+		return region;
 	}
 	
 	public void switchTypePlayer() {
