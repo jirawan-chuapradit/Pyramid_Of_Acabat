@@ -42,8 +42,14 @@ public class Menu implements Screen{
 		playButton.addListener(new ClickListener()   {
 			
 			public void clicked(InputEvent event  , float x , float y) {
+				//Stop music
+				Pyramid.manager.get("music/music3.ogg", Music.class).stop();
 				
 				//sound Button
+				Pyramid.manager.get("sounds/button1.wav", Sound.class).play();
+				super.clicked(event, x , y);
+				game.setScreen(new PlayScreen(game));
+				
 				Pyramid.manager.get("sounds/button2.wav", Sound.class).play();
 				super.clicked(event, x , y);
 				game.setScreen(new LevelSelect(game));

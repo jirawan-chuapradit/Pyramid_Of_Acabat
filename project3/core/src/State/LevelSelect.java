@@ -2,8 +2,6 @@ package State;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -22,6 +20,11 @@ public class LevelSelect implements Screen {
 	private Stage buttonStage;
 	
 	private ImageButton level1Button;
+
+	
+	
+	
+	
 
 //	private Menu menu;
 	
@@ -58,11 +61,8 @@ public class LevelSelect implements Screen {
 		level1Button.addListener(new ClickListener() {
 			
 			public void clicked(InputEvent event, float x, float y) {
-				//Stop music
-				Pyramid.manager.get("music/music3.ogg", Music.class).stop();
-				
+
 				super.clicked(event, x, y);
-				Pyramid.manager.get("sounds/button1.wav", Sound.class).play();
 //				game.setScreen(new LevelSelect(game));
 				game.setScreen(new PlayScreen(game));
 			}
