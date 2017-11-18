@@ -3,6 +3,7 @@ package Sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -25,18 +26,20 @@ public class PinkPlayer extends Sprite{
 	
 	private B2WorldCreator b2WorldCreator;
 	
-	private Animation animation;
 	public int currentColorPink = 0;
 	
 	// animation --- beer
 	public State currentState;
 	public State previousState;
-	private Animation pinkPlayerJump;
-	private Animation pinkPlayerRun;
+	private Animation pinkPlayerRunRight;
 	private float stateTimer;
 	private boolean runningRight;
-	private TextureRegion pinkPlayerStand;
-	
+	private boolean stateRunRight;
+	private Animation pinkPlayerStand;
+	private	Array<TextureRegion> playerStandRight = new Array<TextureRegion>();
+	private	Array<TextureRegion> playerStandLeft = new Array<TextureRegion>();
+	private Array<TextureRegion> playerRunRight = new Array<TextureRegion>();
+	private Array<TextureRegion> playerRunLeft = new Array<TextureRegion>();
 	
 	
 	public PinkPlayer(World world,  PlayScreen screen) {
@@ -48,20 +51,13 @@ public class PinkPlayer extends Sprite{
 		previousState = State.STANDING;
 		stateTimer = 0;
 		runningRight = true;
+		stateRunRight = true;
 
-		Array<TextureRegion> frames = new Array<TextureRegion>();
-		for (int i = 1; i < 7; i++) {
-			frames.add(new TextureRegion(getTexture(),(i * 55), 524, 55, 92));
-		}
-		pinkPlayerRun = new Animation(1f, frames);
-		frames.clear();
-
-		pinkPlayerStand = new TextureRegion(getTexture(), 110, 226, 55, 92);
-		definePinkPlayr();
+		state();
 		
-		setBounds(0, 0, 50 / Pyramid.PPM, 65 / Pyramid.PPM);
-		setRegion(pinkPlayerStand);
+		definePinkPlayer();
 		
+		setBounds(0, 0, 50 / Pyramid.PPM, 65 / Pyramid.PPM);	
 	}
 	
 	public enum State {
@@ -73,26 +69,63 @@ public class PinkPlayer extends Sprite{
 		setRegion(getFrame(dt));
 	}
 
+	public void state() {
+		if (runningRight == true) {
+			for (int i = 2; i < 4; i++) {
+				playerStandRight.add(new TextureRegion(getTexture(),(i * 54), 226, 55, 92));
+			}
+			pinkPlayerStand = new Animation(1f, playerStandRight);
+			playerStandRight.clear();
+			if (stateRunRight==true) {
+				for (int i = 1; i < 7; i++) {
+					playerRunRight.add(new TextureRegion(getTexture(),(i * 54), 521, 55, 92));
+				}
+				pinkPlayerRunRight = new Animation(0.1f, playerRunRight);
+				playerRunRight.clear();
+			}
+		}
+		else {
+			for (int i = 0; i < 2; i++) {
+				playerStandLeft.add(new TextureRegion(getTexture(),(i * 54), 226, 55, 92));
+			}
+			pinkPlayerStand = new Animation(1f, playerStandLeft);
+			playerStandLeft.clear();
+			runningRight = true;
+			if (stateRunRight==false) {
+				for (int i = 1; i < 7; i++) {
+					playerRunLeft.add(new TextureRegion(getTexture(),(i * 54), 422, 55, 92));
+				}
+				pinkPlayerRunRight = new Animation(0.1f, playerRunLeft);
+				playerRunRight.clear();
+			}
+			stateRunRight = true;
+		}
+	}
+	
 	public TextureRegion getFrame(float dt) {
 		currentState = getState();
 
 		TextureRegion region;
 		switch (currentState) {
 			case RUNNING:
-				region = (TextureRegion) pinkPlayerRun.getKeyFrame(stateTimer, true);
+				region = (TextureRegion) pinkPlayerRunRight.getKeyFrame(stateTimer, true);
 				break;
 			case STANDING:
 				default:
-					region = pinkPlayerStand;
+					region = (TextureRegion) pinkPlayerStand.getKeyFrame(stateTimer, true);
 					break;
 		}
-		if (b2body.getLinearVelocity().x < 0 || !(runningRight) && !region.isFlipX()) {
-			region.flip(true, false);
+		if (b2body.getLinearVelocity().x < 0 || !(runningRight) || !(stateRunRight)) {
+//			region.flip(true, false);
 			runningRight = false;
+			stateRunRight = false;
+			state();
 		}
-		else if (b2body.getLinearVelocity().x > 0 || !(runningRight) && !region.isFlipX()) {
-			region.flip(true, false);
+		else if (b2body.getLinearVelocity().x > 0) {
+//			region.flip(true, false);
 			runningRight = true;
+			stateRunRight = true;
+			state();
 		}
 		
 		stateTimer = currentState == previousState ? stateTimer + dt : 0;
@@ -107,7 +140,7 @@ public class PinkPlayer extends Sprite{
 			return State.STANDING;
 	}
 
-	private void definePinkPlayr() {
+	private void definePinkPlayer() {
 		
 		BodyDef bdef = new BodyDef();
 		bdef.position.set(30/Pyramid.PPM,700/Pyramid.PPM); //Set new position
@@ -132,13 +165,12 @@ public class PinkPlayer extends Sprite{
 		
 	}
 
-	
 	public void handleInput(float dt) {
 
 		float currentY = b2body.getLinearVelocity().y;
 		// control our player using inmudiate impulse 
 		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && currentY%4 == 0) {
-			
+			Pyramid.manager.get("sounds/jump.wav", Sound.class).play();
 			b2body.applyLinearImpulse(new Vector2(0, 5f), b2body.getWorldCenter(), true);
 		}
 		
@@ -150,12 +182,6 @@ public class PinkPlayer extends Sprite{
 		}
 
 		// switch
-	}
-	
-	public TextureRegion getFramePink(float dt) {
-		TextureRegion region;
-		region = (TextureRegion) animation.getKeyFrame(dt, false);
-		return region;
 	}
 	
 	public void switchTypePlayer() {

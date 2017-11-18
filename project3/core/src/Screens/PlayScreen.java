@@ -3,6 +3,8 @@ package Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -51,6 +53,9 @@ public class PlayScreen implements Screen {
 	
 	private float time;
 	private boolean enableSwitchColor;
+	
+	private Music music;
+	
 	public PlayScreen(Pyramid game) {
 		
 		atlas = new TextureAtlas("Animation/Player_Animation.pack");
@@ -90,8 +95,12 @@ public class PlayScreen implements Screen {
 //		}
 		
 		// create BluePlayer in our game world
-		bluePlayer = new BluePlayer(world);
+		bluePlayer = new BluePlayer(world, this);
 		pinkPlayer = new PinkPlayer(world, this);	
+		
+		music = Pyramid.manager.get("music/music1.ogg", Music.class);
+		music.setLooping(true);
+		music.play();
 		
 //		pinkPlayer.switchTypePlayer();
 	}
@@ -113,7 +122,8 @@ public class PlayScreen implements Screen {
 		
 		if(enableSwitchColor) {
 			if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-//				
+				Pyramid.manager.get("sounds/shift.wav", Sound.class).play();
+				
 				b2WorldCreator.switchColor();
 
 				
@@ -145,7 +155,7 @@ public class PlayScreen implements Screen {
 		world.step(1/60f, 6, 2);
 		
 		pinkPlayer.update(dt);
-		
+		bluePlayer.update(dt);
 //		gameCam.position.x = playerPink.b2body.getPosition().x;
 		
 		
@@ -178,6 +188,7 @@ public class PlayScreen implements Screen {
 		game.sb.setProjectionMatrix(gameCam.combined);
 		game.sb.begin();
 		pinkPlayer.draw(game.sb);
+		bluePlayer.draw(game.sb);
 		game.sb.end();
 		
 		
