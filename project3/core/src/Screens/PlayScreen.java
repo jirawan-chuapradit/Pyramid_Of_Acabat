@@ -63,7 +63,7 @@ public class PlayScreen implements Screen {
 	private boolean enableSwitchColor;
 	public PlayScreen(Pyramid gsm) {
 		
-		atlas = new TextureAtlas("Animation/Player_Animation.pack");
+		atlas = new TextureAtlas("Animation/pinkPlayer_test.pack");
 		
 		this.game = gsm;
 		

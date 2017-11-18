@@ -48,7 +48,7 @@ public class PinkPlayer extends Sprite {
 
 	public PinkPlayer(World world, PlayScreen screen) {
 
-		super(screen.getAtlas().findRegion("pinkPlayer"));
+		super(screen.getAtlas().findRegion("pink_test"));
 		this.world = world;
 
 		currentState = State.STANDING;
