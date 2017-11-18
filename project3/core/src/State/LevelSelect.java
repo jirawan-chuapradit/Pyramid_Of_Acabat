@@ -2,6 +2,8 @@ package State;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -18,7 +20,6 @@ public class LevelSelect implements Screen {
 
 	private Texture background;
 	private Stage buttonStage;
-	
 	private ImageButton level1Button;
 
 	
@@ -39,19 +40,8 @@ public class LevelSelect implements Screen {
 		
 		Gdx.input.setInputProcessor(buttonStage);
 
-		background = new Texture("menu.jpg");
+		background = new Texture("StartGame/levelSelect.png");
 		
-
-//		for (int j = 1; j <= 10; j++) {
-//			if (j <= 5) {
-//				levelButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(
-//						new Texture(Gdx.files.internal("levelButton/button-level-0" + j + "-out.png")))));
-//				levelButton.setBounds((Pyramid.V_WIDTH / 2) - (50 * j), 500, 50, 50);
-//			}
-//			else if(j > 5) {
-//				
-//			}
-//		}
 			
 		level1Button = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/button-level-01-out.png")))));
@@ -61,17 +51,17 @@ public class LevelSelect implements Screen {
 		level1Button.addListener(new ClickListener() {
 			
 			public void clicked(InputEvent event, float x, float y) {
-
+				//Stop music
+				Pyramid.manager.get("music/music3.ogg", Music.class).stop();
 				super.clicked(event, x, y);
-//				game.setScreen(new LevelSelect(game));
+				
+				Pyramid.manager.get("sounds/button1.wav", Sound.class).play();
 				game.setScreen(new PlayScreen(game));
 			}
 		});
 
 		buttonStage.addActor(level1Button);
-//		buttonStage.addActor(level2Button);
-//		buttonStage.addActor(level3Button);
-//		buttonStage.addActor(level4Button);
+
 	}
 
 	@Override
@@ -117,7 +107,10 @@ public class LevelSelect implements Screen {
 
 	@Override
 	public void dispose() {
+		sb.dispose();
 		background.dispose();
+		buttonStage.dispose();
+		
 	}
 
 }

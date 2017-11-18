@@ -1,8 +1,8 @@
 package Sprites;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.ai.fsm.State;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -21,35 +21,36 @@ import com.mygdx.game.Pyramid;
 import Screens.PlayScreen;
 import Tools.B2WorldCreator;
 
-public class BluePlayer extends Sprite{
-	
+public class BluePlayer extends Sprite {
+
 	public World world;
 	public Body b2body;
 	private B2WorldCreator b2WorldCreator;
 	public int currentColorBlue = 1;
 
 	// animation --- beer
-	public State currentState;
-	public State previousState;
-	private Animation bluePlayerRunRight;
-	private float stateTimer;
-	private boolean runningRight;
-	private boolean stateRunRight;
-	private Animation bluePlayerStand;
-	private Array<TextureRegion> playerStandRight = new Array<TextureRegion>();
-	private Array<TextureRegion> playerStandLeft = new Array<TextureRegion>();
-	private Array<TextureRegion> playerRunRight = new Array<TextureRegion>();
-	private Array<TextureRegion> playerRunLeft = new Array<TextureRegion>();
+		public State currentState;
+		public State previousState;
+		private Animation bluePlayerRunRight;
+		private float stateTimer;
+		private boolean runningRight;
+		private boolean stateRunRight;
+		private Animation bluePlayerStand;
+		private Array<TextureRegion> playerStandRight = new Array<TextureRegion>();
+		private Array<TextureRegion> playerStandLeft = new Array<TextureRegion>();
+		private Array<TextureRegion> playerRunRight = new Array<TextureRegion>();
+		private Array<TextureRegion> playerRunLeft = new Array<TextureRegion>();
 
-	public BluePlayer(World world, PlayScreen screen) {
-		super(screen.getAtlas().findRegion("pink_test"));
-	}
+		public BluePlayer(World world, PlayScreen screen) {
+			super(screen.getAtlas().findRegion("pink_test"));
+		}
 
-	
+		
+
 	public BluePlayer(World world) {
 		this.world = world;
 		defineBluePlayer();
-		
+
 		setBounds(0, 0, 40 / Pyramid.PPM, 60 / Pyramid.PPM);
 	}
 
@@ -132,67 +133,60 @@ public class BluePlayer extends Sprite{
 		else
 			return State.STANDING;
 	}
-	
+
 	private void defineBluePlayer() {
 		BodyDef bdef = new BodyDef();
-		bdef.position.set(1250/Pyramid.PPM,700/Pyramid.PPM); //Set new position
+		bdef.position.set(1250 / Pyramid.PPM, 700 / Pyramid.PPM); // Set new position
 		bdef.type = BodyDef.BodyType.DynamicBody;
 		b2body = world.createBody(bdef);
-		
 
 		FixtureDef fdef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(15/Pyramid.PPM, 15/Pyramid.PPM);
+		shape.setAsBox(15 / Pyramid.PPM, 15 / Pyramid.PPM);
 
-		
 		fdef.shape = shape;
 		fdef.filter.groupIndex = -1;
-		Fixture body  = b2body.createFixture(fdef);
-	
-		// foot sensor 
+		Fixture body = b2body.createFixture(fdef);
+
+		// foot sensor
 		EdgeShape foot = new EdgeShape();
-		foot.set(new Vector2( -10/ Pyramid.PPM, -15 / Pyramid.PPM), new Vector2( 10/ Pyramid.PPM, -15 / Pyramid.PPM));
+		foot.set(new Vector2(-10 / Pyramid.PPM, -15 / Pyramid.PPM), new Vector2(10 / Pyramid.PPM, -15 / Pyramid.PPM));
 		fdef.shape = foot;
 		fdef.isSensor = true;
-		
+
 		b2body.createFixture(fdef).setUserData("footBlue");
-				
-		
+
 	}
-	
+
 	public void handleInput(float dt) {
 
 		float currentY = b2body.getLinearVelocity().y;
-		
-		// control our player using inmudiate impulse 
-		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && currentY% 4 == 0) {
+
+		// control our player using inmudiate impulse
+		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && currentY % 4 == 0) {
 			b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
 		}
-		
-		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && b2body.getLinearVelocity().x <= 2) {
-			b2body.applyLinearImpulse(new Vector2(0.1f, 0),  b2body.getWorldCenter(), true);
+
+		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && b2body.getLinearVelocity().x <= 2) {
+			b2body.applyLinearImpulse(new Vector2(0.1f, 0), b2body.getWorldCenter(), true);
 		}
-		if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && b2body.getLinearVelocity().x >= -2) {
-			b2body.applyLinearImpulse(new Vector2(-0.1f, 0),  b2body.getWorldCenter(), true);
+		if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && b2body.getLinearVelocity().x >= -2) {
+			b2body.applyLinearImpulse(new Vector2(-0.1f, 0), b2body.getWorldCenter(), true);
 		}
-		
-		
+
 	}
-	
+
 	public void switchTypePlayer() {
-		
-		if(b2body.getType() == BodyType.StaticBody) {
+
+		if (b2body.getType() == BodyType.StaticBody) {
 			b2body.setType(BodyType.DynamicBody);
-		}
-		else if (b2body.getType() == BodyType.DynamicBody) {
+		} else if (b2body.getType() == BodyType.DynamicBody) {
 			b2body.setType(BodyType.StaticBody);
 		}
 	}
-	
+
 	public void BluecheckPoint() {
-		
+
 	}
-	
-	
 
 }

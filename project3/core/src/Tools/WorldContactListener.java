@@ -12,18 +12,17 @@ import Sprites.InteractiveTileObject;
 public class WorldContactListener implements ContactListener {
 
 	// check conllision
-	public static boolean CHECKPINK = false;
-	public static boolean CHECKBLUE = false;
-	
-	private Fixture fixA;
-	private Fixture fixB;
+	public static boolean checkPink = false;
+	public static boolean checkBlue = false;
+	public static boolean checkGameOver = false;
 	
 	@Override
 	public void beginContact(Contact contact) {
-		 fixA = contact.getFixtureA();
+		Fixture fixA = contact.getFixtureA();
 		Fixture fixB = contact.getFixtureB();
 		
 		if(fixA.getUserData() == "footBlue" || fixA.getUserData() == "footPink") {
+
 			Fixture foot = fixA.getUserData() == "foot" ? fixA : fixB;
 			Fixture object = foot == fixA ? fixB : fixA;
 			if(object.getUserData() != null && InteractiveTileObject.class.isAssignableFrom(object.getUserData().getClass())) {
@@ -33,27 +32,28 @@ public class WorldContactListener implements ContactListener {
 		
 		// check Blue  on the Flage
 		if(fixA.getUserData() == "footBlue" && fixB.getUserData() == "Flag") {
-			System.out.println("==========================================================");
-			CHECKBLUE = true;
+			setcheckBlue(true);
 		}
 		else if(fixA.getUserData() == "footBlue" && fixB.getUserData() != "Flag") {
-			System.out.println("###############################");
-			CHECKBLUE = false;
+			setcheckBlue(false);
 			
 		}
 		
 		// check Pink  on the Flage
 		if(fixA.getUserData() == "footPink" && fixB.getUserData() == "Flag") {
-			System.out.println("==========================================================");
-			CHECKPINK = true;
+			setcheckPink(true);
 			
 		}
 		else if(fixA.getUserData() == "footPink" && fixB.getUserData() != "Flag") {
-			System.out.println("###############################");
-			CHECKPINK = false;
+			setcheckPink(false);
 					
 		}
-		System.out.println("Pink : "+CHECKPINK + "Blue: "+ CHECKBLUE);
+
+		if((fixA.getUserData() == "footPink" || fixA.getUserData() == "footBlue") && fixB.getUserData() == "GameOver") {
+			setCheckGameOver(true);
+		}
+			
+		System.out.println("Pink : "+checkPink + "Blue: "+ checkBlue);
 
 		
 		
@@ -76,18 +76,28 @@ public class WorldContactListener implements ContactListener {
 		
 	}
 
-//	public boolean isCheckPink() {
-//		System.out.println(checkPink);
-//		return checkPink;
-//	}
+	public static boolean ischeckPink() {
+		return checkPink;
+	}
 
+	public static void setcheckPink(boolean checkPinks) {
+		checkPink = checkPinks;
+	}
 
-//	public boolean isCheckBlue() {
-//		System.out.println(checkBlue);
-//		return checkBlue;
-//	}
+	public static boolean ischeckBlue() {
+		return checkBlue;
+	}
 
+	public static void setcheckBlue(boolean checkBlues) {
+		checkBlue = checkBlues;
+	}
 
+	public static boolean isCheckGameOver() {
+		return checkGameOver;
+	}
 
+	public static void setCheckGameOver(boolean checkGameOver) {
+		WorldContactListener.checkGameOver = checkGameOver;
+	}
 
 }

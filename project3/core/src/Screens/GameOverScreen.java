@@ -1,83 +1,72 @@
-package State;
+package Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.Pyramid;
-//import com.badlogic.gdx.scenes.scene2d.ui.Button;
 
-public class Menu implements Screen{
-	
+import State.LevelSelect;
 
+public class GameOverScreen implements Screen {
 
 	private Texture background;
-	private Stage buttonStage;
-	private ImageButton playButton;
+	private SpriteBatch sb;
+	private Pyramid game;
 	
-	final Pyramid game;
-	public SpriteBatch sb;
-	public Menu(final Pyramid gsm) {
-		
-		
+	private Stage buttonStage;
+	
+	private ImageButton NextButton;
+
+	public GameOverScreen(Pyramid gsm) {
 		this.game = gsm;
+		
 		buttonStage = new Stage();
 		
-		Gdx.input.setInputProcessor(buttonStage);	
+		Gdx.input.setInputProcessor(buttonStage);
 		
-		background = new Texture("StartGame/GUI.png");
-		playButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("StartGame/start.png")))));
-		playButton.setBounds(40, 40, 200, 180);
-		playButton.addListener(new ClickListener()   {
+		background = new Texture("gameOverTest.png");
+		
+		NextButton = new ImageButton(
+				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("StartGame/right.png")))));
+		NextButton.setBounds((Pyramid.V_WIDTH / 2) - 100, 100, 50, 50);
+
+		
+		NextButton.addListener(new ClickListener() {
 			
-			public void clicked(InputEvent event  , float x , float y) {
-				Pyramid.manager.get("sounds/button2.wav", Sound.class).play();
-				super.clicked(event, x , y);
+			public void clicked(InputEvent event, float x, float y) {
+
+				super.clicked(event, x, y);
 				game.setScreen(new LevelSelect(game));
 			}
 		});
-		
-		buttonStage.addActor(playButton);
-		
-		//Play music
-				Pyramid.manager.get("music/music3.ogg", Music.class).play();
-	}
 
-
-
-	@Override
-	public void dispose() {
-		background.dispose();
+		buttonStage.addActor(NextButton);
 		
+
 	}
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
-		
-		sb = new SpriteBatch();
+		sb = new SpriteBatch();		
 	}
 
 	@Override
 	public void render(float delta) {
-		buttonStage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
-		
 		sb.begin();
 		sb.draw(background, 0, 0, Pyramid.V_WIDTH, Pyramid.V_HEIGHT);
 		sb.end();
 		
-		buttonStage.draw();
-		
+		buttonStage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
+		buttonStage.draw();		
 	}
-	
 
 	@Override
 	public void resize(int width, int height) {
@@ -101,5 +90,12 @@ public class Menu implements Screen{
 	public void hide() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void dispose() {
+		sb.dispose();
+		buttonStage.dispose();
+		background.dispose();		
 	}
 }

@@ -22,14 +22,15 @@ import com.mygdx.game.Pyramid;
 
 import Sprites.BluePlayer;
 import Sprites.PinkPlayer;
-import State.Menu;
-import Tools.B2WorldCreator;
 import State.LevelSelect;
+import Tools.B2WorldCreator;
 import Tools.WorldContactListener;
 
 public class PlayScreen implements Screen {
+	
+	private Texture background;
 	private Pyramid game;
-//	private LevelSelect game;
+	private GameOverScreen gameOverScreen;
 	Texture texture;
 	
 	// beer
@@ -56,16 +57,16 @@ public class PlayScreen implements Screen {
 	private B2WorldCreator b2WorldCreator;
 	
 	private float time;
-	private boolean enableSwitchColor;
 	
 	private Music music;
 	
+	private boolean enableSwitchColor;
 	public PlayScreen(Pyramid gsm) {
 		
 		atlas = new TextureAtlas("Animation/Player_Animation.pack");
 		
 		this.game = gsm;
-
+		
 		gameCam = new OrthographicCamera();
 		// create a FitViewport to maintain virtual aspect ratio despite screen
 		gamePort = new FitViewport(Pyramid.V_WIDTH/Pyramid.PPM, Pyramid.V_HEIGHT/Pyramid.PPM, gameCam);
@@ -81,7 +82,12 @@ public class PlayScreen implements Screen {
 		time = 0;
 		enableSwitchColor = true;
 		
+	
+		
+		
 		world = new World(new Vector2(0, -10), true);
+	
+		
 		// allows for debug lines of our box2d world
 		b2dr = new Box2DDebugRenderer();
 		
@@ -89,29 +95,28 @@ public class PlayScreen implements Screen {
 		
 		sb = new SpriteBatch();
 
-//		public void handleInput(float dt) {
-//
-//			// control our player using inmudiate impulse 
-//			if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-//				b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
-//			}
-//		}
 		
 		// create BluePlayer and PinkPlayer in our game world
 		bluePlayer = new BluePlayer(world, this);
 		pinkPlayer = new PinkPlayer(world, this);	
 		
+		// load music Game
 		music = Pyramid.manager.get("music/music1.ogg", Music.class);
 		music.setLooping(true);
 		music.play();
+
+		
 		
 		world.setContactListener(new WorldContactListener());
+		
+		
 		
 	}
 	
 	public TextureAtlas getAtlas() {
 		return atlas;
-		}
+	}
+	
 
 
 	@Override
@@ -126,8 +131,12 @@ public class PlayScreen implements Screen {
 		
 		if(enableSwitchColor) {
 			if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-				Pyramid.manager.get("sounds/shift.wav", Sound.class).play();
+				
+				Pyramid.manager.get("sounds/shift.wav", Sound.class);
+		
 				b2WorldCreator.switchColor();
+
+				
 				enableSwitchColor = false;
 			}
 		}
@@ -139,7 +148,6 @@ public class PlayScreen implements Screen {
 			else {
 				time += dt;
 			}
-			System.out.println(time);
 		}
 		
 		// handle user input first
@@ -151,13 +159,18 @@ public class PlayScreen implements Screen {
 			bluePlayer.handleInput(dt);
 		}
 		
-		world.step(1/60f, 6, 2);
-		//  check two player Stay on the Flag
 		
+		//  check two player Stay on the Flag
 		CheckNextLevel();
 		
+		// checking player don't on ground
+		CheckPlayerOnGround();
+		
+		
+		world.step(1/60f, 6, 2);
+		
 		pinkPlayer.update(dt);
-		bluePlayer.update(dt);
+		
 //		gameCam.position.x = playerPink.b2body.getPosition().x;
 		
 		
@@ -167,8 +180,12 @@ public class PlayScreen implements Screen {
 		
 		// tell our render to draw only what our camers can see in our game world.
 		tmr.setView(gameCam);
+		
+		
+		
 	}
 	
+
 	@Override
 	public void render(float delta) {
 		
@@ -189,14 +206,32 @@ public class PlayScreen implements Screen {
 		game.sb.setProjectionMatrix(gameCam.combined);
 		game.sb.begin();
 		pinkPlayer.draw(game.sb);
-		bluePlayer.draw(game.sb);
 		game.sb.end();
 		
 		
-//		System.out.println(pinkPlayer.b2body.getPosition());
-//		sb.begin();
-//		sb.draw(pinkPlayer.getFramePink(delta), (pinkPlayer. b2body.getPosition().x*Pyramid.PPM) -25, (pinkPlayer. b2body.getPosition().y*Pyramid.PPM)-15 , 50, 50);
-//		sb.end();
+		
+	}
+	
+	public void CheckNextLevel() {
+		System.out.println(WorldContactListener.checkPink);
+		System.out.println(WorldContactListener.checkBlue);
+		// check Next Stage
+		if(WorldContactListener.ischeckPink() == true && WorldContactListener.ischeckBlue() == true) {
+			
+			WorldContactListener.setcheckPink(false);
+			WorldContactListener.setcheckBlue(false);
+
+				game.setScreen(new LevelSelect(game));
+		}
+	}
+	
+	private void CheckPlayerOnGround() {
+		
+		// check GameOver
+				if(WorldContactListener.isCheckGameOver() == true) {
+					WorldContactListener.setCheckGameOver(false);
+					game.setScreen(new GameOverScreen(game));
+				}
 		
 	}
 
@@ -233,20 +268,11 @@ public class PlayScreen implements Screen {
 		tmr.dispose();
 		world.dispose();
 		b2dr.dispose();
-//		hud.dispose();
+		background.dispose();
 		
 	}
 	
-	public void CheckNextLevel() {
-		System.out.println(WorldContactListener.CHECKPINK);
-		System.out.println(WorldContactListener.CHECKBLUE);
-		// check Next Stage
-		if(WorldContactListener.CHECKPINK == true && WorldContactListener.CHECKBLUE == true) {
-			System.out.println("worldContactListener.checkPink == true");
 
-				game.setScreen(new LevelSelect(game));
-		}
-	}
 	
 
 }

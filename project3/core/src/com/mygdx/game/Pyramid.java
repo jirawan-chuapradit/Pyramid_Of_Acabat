@@ -23,7 +23,6 @@ public class Pyramid extends Game {
 	private Texture img;
 	
 	public static Content res;
-	
 	//music
 	public static AssetManager manager;
 	
@@ -31,9 +30,8 @@ public class Pyramid extends Game {
 		
 	}
 	
-	
 	@Override
-	public void create () {
+public void create () {
 		
 		sb = new SpriteBatch();	
 		
@@ -61,7 +59,6 @@ public class Pyramid extends Game {
 		
 		
 	}
-
 	@Override
 	public void render () {
 		super.render();

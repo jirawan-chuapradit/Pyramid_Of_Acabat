@@ -11,8 +11,10 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+
 import Sprites.BlueBlock;
 import Sprites.Flag;
+import Sprites.GameOver;
 import Sprites.GroundBlock;
 import Sprites.PinkBlock;
 
@@ -22,6 +24,7 @@ public class B2WorldCreator {
 	private ArrayList<BlueBlock> blueBlocks;
 	private ArrayList<PinkBlock> pinkBlocks;
 	private ArrayList<GroundBlock> groundBlock;
+	private ArrayList<GameOver> gameOver;
 	private ArrayList<Flag> flag;
 	
 	public B2WorldCreator(World world, TiledMap map) {	
@@ -30,14 +33,16 @@ public class B2WorldCreator {
 		blueBlocks = new ArrayList<BlueBlock>();
 		pinkBlocks = new ArrayList<PinkBlock>();
 		groundBlock = new ArrayList<GroundBlock>();
+		gameOver = new ArrayList<GameOver>();
 		flag = new ArrayList<Flag>();
 		BodyDef bdef = new BodyDef();
 		PolygonShape shape = new PolygonShape();
 		FixtureDef fdef = new FixtureDef();
-		Body body;	
+		Body body;
+		
+		
 		
 		// create ground bodies/fixtures
-		// playerPink
 		for(MapObject object: map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
 			
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();
@@ -57,7 +62,7 @@ public class B2WorldCreator {
 		// create PinkBlock bodies / fixtures
 		for(MapObject object: map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();	
-			//เธขเธฑเธ�เน�เธกเน�เธ”เน�เน€เธ�เธตเธขเธ�เน�เธซเน�เน€เธซเธขเธตเธขเธ�เน�เธ”เน� เน�เธ�เธ”เธนเธ—เธตเน� sprite PinkBlock เธ�เธฑเธ� bLueBlock เธชเธด
+			//ยังไมได้เขียนให้เหยียบได้ ไปดูที่ sprite PinkBlock กับ bLueBlock สิ
 			
 			pinkBlocks.add(new PinkBlock(world, map, rect));
 		}
@@ -69,10 +74,12 @@ public class B2WorldCreator {
 			flag.add(new Flag(world, map, rect));
 		}
 		
-		// disable pink block because blue player start first
-//		for(PinkBlock pink: pinkBlocks) {
-//			pink.switchState();			
-//		}
+		// crate gameOver bodies / fixtures
+				for(MapObject object: map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)) {
+					Rectangle rect = ((RectangleMapObject) object).getRectangle();
+					
+					gameOver.add(new GameOver(world, map, rect));
+				}
 		
 	}
 	
