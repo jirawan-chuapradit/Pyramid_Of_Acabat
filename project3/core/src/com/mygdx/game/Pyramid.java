@@ -52,7 +52,6 @@ public class Pyramid extends Game {
 		
 		Gdx.gl.glClearColor(0, 1, 0, 1);
 		this.setScreen(new Menu(this));
-		
 	
 		
 		

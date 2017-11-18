@@ -1,0 +1,12 @@
+
+bluePlayer_test2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+manwalk
+  rotate: false
+  xy: 1, 1
+  size: 160, 60
+  orig: 160, 60
+  offset: 0, 0
+  index: -1

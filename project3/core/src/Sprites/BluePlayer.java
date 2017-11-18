@@ -42,7 +42,7 @@ public class BluePlayer extends Sprite {
 	private Array<TextureRegion> playerRunLeft = new Array<TextureRegion>();
 
 	public BluePlayer(World world, PlayScreen screen) {
-		super(screen.getAtlas().findRegion("bluePlayer"));
+		super(screen.getAtlas().findRegion("pink_test"));
 		this.world = world;
 		
 		currentState = State.STANDING;
@@ -55,7 +55,7 @@ public class BluePlayer extends Sprite {
 		
 		defineBluePlayer();
 		
-		setBounds(0, 0, 50 / Pyramid.PPM, 65 / Pyramid.PPM);
+		setBounds(0, 0, 40 / Pyramid.PPM, 60 / Pyramid.PPM);
 	}
 
 	public enum State {
@@ -69,14 +69,14 @@ public class BluePlayer extends Sprite {
 
 	public void state() {
 		if (runningRight == true) {
-			for (int i = 0; i < 2; i++) {
-				playerStandRight.add(new TextureRegion(getTexture(),500 + (i * 54), 140, 55, 92));
+			for (int i = 0; i < 4; i++) {
+				playerStandRight.add(new TextureRegion(getTexture(),(i * 40), 0, 40, 60));
 			}
-			bluePlayerStand = new Animation(1f, playerStandRight);
+			bluePlayerStand = new Animation(0.1f, playerStandRight);
 			playerStandRight.clear();
 			if (stateRunRight==true) {
 				for (int i = 1; i < 7; i++) {
-					playerRunRight.add(new TextureRegion(getTexture(),500 + (i * 54), 332, 55, 92));
+					playerRunRight.add(new TextureRegion(getTexture(),502 + (i * 54), 332, 55, 92));
 				}
 				bluePlayerRunRight = new Animation(0.1f, playerRunRight);
 				playerRunRight.clear();
@@ -91,7 +91,7 @@ public class BluePlayer extends Sprite {
 			runningRight = true;
 			if (stateRunRight==false) {
 				for (int i = 1; i < 7; i++) {
-					playerRunLeft.add(new TextureRegion(getTexture(),502 + (i * 54), 240, 55, 92));
+					playerRunLeft.add(new TextureRegion(getTexture(),504 + (i * 54), 240, 55, 92));
 				}
 				bluePlayerRunRight = new Animation(0.1f, playerRunLeft);
 				playerRunRight.clear();

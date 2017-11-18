@@ -13,6 +13,8 @@ public class Flag extends InteractiveTileObject{
 
 	private Fixture fixture;
 
+	public static float posision_flag;
+	
 	public Flag(World world, TiledMap map, Rectangle bounds) {
 		super(world, map, bounds);
 		BodyDef bdef = new BodyDef();
@@ -21,7 +23,8 @@ public class Flag extends InteractiveTileObject{
 		
 		bdef.type = BodyDef.BodyType.StaticBody;
 		bdef.position.set((bounds.getX() + bounds.getWidth() / 2) / Pyramid.PPM, (bounds.getY() + bounds.getHeight() / 2) / Pyramid.PPM);
-		
+		System.out.println((bounds.getX() + bounds.getWidth() / 2) / Pyramid.PPM);
+		posision_flag = (bounds.getX() + bounds.getWidth() / 2) / Pyramid.PPM;
 		body = world.createBody(bdef);
 		
 		shape.setAsBox(bounds.getWidth() / 2 / Pyramid.PPM, bounds.getHeight() / 2 / Pyramid.PPM);

@@ -41,10 +41,12 @@ public class PinkPlayer extends Sprite{
 	private Array<TextureRegion> playerRunRight = new Array<TextureRegion>();
 	private Array<TextureRegion> playerRunLeft = new Array<TextureRegion>();
 	
+	private float check_posision;
+	public static int count;
 	
 	public PinkPlayer(World world,  PlayScreen screen) {
 		
-		super(screen.getAtlas().findRegion("pinkPlayer"));
+		super(screen.getAtlas().findRegion("pink_test"));
 		this.world = world;
 		
 		currentState = State.STANDING;
@@ -52,12 +54,12 @@ public class PinkPlayer extends Sprite{
 		stateTimer = 0;
 		runningRight = true;
 		stateRunRight = true;
-
+		
 		state();
 		
 		definePinkPlayer();
 		
-		setBounds(0, 0, 50 / Pyramid.PPM, 65 / Pyramid.PPM);	
+		setBounds(0, 0, 50 / Pyramid.PPM, 80 / Pyramid.PPM);	
 	}
 	
 	public enum State {
@@ -66,16 +68,22 @@ public class PinkPlayer extends Sprite{
 	
 	public void update(float dt) {
 		setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 3);
+		//System.out.println(b2body.getPosition().x);
 		setRegion(getFrame(dt));
+		check_posision = Flag.posision_flag;
+		if (check_posision - b2body.getPosition().x <= 0.25 && check_posision - b2body.getPosition().x >= -0.25) {
+			count=1;
+		}
 	}
 
 	public void state() {
 		if (runningRight == true) {
-			for (int i = 2; i < 4; i++) {
-				playerStandRight.add(new TextureRegion(getTexture(),(i * 54), 226, 55, 92));
+			for (int i = 0; i < 5; i++) {
+				playerStandRight.add(new TextureRegion(getTexture(),(i * 59), 190, 65, 95));
 			}
 			pinkPlayerStand = new Animation(1f, playerStandRight);
 			playerStandRight.clear();
+			
 			if (stateRunRight==true) {
 				for (int i = 1; i < 7; i++) {
 					playerRunRight.add(new TextureRegion(getTexture(),(i * 54), 521, 55, 92));
@@ -85,8 +93,8 @@ public class PinkPlayer extends Sprite{
 			}
 		}
 		else {
-			for (int i = 0; i < 2; i++) {
-				playerStandLeft.add(new TextureRegion(getTexture(),(i * 54), 226, 55, 92));
+			for (int i = 0; i < 5; i++) {
+				playerStandLeft.add(new TextureRegion(getTexture(),(i * 59), 190, 65, 95));
 			}
 			pinkPlayerStand = new Animation(1f, playerStandLeft);
 			playerStandLeft.clear();

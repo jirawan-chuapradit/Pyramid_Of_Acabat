@@ -22,6 +22,7 @@ import com.mygdx.game.Pyramid;
 
 import Sprites.BluePlayer;
 import Sprites.PinkPlayer;
+import State.Menu;
 import Tools.B2WorldCreator;
 
 public class PlayScreen implements Screen {
@@ -58,7 +59,7 @@ public class PlayScreen implements Screen {
 	
 	public PlayScreen(Pyramid game) {
 		
-		atlas = new TextureAtlas("Animation/Player_Animation.pack");
+		atlas = new TextureAtlas("Animation/pinkPlayer_test.pack");
 		
 		this.game = game;
 		
@@ -165,7 +166,11 @@ public class PlayScreen implements Screen {
 		
 		// tell our render to draw only what our camers can see in our game world.
 		tmr.setView(gameCam);
-		
+		if(PinkPlayer.count == 1) {
+			PinkPlayer.count = 0;
+			music.stop();
+			this.game.setScreen(new Menu(this.game));
+		}
 	}
 	
 	@Override
