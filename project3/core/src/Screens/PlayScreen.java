@@ -132,11 +132,10 @@ public class PlayScreen implements Screen {
 		if(enableSwitchColor) {
 			if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
 				
-				Pyramid.manager.get("sounds/shift.wav", Sound.class);
-		
+				Pyramid.manager.get("sounds/shift.wav", Sound.class).play();
+				
 				b2WorldCreator.switchColor();
 
-				
 				enableSwitchColor = false;
 			}
 		}
