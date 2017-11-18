@@ -1,12 +1,13 @@
 package com.mygdx.game;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
-import com.Screens.PlayScreen;
-import com.Sprites.BluePlayer;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import State.Menu;
+import handles.Content;
 
 public class Pyramid extends Game {
 	
@@ -16,10 +17,22 @@ public class Pyramid extends Game {
 	
 	public SpriteBatch sb;
 	
+	private Texture img;
+	
+	public static Content res;
+	public Pyramid() {
+		
+	}
+	
+	
 	@Override
 	public void create () {
+		
 		sb = new SpriteBatch();
-		setScreen(new PlayScreen(this));
+		Gdx.gl.glClearColor(0, 1, 0, 1);
+		this.setScreen(new Menu(this));
+		
+
 		
 		
 	}
@@ -28,11 +41,13 @@ public class Pyramid extends Game {
 	public void render () {
 		super.render();
 		
-		
+		Gdx.gl.glClearColor(1, 0, 0, 1);
 	}
 	
 	@Override
 	public void dispose () {
+
+		sb.dispose();
 
 	}
 	
