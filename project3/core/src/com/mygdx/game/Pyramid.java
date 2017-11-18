@@ -3,9 +3,12 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+<<<<<<< HEAD
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+=======
+>>>>>>> Beer
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -23,10 +26,13 @@ public class Pyramid extends Game {
 	private Texture img;
 	
 	public static Content res;
+<<<<<<< HEAD
 	
 	//music
 	public static AssetManager manager;
 	
+=======
+>>>>>>> Beer
 	public Pyramid() {
 		
 	}
@@ -35,6 +41,7 @@ public class Pyramid extends Game {
 	@Override
 	public void create () {
 		
+<<<<<<< HEAD
 		sb = new SpriteBatch();	
 		
 		//set music
@@ -54,6 +61,13 @@ public class Pyramid extends Game {
 		this.setScreen(new Menu(this));
 		
 	
+=======
+		sb = new SpriteBatch();
+		Gdx.gl.glClearColor(0, 1, 0, 1);
+		this.setScreen(new Menu(this));
+		
+
+>>>>>>> Beer
 		
 		
 	}

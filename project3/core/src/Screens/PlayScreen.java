@@ -22,10 +22,17 @@ import com.mygdx.game.Pyramid;
 
 import Sprites.BluePlayer;
 import Sprites.PinkPlayer;
+<<<<<<< HEAD:project3/core/src/Screens/PlayScreen.java
 import Tools.B2WorldCreator;
+=======
+import State.LevelSelect;
+import Tools.B2WorldCreator;
+import Tools.WorldContactListener;
+>>>>>>> Beer:project3/core/src/Screens/PlayScreen.java
 
 public class PlayScreen implements Screen {
 	private Pyramid game;
+//	private LevelSelect game;
 	Texture texture;
 	
 	// beer
@@ -48,11 +55,12 @@ public class PlayScreen implements Screen {
 	
 	private BluePlayer bluePlayer;
 	private PinkPlayer pinkPlayer;
-
+	
 	private B2WorldCreator b2WorldCreator;
 	
 	private float time;
 	private boolean enableSwitchColor;
+<<<<<<< HEAD:project3/core/src/Screens/PlayScreen.java
 	
 	private Music music;
 	
@@ -62,13 +70,25 @@ public class PlayScreen implements Screen {
 		
 		this.game = game;
 		
+=======
+	public PlayScreen(Pyramid gsm) {
+		
+		atlas = new TextureAtlas("Animation/Player_Animation.pack");
+		
+		this.game = gsm;
+		
+>>>>>>> Beer:project3/core/src/Screens/PlayScreen.java
 		gameCam = new OrthographicCamera();
 		// create a FitViewport to maintain virtual aspect ratio despite screen
 		gamePort = new FitViewport(Pyramid.V_WIDTH/Pyramid.PPM, Pyramid.V_HEIGHT/Pyramid.PPM, gameCam);
 		
 		// load our map and setup our map renderer
 		maploader = new TmxMapLoader();
+<<<<<<< HEAD:project3/core/src/Screens/PlayScreen.java
 		map = maploader.load("Map/level3.tmx");
+=======
+		map = maploader.load("Map/level5.tmx");
+>>>>>>> Beer:project3/core/src/Screens/PlayScreen.java
 		tmr = new OrthogonalTiledMapRenderer(map, 1 /Pyramid.PPM);
 		
 		// initially set our gamcam to be centered correctly at the start of of map
@@ -77,6 +97,7 @@ public class PlayScreen implements Screen {
 		time = 0;
 		enableSwitchColor = true;
 		
+	
 		
 		world = new World(new Vector2(0, -10), true);
 		// allows for debug lines of our box2d world
@@ -85,7 +106,9 @@ public class PlayScreen implements Screen {
 		b2WorldCreator = new B2WorldCreator(world, map);
 		
 		sb = new SpriteBatch();
+
 		
+<<<<<<< HEAD:project3/core/src/Screens/PlayScreen.java
 //		public void handleInput(float dt) {
 //
 //			// control our player using inmudiate impulse 
@@ -101,13 +124,24 @@ public class PlayScreen implements Screen {
 		music = Pyramid.manager.get("music/music1.ogg", Music.class);
 		music.setLooping(true);
 		music.play();
+=======
+		// create BluePlayer and PinkPlayer in our game world
+		bluePlayer = new BluePlayer(world);
+		pinkPlayer = new PinkPlayer(world, this);	
 		
-//		pinkPlayer.switchTypePlayer();
+		world.setContactListener(new WorldContactListener());
+		
+>>>>>>> Beer:project3/core/src/Screens/PlayScreen.java
+		
 	}
 	
 	public TextureAtlas getAtlas() {
 		return atlas;
 	}
+<<<<<<< HEAD:project3/core/src/Screens/PlayScreen.java
+=======
+	
+>>>>>>> Beer:project3/core/src/Screens/PlayScreen.java
 
 
 	@Override
@@ -122,8 +156,12 @@ public class PlayScreen implements Screen {
 		
 		if(enableSwitchColor) {
 			if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+<<<<<<< HEAD:project3/core/src/Screens/PlayScreen.java
 				Pyramid.manager.get("sounds/shift.wav", Sound.class).play();
 				
+=======
+		
+>>>>>>> Beer:project3/core/src/Screens/PlayScreen.java
 				b2WorldCreator.switchColor();
 
 				
@@ -151,8 +189,20 @@ public class PlayScreen implements Screen {
 		}
 		
 		
+<<<<<<< HEAD:project3/core/src/Screens/PlayScreen.java
 		
 		world.step(1/60f, 6, 2);
+=======
+		//  check two player Stay on the Flag
+		
+		CheckNextLevel();
+		
+		
+		
+		world.step(1/60f, 6, 2);
+		
+		pinkPlayer.update(dt);
+>>>>>>> Beer:project3/core/src/Screens/PlayScreen.java
 		
 		pinkPlayer.update(dt);
 		bluePlayer.update(dt);
@@ -165,6 +215,8 @@ public class PlayScreen implements Screen {
 		
 		// tell our render to draw only what our camers can see in our game world.
 		tmr.setView(gameCam);
+		
+		
 		
 	}
 	
@@ -188,7 +240,10 @@ public class PlayScreen implements Screen {
 		game.sb.setProjectionMatrix(gameCam.combined);
 		game.sb.begin();
 		pinkPlayer.draw(game.sb);
+<<<<<<< HEAD:project3/core/src/Screens/PlayScreen.java
 		bluePlayer.draw(game.sb);
+=======
+>>>>>>> Beer:project3/core/src/Screens/PlayScreen.java
 		game.sb.end();
 		
 		
@@ -234,6 +289,17 @@ public class PlayScreen implements Screen {
 		b2dr.dispose();
 //		hud.dispose();
 		
+	}
+	
+	public void CheckNextLevel() {
+		System.out.println(WorldContactListener.CHECKPINK);
+		System.out.println(WorldContactListener.CHECKBLUE);
+		// check Next Stage
+		if(WorldContactListener.CHECKPINK == true && WorldContactListener.CHECKBLUE == true) {
+			System.out.println("worldContactListener.checkPink == true");
+
+				game.setScreen(new LevelSelect(game));
+		}
 	}
 	
 

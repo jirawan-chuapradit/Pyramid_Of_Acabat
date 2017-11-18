@@ -1,9 +1,18 @@
 package State;
 
+<<<<<<< HEAD
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+=======
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+>>>>>>> Beer
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -24,20 +33,33 @@ public class Menu implements Screen{
 	private Texture background;
 	private Stage buttonStage;
 	private ImageButton playButton;
+<<<<<<< HEAD
 	final Pyramid game;
 	SpriteBatch sb;
+=======
+	
+	final Pyramid game;
+	public SpriteBatch sb;
+>>>>>>> Beer
 	public Menu(final Pyramid gsm) {
 		
 		
 		this.game = gsm;
 		buttonStage = new Stage();
+<<<<<<< HEAD
 		Gdx.input.setInputProcessor(buttonStage);	
+=======
+		
+		Gdx.input.setInputProcessor(buttonStage);	
+		
+>>>>>>> Beer
 		background = new Texture("menu.jpg");
 		playButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("playButton.png")))));
 		playButton.setBounds((Pyramid.V_WIDTH/2) - 50, 100, 100, 100);
 		playButton.addListener(new ClickListener()   {
 			
 			public void clicked(InputEvent event  , float x , float y) {
+<<<<<<< HEAD
 				//Stop music
 				Pyramid.manager.get("music/music3.ogg", Music.class).stop();
 				
@@ -46,18 +68,31 @@ public class Menu implements Screen{
 				super.clicked(event, x , y);
 				game.setScreen(new PlayScreen(game));
 				
+=======
+				
+				super.clicked(event, x , y);
+				game.setScreen(new LevelSelect(game));
+//				game.setScreen(new PlayScreen(game));
+>>>>>>> Beer
 			}
 		});
 		
 		buttonStage.addActor(playButton);
+<<<<<<< HEAD
 		//Play music
 		Pyramid.manager.get("music/music3.ogg", Music.class).play();
+=======
+		
+>>>>>>> Beer
 	}
 
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> Beer
 	@Override
 	public void dispose() {
 		background.dispose();
@@ -82,6 +117,10 @@ public class Menu implements Screen{
 		buttonStage.draw();
 		
 	}
+<<<<<<< HEAD
+=======
+	
+>>>>>>> Beer
 
 	@Override
 	public void resize(int width, int height) {
