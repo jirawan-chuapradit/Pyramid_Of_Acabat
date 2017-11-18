@@ -3,18 +3,22 @@ package Sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Pyramid;
 
+import Screens.PlayScreen;
 import Tools.B2WorldCreator;
 
 public class BluePlayer extends Sprite{
@@ -23,10 +27,110 @@ public class BluePlayer extends Sprite{
 	public Body b2body;
 	private B2WorldCreator b2WorldCreator;
 	public int currentColorBlue = 1;
+
+	// animation --- beer
+	public State currentState;
+	public State previousState;
+	private Animation bluePlayerRunRight;
+	private float stateTimer;
+	private boolean runningRight;
+	private boolean stateRunRight;
+	private Animation bluePlayerStand;
+	private Array<TextureRegion> playerStandRight = new Array<TextureRegion>();
+	private Array<TextureRegion> playerStandLeft = new Array<TextureRegion>();
+	private Array<TextureRegion> playerRunRight = new Array<TextureRegion>();
+	private Array<TextureRegion> playerRunLeft = new Array<TextureRegion>();
+
+	public BluePlayer(World world, PlayScreen screen) {
+		super(screen.getAtlas().findRegion("pink_test"));
+	}
+
 	
 	public BluePlayer(World world) {
 		this.world = world;
 		defineBluePlayer();
+		
+		setBounds(0, 0, 40 / Pyramid.PPM, 60 / Pyramid.PPM);
+	}
+
+	public enum State {
+		STANDING, RUNNING
+	};
+	
+	public void update(float dt) {
+		setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 3);
+		setRegion(getFrame(dt));
+	}
+
+	public void state() {
+		if (runningRight == true) {
+			for (int i = 0; i < 4; i++) {
+				playerStandRight.add(new TextureRegion(getTexture(),(i * 40), 0, 40, 60));
+			}
+			bluePlayerStand = new Animation(0.1f, playerStandRight);
+			playerStandRight.clear();
+			if (stateRunRight==true) {
+				for (int i = 1; i < 7; i++) {
+					playerRunRight.add(new TextureRegion(getTexture(),502 + (i * 54), 332, 55, 92));
+				}
+				bluePlayerRunRight = new Animation(0.1f, playerRunRight);
+				playerRunRight.clear();
+			}
+		}
+		else {
+			for (int i = 0; i < 2; i++) {
+				playerStandLeft.add(new TextureRegion(getTexture(),500 + (i * 54), 48, 55, 92));
+			}
+			bluePlayerStand = new Animation(1f, playerStandLeft);
+			playerStandLeft.clear();
+			runningRight = true;
+			if (stateRunRight==false) {
+				for (int i = 1; i < 7; i++) {
+					playerRunLeft.add(new TextureRegion(getTexture(),504 + (i * 54), 240, 55, 92));
+				}
+				bluePlayerRunRight = new Animation(0.1f, playerRunLeft);
+				playerRunRight.clear();
+			}
+			stateRunRight = true;
+		}
+	}
+	
+	public TextureRegion getFrame(float dt) {
+		currentState = getState();
+		
+		TextureRegion region;
+		switch (currentState) {
+			case RUNNING:
+				region = (TextureRegion) bluePlayerRunRight.getKeyFrame(stateTimer, true);
+				break;
+			case STANDING:
+				default:
+					region = (TextureRegion) bluePlayerStand.getKeyFrame(stateTimer, true);
+					break;
+		}
+		if (b2body.getLinearVelocity().x < 0 || !(runningRight) || !(stateRunRight)) {
+//			region.flip(true, false);
+			runningRight = false;
+			stateRunRight = false;
+			state();
+		}
+		else if (b2body.getLinearVelocity().x > 0) {
+//			region.flip(true, false);
+			runningRight = true;
+			stateRunRight = true;
+			state();
+		}
+		
+		stateTimer = currentState == previousState ? stateTimer + dt : 0;
+		previousState = currentState;
+		return region;
+	}
+	
+	public State getState() {
+		if (b2body.getLinearVelocity().x != 0)
+			return State.RUNNING;
+		else
+			return State.STANDING;
 	}
 	
 	private void defineBluePlayer() {

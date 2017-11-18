@@ -11,14 +11,9 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.Pyramid;
-
 import Sprites.BlueBlock;
 import Sprites.Flag;
-<<<<<<< HEAD:project3/core/src/Tools/B2WorldCreator.java
-=======
 import Sprites.GroundBlock;
->>>>>>> Beer:project3/core/src/Tools/B2WorldCreator.java
 import Sprites.PinkBlock;
 
 public class B2WorldCreator {
@@ -26,10 +21,7 @@ public class B2WorldCreator {
 	private int currentColor;
 	private ArrayList<BlueBlock> blueBlocks;
 	private ArrayList<PinkBlock> pinkBlocks;
-<<<<<<< HEAD:project3/core/src/Tools/B2WorldCreator.java
-=======
 	private ArrayList<GroundBlock> groundBlock;
->>>>>>> Beer:project3/core/src/Tools/B2WorldCreator.java
 	private ArrayList<Flag> flag;
 	
 	public B2WorldCreator(World world, TiledMap map) {	
@@ -37,23 +29,15 @@ public class B2WorldCreator {
 		
 		blueBlocks = new ArrayList<BlueBlock>();
 		pinkBlocks = new ArrayList<PinkBlock>();
-<<<<<<< HEAD:project3/core/src/Tools/B2WorldCreator.java
-=======
 		groundBlock = new ArrayList<GroundBlock>();
->>>>>>> Beer:project3/core/src/Tools/B2WorldCreator.java
 		flag = new ArrayList<Flag>();
 		BodyDef bdef = new BodyDef();
 		PolygonShape shape = new PolygonShape();
 		FixtureDef fdef = new FixtureDef();
-		Body body;
-		
-		
+		Body body;	
 		
 		// create ground bodies/fixtures
-<<<<<<< HEAD:project3/core/src/Tools/B2WorldCreator.java
 		// playerPink
-=======
->>>>>>> Beer:project3/core/src/Tools/B2WorldCreator.java
 		for(MapObject object: map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
 			
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();
@@ -73,7 +57,7 @@ public class B2WorldCreator {
 		// create PinkBlock bodies / fixtures
 		for(MapObject object: map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();	
-			//ยังไมได้เขียนให้เหยียบได้ ไปดูที่ sprite PinkBlock กับ bLueBlock สิ
+			//เธขเธฑเธ�เน�เธกเน�เธ”เน�เน€เธ�เธตเธขเธ�เน�เธซเน�เน€เธซเธขเธตเธขเธ�เน�เธ”เน� เน�เธ�เธ”เธนเธ—เธตเน� sprite PinkBlock เธ�เธฑเธ� bLueBlock เธชเธด
 			
 			pinkBlocks.add(new PinkBlock(world, map, rect));
 		}
@@ -82,12 +66,7 @@ public class B2WorldCreator {
 		for(MapObject object: map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)) {
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();
 			
-<<<<<<< HEAD:project3/core/src/Tools/B2WorldCreator.java
-			flag.add(new Flag(world, map, rect))
-			;
-=======
 			flag.add(new Flag(world, map, rect));
->>>>>>> Beer:project3/core/src/Tools/B2WorldCreator.java
 		}
 		
 		// disable pink block because blue player start first
