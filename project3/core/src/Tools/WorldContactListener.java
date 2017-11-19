@@ -63,17 +63,22 @@ public class WorldContactListener implements ContactListener {
 		if((fixA.getUserData() == "footPink" || fixA.getUserData() == "footBlue") && fixB.getUserData() == "GameOver") {
 			setCheckGameOver(true);
 		}
-			
-		System.out.println("Pink : "+checkPink + "Blue: "+ checkBlue);
-		System.out.println("A:" + fixA.getUserData() + " B: "+ fixB.getUserData());
-
-		if((fixA.getUserData() == "footPink" || fixA.getUserData() == "footBlue") && fixB.getUserData() == "Thorn") {
+		else if((fixA.getUserData() == "footPink" || fixA.getUserData() == "footBlue") && fixB.getUserData() == "Thorn") {
 			setCheckHitHealth(true);
 			System.out.println(checkHitHealth);
+		}
+		else if((fixB.getUserData() == "footPink" || fixB.getUserData() == "footBlue") && fixB.getUserData() == "Thorn") {
+			
 		}
 		else {
 			setCheckHitHealth(false);
 		}
+			
+		System.out.println("Pink : "+checkPink + "Blue: "+ checkBlue);
+		System.out.println("A:" + fixA.getUserData() + " B: "+ fixB.getUserData());
+
+		// player hit Thorn
+		
 		
 		
 	}

@@ -2,6 +2,7 @@ package Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,6 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Pyramid;
 
 import State.LevelSelect;
@@ -21,12 +24,22 @@ public class GameOverScreen implements Screen {
 	private SpriteBatch sb;
 	private Pyramid game;
 	
+	private OrthographicCamera gameCam;
+	private Viewport gamePort;
+	
 	private Stage buttonStage;
 	
 	private ImageButton NextButton;
 
 	public GameOverScreen(Pyramid gsm) {
 		this.game = gsm;
+		
+		gameCam = new OrthographicCamera();
+		// create a FitViewport to maintain virtual aspect ratio despite screen
+		gamePort = new FitViewport(Pyramid.V_WIDTH / Pyramid.PPM, Pyramid.V_HEIGHT / Pyramid.PPM, gameCam);
+		
+		// initially set our gamcam to be centered correctly at the start of of map
+				gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 		
 		buttonStage = new Stage();
 		
@@ -51,6 +64,12 @@ public class GameOverScreen implements Screen {
 
 		buttonStage.addActor(NextButton);
 		
+
+	}
+	
+	public void update(float dt) {
+		// update our gamecam with correct coordinates after changes.
+				gameCam.update();
 
 	}
 

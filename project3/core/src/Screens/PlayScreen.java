@@ -62,6 +62,9 @@ public class PlayScreen implements Screen {
 
 	private BluePlayer bluePlayer;
 	private PinkPlayer pinkPlayer;
+	
+	private ImageButton clockButton;
+	private ImageButton hpButton;
 
 	private B2WorldCreator b2WorldCreator;
 	
@@ -98,13 +101,27 @@ public class PlayScreen implements Screen {
 		enableSwitchColor = true;
 
 		world = new World(new Vector2(0, -10), true);
+		
+		// Create Icon
+		// HP Button
+		hpButton = new ImageButton(new TextureRegionDrawable(
+				new TextureRegion(new Texture(Gdx.files.internal("StartGame/health3.png")))
+						));
+		hpButton.setBounds(20, 700, 5, 20);
+		
+		// Clock Icon
+		clockButton = new ImageButton(new TextureRegionDrawable(
+				new TextureRegion(new Texture(Gdx.files.internal("StartGame/clock.png")))
+				));
+		hpButton.setBounds(1000, 1200, 100, 25);
+
 
 		// buttonStage
 		Gdx.input.setInputProcessor(buttonStage);
 		levelStage = new ImageButton(new TextureRegionDrawable(
 				new TextureRegion(new Texture(Gdx.files.internal("StartGame/level-stage.png")))));
 		levelStage.setBounds(0, 0, 125, 100);
-
+		
 		levelStage.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				keep_count = 0;
@@ -114,8 +131,12 @@ public class PlayScreen implements Screen {
 				game.setScreen(new LevelSelect(game));
 			}
 		});
+		
 		buttonStage.addActor(levelStage);
-
+		buttonStage.addActor(hpButton);
+		buttonStage.addActor(clockButton);
+		
+		
 		// allows for debug lines of our box2d world
 		b2dr = new Box2DDebugRenderer();
 
@@ -124,6 +145,7 @@ public class PlayScreen implements Screen {
 		sb = new SpriteBatch();
 
 		hud = new Hud();
+		
 		// create BluePlayer and PinkPlayer in our game world
 		bluePlayer = new BluePlayer(world, this);
 		pinkPlayer = new PinkPlayer(world, this);
@@ -203,6 +225,29 @@ public class PlayScreen implements Screen {
 
 		// tell our render to draw only what our camers can see in our game world.
 		tmr.setView(gameCam);
+		
+		
+		if(Hud.health == 2) {
+			hpButton = new ImageButton(new TextureRegionDrawable(
+					new TextureRegion(new Texture(Gdx.files.internal("StartGame/health2.png")))
+							));
+			
+		}
+		else if(Hud.health == 1) {
+			hpButton = new ImageButton(new TextureRegionDrawable(
+					new TextureRegion(new Texture(Gdx.files.internal("StartGame/health1.png")))
+					));
+		}
+		else if(Hud.health == 0)
+		{
+			hpButton = new ImageButton(new TextureRegionDrawable(
+					new TextureRegion(new Texture(Gdx.files.internal("StartGame/health0.png")))
+					));
+		
+		}
+		
+		hpButton.setBounds(500, Pyramid.PPM, 400, 100);
+		buttonStage.addActor(hpButton);
 
 	}
 

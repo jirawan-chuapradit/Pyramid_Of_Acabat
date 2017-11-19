@@ -45,6 +45,7 @@ public class Menu implements Screen{
 		startButton = new ImageButton(new TextureRegionDrawable(
 				new TextureRegion(new Texture(Gdx.files.internal("StartGame/start.png")))
 				));
+		
 		startButton.setBounds(100, 0, 240, 220);
 		startButton.addListener(new ClickListener()   {
 			
