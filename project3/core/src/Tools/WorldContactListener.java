@@ -22,7 +22,6 @@ public class WorldContactListener implements ContactListener {
 		Fixture fixB = contact.getFixtureB();
 		
 		if(fixA.getUserData() == "footBlue" || fixA.getUserData() == "footPink") {
-
 			Fixture foot = fixA.getUserData() == "foot" ? fixA : fixB;
 			Fixture object = foot == fixA ? fixB : fixA;
 			if(object.getUserData() != null && InteractiveTileObject.class.isAssignableFrom(object.getUserData().getClass())) {

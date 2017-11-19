@@ -10,12 +10,18 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Pyramid;
@@ -35,6 +41,9 @@ public class PlayScreen implements Screen {
 	
 	// beer
 	private TextureAtlas atlas;
+	public static int keep_count;
+	private ImageButton levelStage;
+	private Stage buttonStage;
 	
 	private OrthographicCamera gameCam;	
 	private Viewport gamePort;
@@ -48,25 +57,20 @@ public class PlayScreen implements Screen {
 	// Box2d variables
 	private World world;
 	private Box2DDebugRenderer b2dr;
-	
 	private SpriteBatch sb;
+	private B2WorldCreator b2WorldCreator;
+	private boolean enableSwitchColor;
+	private float time;
+	private Music music;
 	
 	private BluePlayer bluePlayer;
 	private PinkPlayer pinkPlayer;
-	
-	private B2WorldCreator b2WorldCreator;
-	
-	private float time;
-	
-	private Music music;
-	
-	private boolean enableSwitchColor;
-	private int keep_count;
+
+
 	
 	public PlayScreen(Pyramid gsm) {
-		
 		atlas = new TextureAtlas("Animation/Player.pack");
-		
+		buttonStage = new Stage();
 		this.game = gsm;
 		
 		gameCam = new OrthographicCamera();
@@ -107,13 +111,26 @@ public class PlayScreen implements Screen {
 		music = Pyramid.manager.get("music/music1.ogg", Music.class);
 		music.setLooping(true);
 		music.play();
-
-		
 		
 		world.setContactListener(new WorldContactListener());
 		
-		
-		
+		// buttonStage
+		Gdx.input.setInputProcessor(buttonStage);
+		levelStage = new ImageButton(new TextureRegionDrawable(
+				new TextureRegion(new Texture(Gdx.files.internal("StartGame/level-stage.png")))));
+		levelStage.setBounds((Pyramid.V_WIDTH / 2) - 100, 500, 150, 100);
+		levelStage.setPosition(1125, 620);
+		levelStage.addListener(new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+				keep_count = 0;
+				// Stop music
+				Pyramid.manager.get("music/music_start.ogg", Music.class).stop();
+				super.clicked(event, x, y);
+				Pyramid.manager.get("sounds/button1.wav", Sound.class).play();
+				game.setScreen(new LevelSelect(game));
+			}
+		});
+		buttonStage.addActor(levelStage);
 	}
 	
 	public TextureAtlas getAtlas() {
@@ -187,13 +204,14 @@ public class PlayScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		
 		// separate our update screen logic from render
 		update(delta);
 		
 		// Clear the game screen with Black
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		// render buttonStage 
+		buttonStage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
 		
 		// render our game map
 		tmr.render();
@@ -208,6 +226,8 @@ public class PlayScreen implements Screen {
 		bluePlayer.draw(game.sb);
 		game.sb.end();
 		
+		// draw buttonStage 
+		buttonStage.draw();
 	}
 	
 	public void CheckNextLevel() {
@@ -224,13 +244,11 @@ public class PlayScreen implements Screen {
 	}
 	
 	private void CheckPlayerOnGround() {
-		
 		// check GameOver
-				if(WorldContactListener.isCheckGameOver() == true) {
-					WorldContactListener.setCheckGameOver(false);
-					game.setScreen(new GameOverScreen(game));
-				}
-		
+			if(WorldContactListener.isCheckGameOver() == true) {
+				WorldContactListener.setCheckGameOver(false);
+				game.setScreen(new GameOverScreen(game));
+			}
 	}
 
 	@Override
@@ -265,7 +283,7 @@ public class PlayScreen implements Screen {
 		tmr.dispose();
 		world.dispose();
 		b2dr.dispose();
-		background.dispose();	
+		background.dispose();
 	}
 	
 

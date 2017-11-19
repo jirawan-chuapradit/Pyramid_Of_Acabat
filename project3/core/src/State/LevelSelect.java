@@ -36,7 +36,8 @@ public class LevelSelect implements Screen {
 	private Pyramid game;
 	private Menu menu;
 	public SpriteBatch sb;
-
+	
+	//beer
 	public static int count;
 	
 	public LevelSelect(Pyramid p) {
@@ -48,59 +49,58 @@ public class LevelSelect implements Screen {
 
 		background = new Texture("StartGame/levelSelect.png");
 
-		// level1-Link
+		// level1-button
 		level1Button = new ImageButton(new TextureRegionDrawable(
-				new TextureRegion(new Texture(Gdx.files.internal("levelButton/button-level-01-out.png")))));
+				new TextureRegion(new Texture(Gdx.files.internal("levelButton/1.png")))));
 		level1Button.setBounds((Pyramid.V_WIDTH / 2) - 100, 500, 50, 50);
 		level1Button.setPosition(165, 480);
-		// level2-Link
+		// level2-button
 		level2Button = new ImageButton(new TextureRegionDrawable(
-				new TextureRegion(new Texture(Gdx.files.internal("levelButton/button-level-02-out.png")))));
+				new TextureRegion(new Texture(Gdx.files.internal("levelButton/2.png")))));
 		level2Button.setBounds((Pyramid.V_WIDTH / 2) - 100, 500, 50, 50);
 		level2Button.setPosition(265, 480);
-		// level3-Link
+		// level3-button
 		level3Button = new ImageButton(new TextureRegionDrawable(
 				new TextureRegion(new Texture(Gdx.files.internal("levelButton/button-level-03-out.png")))));
 		level3Button.setBounds((Pyramid.V_WIDTH / 2) - 100, 500, 50, 50);
 		level3Button.setPosition(365, 480);
-		// level4-Link
+		// level4-button
 		level4Button = new ImageButton(new TextureRegionDrawable(
-				new TextureRegion(new Texture(Gdx.files.internal("levelButton/button-level-04-out.png")))));
+				new TextureRegion(new Texture(Gdx.files.internal("levelButton/4.png")))));
 		level4Button.setBounds((Pyramid.V_WIDTH / 2) - 100, 500, 50, 50);
 		level4Button.setPosition(465, 480);
-		// level5-Link
+		// level5-button
 		level5Button = new ImageButton(new TextureRegionDrawable(
-				new TextureRegion(new Texture(Gdx.files.internal("levelButton/button-level-05-out.png")))));
+				new TextureRegion(new Texture(Gdx.files.internal("levelButton/5.png")))));
 		level5Button.setBounds((Pyramid.V_WIDTH / 2) - 100, 500, 50, 50);
 		level5Button.setPosition(565, 480);
-		// level6-Link
+		// level6-button
 		level6Button = new ImageButton(new TextureRegionDrawable(
-				new TextureRegion(new Texture(Gdx.files.internal("levelButton/button-level-06-out.png")))));
+				new TextureRegion(new Texture(Gdx.files.internal("levelButton/6.png")))));
 		level6Button.setBounds((Pyramid.V_WIDTH / 2) - 100, 500, 50, 50);
 		level6Button.setPosition(665, 480);
-		// level7-Link
+		// level7-button
 		level7Button = new ImageButton(new TextureRegionDrawable(
-				new TextureRegion(new Texture(Gdx.files.internal("levelButton/button-level-07-out.png")))));
+				new TextureRegion(new Texture(Gdx.files.internal("levelButton/7.png")))));
 		level7Button.setBounds((Pyramid.V_WIDTH / 2) - 100, 500, 50, 50);
 		level7Button.setPosition(765, 480);
-		// level8-Link
+		// level8-button
 		level8Button = new ImageButton(new TextureRegionDrawable(
-				new TextureRegion(new Texture(Gdx.files.internal("levelButton/button-level-08-out.png")))));
+				new TextureRegion(new Texture(Gdx.files.internal("levelButton/8.png")))));
 		level8Button.setBounds((Pyramid.V_WIDTH / 2) - 100, 500, 50, 50);
 		level8Button.setPosition(865, 480);
-		// level9-Link
+		// level9-button
 		level9Button = new ImageButton(new TextureRegionDrawable(
-				new TextureRegion(new Texture(Gdx.files.internal("levelButton/button-level-09-out.png")))));
+				new TextureRegion(new Texture(Gdx.files.internal("levelButton/9.png")))));
 		level9Button.setBounds((Pyramid.V_WIDTH / 2) - 100, 500, 50, 50);
 		level9Button.setPosition(965, 480);
-		// level10-Link
+		// level10-button
 		level10Button = new ImageButton(new TextureRegionDrawable(
-				new TextureRegion(new Texture(Gdx.files.internal("levelButton/button-level-10-out.png")))));
+				new TextureRegion(new Texture(Gdx.files.internal("levelButton/10.png")))));
 		level10Button.setBounds((Pyramid.V_WIDTH / 2) - 100, 500, 50, 50);
 		level10Button.setPosition(1065, 480);
 
 		level1Button.addListener(new ClickListener() {
-
 			public void clicked(InputEvent event, float x, float y) {
 				count = 1;
 				// Stop music
@@ -171,9 +171,17 @@ public class LevelSelect implements Screen {
 	public void show() {
 		sb = new SpriteBatch();
 	}
-
+	
+	// beer
+	public void update(float dt) {
+		count = PlayScreen.keep_count;
+	}
+	
 	@Override
 	public void render(float delta) {
+		// beer
+		update(delta);
+		
 		buttonStage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
 
 		sb.begin();
