@@ -106,13 +106,13 @@ public class PlayScreen implements Screen {
 		hpButton = new ImageButton(new TextureRegionDrawable(
 				new TextureRegion(new Texture(Gdx.files.internal("StartGame/health3.png")))
 						));
-		hpButton.setBounds(20, 700, 5, 20);
+//		hpButton.setBounds(500, Pyramid.PPM, 5, 20);
 		
 		// Clock Icon
 		clockButton = new ImageButton(new TextureRegionDrawable(
 				new TextureRegion(new Texture(Gdx.files.internal("StartGame/clock.png")))
 				));
-		hpButton.setBounds(1000, 1200, 100, 25);
+		clockButton.setBounds(1000, 1200, 100, 25);
 
 
 		// buttonStage
@@ -134,14 +134,14 @@ public class PlayScreen implements Screen {
 		// button switch blue
 		switchBlueButton = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("switch/sb.png")))));
-		switchBlueButton.setBounds(100, 600, 100, 100);
+		switchBlueButton.setBounds(600, 570, 100, 100);
 		// button switch pink
 		switchPinkButton = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("switch/sp.png")))));
-		switchPinkButton.setBounds(100, 600, 100, 100);
+		switchPinkButton.setBounds(600, 570, 100, 100);
 
 		buttonStage.addActor(levelStage);
-		buttonStage.addActor(hpButton);
+//		buttonStage.addActor(hpButton);
 		buttonStage.addActor(clockButton);
 		
 		// allows for debug lines of our box2d world
@@ -242,7 +242,7 @@ public class PlayScreen implements Screen {
 		
 		}
 		
-		hpButton.setBounds(500, Pyramid.PPM, 400, 100);
+		hpButton.setBounds(500, 500, 400, 100);
 		buttonStage.addActor(hpButton);
 
 	}
