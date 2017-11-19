@@ -65,8 +65,6 @@ public class PlayScreen implements Screen {
 	
 	private BluePlayer bluePlayer;
 	private PinkPlayer pinkPlayer;
-
-
 	
 	public PlayScreen(Pyramid gsm) {
 		atlas = new TextureAtlas("Animation/Player.pack");
@@ -145,8 +143,6 @@ public class PlayScreen implements Screen {
 		
 	}
 	
-	
-
 	public void update(float dt) {
 		keep_count = LevelSelect.count;
 		

@@ -51,5 +51,5 @@
  <objectgroup name="flag_Ob">
   <object id="17" x="407.918" y="306.803" width="104.681" height="39.4203" rotation="-0.538922"/>
  </objectgroup>
- <objectgroup name="GameOverOb"/>
+ <objectgroup name="GameOverOb" opacity="0.98"/>
 </map>
