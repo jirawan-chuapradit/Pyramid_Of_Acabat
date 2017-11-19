@@ -33,266 +33,251 @@ import Tools.B2WorldCreator;
 import Tools.WorldContactListener;
 
 public class PlayScreen implements Screen {
-	
+
 	private Texture background;
 	private Pyramid game;
 	private GameOverScreen gameOverScreen;
 	Texture texture;
-	
+
 	// beer
 	private TextureAtlas atlas;
-	
+
 	public static int keep_count;
 	private ImageButton levelStage;
 	private Stage buttonStage;
-	
-	private OrthographicCamera gameCam;	
+
+	private OrthographicCamera gameCam;
 	private Viewport gamePort;
 
-	
-	//Tile map variables
+	// Tile map variables
 	private TmxMapLoader maploader;
 	private TiledMap map;
 	private OrthogonalTiledMapRenderer tmr;
-	
+
 	// Box2d variables
 	private World world;
 	private Box2DDebugRenderer b2dr;
-	
+
 	private SpriteBatch sb;
-	
+
 	private BluePlayer bluePlayer;
 	private PinkPlayer pinkPlayer;
-	
-	
+
 	private B2WorldCreator b2WorldCreator;
-	
+
 	private float time;
-	
+
 	private Music music;
-	
+
 	private boolean enableSwitchColor;
 
-	
 	public PlayScreen(Pyramid gsm) {
-		
+
 		atlas = new TextureAtlas("Animation/Player.pack");
-		
+
 		buttonStage = new Stage();
-		
+
 		this.game = gsm;
-		
+
 		gameCam = new OrthographicCamera();
 		// create a FitViewport to maintain virtual aspect ratio despite screen
-		gamePort = new FitViewport(Pyramid.V_WIDTH/Pyramid.PPM, Pyramid.V_HEIGHT/Pyramid.PPM, gameCam);
-		
+		gamePort = new FitViewport(Pyramid.V_WIDTH / Pyramid.PPM, Pyramid.V_HEIGHT / Pyramid.PPM, gameCam);
+
 		keep_count = LevelSelect.count;
 		// load our map and setup our map renderer
 		maploader = new TmxMapLoader();
 		map = maploader.load("Map/level" + keep_count + ".tmx");
-		tmr = new OrthogonalTiledMapRenderer(map, 1 /Pyramid.PPM);
-		
+		tmr = new OrthogonalTiledMapRenderer(map, 1 / Pyramid.PPM);
+
 		// initially set our gamcam to be centered correctly at the start of of map
-		gameCam.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight()/2, 0);
-	
+		gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
+
 		time = 0;
 		enableSwitchColor = true;
-		
-	
-		
-		
+
 		world = new World(new Vector2(0, -10), true);
-	
+
 		// buttonStage
-				Gdx.input.setInputProcessor(buttonStage);
-				levelStage = new ImageButton(new TextureRegionDrawable(
-						new TextureRegion(new Texture(Gdx.files.internal("StartGame/level-stage.png")))));
-				levelStage.setBounds(1125, 0, 125, 100);
-	
-				levelStage.addListener(new ClickListener() {
-					public void clicked(InputEvent event, float x, float y) {
-						keep_count = 0;
-						// Stop music
-						Pyramid.manager.get("music/music_start.ogg", Music.class).stop();
-						super.clicked(event, x, y);
-						Pyramid.manager.get("sounds/button1.wav", Sound.class).play();
-						game.setScreen(new LevelSelect(game));
-					}
-				});
-				buttonStage.addActor(levelStage);
-		
+		Gdx.input.setInputProcessor(buttonStage);
+		levelStage = new ImageButton(new TextureRegionDrawable(
+				new TextureRegion(new Texture(Gdx.files.internal("StartGame/level-stage.png")))));
+		levelStage.setBounds(1125, 0, 125, 100);
+
+		levelStage.addListener(new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+				keep_count = 0;
+				music.stop();
+				// Stop music
+				Pyramid.manager.get("music/music_start.ogg", Music.class).stop();
+				super.clicked(event, x, y);
+				Pyramid.manager.get("sounds/button1.wav", Sound.class).play();
+				game.setScreen(new LevelSelect(game));
+			}
+		});
+		buttonStage.addActor(levelStage);
+
 		// allows for debug lines of our box2d world
 		b2dr = new Box2DDebugRenderer();
-		
+
 		b2WorldCreator = new B2WorldCreator(world, map);
-		
+
 		sb = new SpriteBatch();
 
-		
 		// create BluePlayer and PinkPlayer in our game world
 		bluePlayer = new BluePlayer(world, this);
-		pinkPlayer = new PinkPlayer(world, this);	
-		
-		// load music Game
-		music = Pyramid.manager.get("music/music1.ogg", Music.class);
-		music.setLooping(true);
-		music.play();
+		pinkPlayer = new PinkPlayer(world, this);
 
-		
-		
+		// load music Game
+		if (keep_count == 1) {
+			music = Pyramid.manager.get("music/music1.ogg", Music.class);
+			music.setLooping(true);
+			music.play();
+		}
+		else if (keep_count == 2) {
+			music = Pyramid.manager.get("music/music2.ogg", Music.class);
+			music.setLooping(true);
+			music.play();
+		}
+
 		world.setContactListener(new WorldContactListener());
-		
-		
-		
+
 	}
-	
+
 	public TextureAtlas getAtlas() {
 		return atlas;
 	}
-	
-
 
 	@Override
 	public void show() {
-		
-		
+
 	}
-	
-	
 
 	public void update(float dt) {
 		keep_count = LevelSelect.count;
-		
-		if(enableSwitchColor) {
-			if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-				
+
+		if (enableSwitchColor) {
+			if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+
 				Pyramid.manager.get("sounds/shift.wav", Sound.class).play();
 
 				b2WorldCreator.switchColor();
 
 				enableSwitchColor = false;
 			}
-		}
-		else {
-			if(time >= 2) {
+		} else {
+			if (time >= 2) {
 				enableSwitchColor = true;
 				time = 0;
-			}
-			else {
+			} else {
 				time += dt;
 			}
 		}
-		
+
 		// handle user input first
-	
+
 		if (b2WorldCreator.getCurrentColor() != 0) {
 			pinkPlayer.handleInput(dt);
-		}
-		else {
+		} else {
 			bluePlayer.handleInput(dt);
 		}
-		
-		
-		//  check two player Stay on the Flag
+
+		// check two player Stay on the Flag
 		CheckNextLevel();
-		
+
 		// checking player don't on ground
 		CheckPlayerOnGround();
-		
-		
-		world.step(1/60f, 6, 2);
-		
+
+		world.step(1 / 60f, 6, 2);
+
 		pinkPlayer.update(dt);
 		bluePlayer.update(dt);
-//		gameCam.position.x = playerPink.b2body.getPosition().x;
-		
-//		update our gamecam with correct coordinates after changes.
+		// gameCam.position.x = playerPink.b2body.getPosition().x;
+
+		// update our gamecam with correct coordinates after changes.
 		gameCam.update();
-		
+
 		// tell our render to draw only what our camers can see in our game world.
 		tmr.setView(gameCam);
-			
+
 	}
-	
 
 	@Override
 	public void render(float delta) {
-		
+
 		// separate our update screen logic from render
 		update(delta);
-		
+
 		// Clear the game screen with Black
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		// render buttonStage 
-				buttonStage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
-				
-		
+
+		// render buttonStage
+		buttonStage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
+
 		// render our game map
 		tmr.render();
 
 		// renderer our Box2DDubugLines
 		b2dr.render(world, gameCam.combined);
-		
+
 		// Set our batch to now draw what the Hud camera see.
 		game.sb.setProjectionMatrix(gameCam.combined);
 		game.sb.begin();
 		pinkPlayer.draw(game.sb);
 		bluePlayer.draw(game.sb);
 		game.sb.end();
-		
-		// draw buttonStage 
-				buttonStage.draw();
+
+		// draw buttonStage
+		buttonStage.draw();
 	}
-	
+
 	public void CheckNextLevel() {
-//		System.out.println(WorldContactListener.checkPink);
-//		System.out.println(WorldContactListener.checkBlue);
+		// System.out.println(WorldContactListener.checkPink);
+		// System.out.println(WorldContactListener.checkBlue);
 		// check Next Stage
-		if(WorldContactListener.ischeckPink() == true && WorldContactListener.ischeckBlue() == true) {
-			
+		if (WorldContactListener.ischeckPink() == true && WorldContactListener.ischeckBlue() == true) {
+
 			WorldContactListener.setcheckPink(false);
 			WorldContactListener.setcheckBlue(false);
 
-				game.setScreen(new LevelSelect(game));
+			game.setScreen(new LevelSelect(game));
 		}
 	}
-	
+
 	private void CheckPlayerOnGround() {
-		
+
 		// check GameOver
-				if(WorldContactListener.isCheckGameOver() == true) {
-					WorldContactListener.setCheckGameOver(false);
-					game.setScreen(new GameOverScreen(game));
-				}
-		
+		if (WorldContactListener.isCheckGameOver() == true) {
+			WorldContactListener.setCheckGameOver(false);
+			game.setScreen(new GameOverScreen(game));
+		}
+
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		
+
 		// update our game viewport
 		gamePort.update(width, height);
-		
+
 	}
 
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -301,10 +286,7 @@ public class PlayScreen implements Screen {
 		tmr.dispose();
 		world.dispose();
 		b2dr.dispose();
-		background.dispose();	
+		background.dispose();
 	}
-	
-
-	
 
 }
