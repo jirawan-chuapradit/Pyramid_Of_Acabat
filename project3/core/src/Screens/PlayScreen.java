@@ -107,7 +107,8 @@ public class PlayScreen implements Screen {
 				Gdx.input.setInputProcessor(buttonStage);
 				levelStage = new ImageButton(new TextureRegionDrawable(
 						new TextureRegion(new Texture(Gdx.files.internal("StartGame/level-stage.png")))));
-				levelStage.setBounds(1125, 25, 75, 50);
+				levelStage.setBounds(1125, 0, 125, 100);
+	
 				levelStage.addListener(new ClickListener() {
 					public void clicked(InputEvent event, float x, float y) {
 						keep_count = 0;
