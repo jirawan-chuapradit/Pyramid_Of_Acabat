@@ -99,6 +99,8 @@ public class Menu implements Screen{
 
 	@Override
 	public void dispose() {
+		buttonStage.dispose();
+		sb.dispose();
 		background.dispose();
 		
 	}

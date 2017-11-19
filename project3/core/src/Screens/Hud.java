@@ -164,6 +164,8 @@ public class Hud{
 	}
 	
 	public void dispose() {
+		
+		game.dispose();
 		stage.dispose();
 		buttonStage.dispose();
 		

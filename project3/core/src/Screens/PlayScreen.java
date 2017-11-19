@@ -344,6 +344,9 @@ public class PlayScreen implements Screen {
 
 	@Override
 	public void dispose() {
+		sb.dispose();
+		hud.dispose();
+		atlas.dispose();
 		map.dispose();
 		tmr.dispose();
 		world.dispose();
