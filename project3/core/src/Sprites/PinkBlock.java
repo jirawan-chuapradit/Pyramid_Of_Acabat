@@ -1,5 +1,6 @@
 package Sprites;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -15,9 +16,14 @@ public class PinkBlock extends InteractiveTileObject {
 	
 	public PinkBlock (World world, TiledMap map, Rectangle bounds) {
 		super(world, map, bounds);
+		
+
+		
 		BodyDef bdef = new BodyDef();
 		FixtureDef fdef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();
+		
+
 		
 		bdef.type = BodyDef.BodyType.StaticBody;
 		bdef.position.set((bounds.getX() + bounds.getWidth() / 2) / Pyramid.PPM, (bounds.getY() + bounds.getHeight() / 2) / Pyramid.PPM);
@@ -28,16 +34,22 @@ public class PinkBlock extends InteractiveTileObject {
 		fdef.shape = shape;
 		fdef.filter.groupIndex = -1;
 		fixture = body.createFixture(fdef);
+		fixture.setUserData("PinkBlock");
+	}
+
+	@Override
+	public void underFootHit() {
+		Gdx.app.log("PinkBlock", "Collision");
 	}
 	
 	
-	public void switchState() {
-		if(fixture.isSensor()) {
-			fixture.setSensor(false);
-		}
-		else { 
-			fixture.setSensor(true);
-		}
-	}
+//	public void switchState() {
+//		if(fixture.isSensor()) {
+//			fixture.setSensor(false);
+//		}
+//		else { 
+//			fixture.setSensor(true);
+//		}
+//	}
 
 }
