@@ -21,7 +21,6 @@ public class Flag extends InteractiveTileObject{
 		FixtureDef fdef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();
 		
-		
 		bdef.type = BodyDef.BodyType.StaticBody;
 		bdef.position.set((bounds.getX() + bounds.getWidth() / 2) / Pyramid.PPM, (bounds.getY() + bounds.getHeight() / 2) / Pyramid.PPM);
 		

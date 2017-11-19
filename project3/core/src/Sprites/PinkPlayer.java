@@ -43,9 +43,8 @@ public class PinkPlayer extends Sprite {
 
 	private int checkPink = 0;
 
-	private float check_posision;
 	public static int count;
-
+	
 	public PinkPlayer(World world, PlayScreen screen) {
 		super(screen.getAtlas().findRegion("girl"));
 		this.world = world;
@@ -108,7 +107,6 @@ public class PinkPlayer extends Sprite {
 
 	public TextureRegion getFrame(float dt) {
 		currentState = getState();
-
 		TextureRegion region;
 		switch (currentState) {
 		case RUNNING:
@@ -168,7 +166,6 @@ public class PinkPlayer extends Sprite {
 	}
 
 	public void handleInput(float dt) {
-
 		float currentY = b2body.getLinearVelocity().y;
 		// control our player using inmudiate impulse
 		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && currentY % 4 == 0) {
