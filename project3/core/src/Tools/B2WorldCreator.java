@@ -63,7 +63,6 @@ public class B2WorldCreator {
 		for(MapObject object: map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
 			Rectangle rect = ((RectangleMapObject) object).getRectangle();	
 			//ยังไมได้เขียนให้เหยียบได้ ไปดูที่ sprite PinkBlock กับ bLueBlock สิ
-			
 			pinkBlocks.add(new PinkBlock(world, map, rect));
 		}
 		

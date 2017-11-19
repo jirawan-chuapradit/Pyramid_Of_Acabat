@@ -57,7 +57,7 @@ public class BluePlayer extends Sprite{
 		
 		defineBluePlayer();
 		
-		setBounds(0, 0, 50 / Pyramid.PPM, 80 / Pyramid.PPM);
+		setBounds(0, 0, 50 / Pyramid.PPM, 60 / Pyramid.PPM);
 	}
 
 	public enum State {
@@ -65,7 +65,7 @@ public class BluePlayer extends Sprite{
 	};
 	
 	public void update(float dt) {
-		setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 3);
+		setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
 		setRegion(getFrame(dt));
 	}
 
@@ -149,7 +149,7 @@ public class BluePlayer extends Sprite{
 
 		FixtureDef fdef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(15/Pyramid.PPM, 15/Pyramid.PPM);
+		shape.setAsBox(15/Pyramid.PPM, 20/Pyramid.PPM);
 		fdef.shape = shape;
 		fdef.filter.groupIndex = -1;
 		Fixture body  = b2body.createFixture(fdef);
@@ -172,7 +172,7 @@ public class BluePlayer extends Sprite{
 		// control our player using inmudiate impulse 
 		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && currentY% 4 == 0) {
 			Pyramid.manager.get("sounds/jump.wav", Sound.class).play();
-			b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
+			b2body.applyLinearImpulse(new Vector2(0, 5f), b2body.getWorldCenter(), true);
 		}
 		
 		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && b2body.getLinearVelocity().x <= 2) {

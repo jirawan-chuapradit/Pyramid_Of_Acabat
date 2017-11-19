@@ -11,7 +11,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Pyramid;
 
 public class Flag extends InteractiveTileObject{
-
 	private Fixture fixture;
 	public static float posision_flag;
 

@@ -60,7 +60,7 @@ public class PinkPlayer extends Sprite {
 
 		definePinkPlayr();
 
-		setBounds(0, 0, 50 / Pyramid.PPM, 75 / Pyramid.PPM);
+		setBounds(0, 0, 50 / Pyramid.PPM, 60 / Pyramid.PPM);
 
 	}
 
@@ -69,7 +69,7 @@ public class PinkPlayer extends Sprite {
 	};
 
 	public void update(float dt) {
-		setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 3);
+		setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
 		setRegion(getFrame(dt));
 	}
 
@@ -152,7 +152,7 @@ public class PinkPlayer extends Sprite {
 		// create RecPink Player
 		FixtureDef fdef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(15 / Pyramid.PPM, 15 / Pyramid.PPM);
+		shape.setAsBox(15 / Pyramid.PPM, 20 / Pyramid.PPM);
 		fdef.shape = shape;
 		fdef.filter.groupIndex = -2;
 		b2body.createFixture(fdef);
@@ -173,7 +173,7 @@ public class PinkPlayer extends Sprite {
 		// control our player using inmudiate impulse
 		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && currentY % 4 == 0) {
 			Pyramid.manager.get("sounds/jump.wav", Sound.class).play();
-			b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
+			b2body.applyLinearImpulse(new Vector2(0, 5f), b2body.getWorldCenter(), true);
 		}
 
 		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && b2body.getLinearVelocity().x <= 2) {
@@ -185,7 +185,6 @@ public class PinkPlayer extends Sprite {
 	}
 
 	public void switchTypePlayer() {
-
 		if (b2body.getType() == BodyType.StaticBody) {
 			b2body.setType(BodyType.DynamicBody);
 		} else if (b2body.getType() == BodyType.StaticBody) {

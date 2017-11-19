@@ -61,6 +61,8 @@ public class PlayScreen implements Screen {
 	private Music music;
 	
 	private boolean enableSwitchColor;
+	private int keep_count;
+	
 	public PlayScreen(Pyramid gsm) {
 		
 		atlas = new TextureAtlas("Animation/Player.pack");
@@ -71,9 +73,10 @@ public class PlayScreen implements Screen {
 		// create a FitViewport to maintain virtual aspect ratio despite screen
 		gamePort = new FitViewport(Pyramid.V_WIDTH/Pyramid.PPM, Pyramid.V_HEIGHT/Pyramid.PPM, gameCam);
 		
+		keep_count = LevelSelect.count;
 		// load our map and setup our map renderer
 		maploader = new TmxMapLoader();
-		map = maploader.load("Map/level3.tmx");
+		map = maploader.load("Map/level" + keep_count + ".tmx");
 		tmr = new OrthogonalTiledMapRenderer(map, 1 /Pyramid.PPM);
 		
 		// initially set our gamcam to be centered correctly at the start of of map
@@ -128,6 +131,7 @@ public class PlayScreen implements Screen {
 	
 
 	public void update(float dt) {
+		keep_count = LevelSelect.count;
 		
 		if(enableSwitchColor) {
 			if(Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
@@ -257,13 +261,11 @@ public class PlayScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		
 		map.dispose();
 		tmr.dispose();
 		world.dispose();
 		b2dr.dispose();
-		background.dispose();
-		
+		background.dispose();	
 	}
 	
 
