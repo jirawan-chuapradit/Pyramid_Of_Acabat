@@ -63,7 +63,7 @@ public class PlayScreen implements Screen {
 	private boolean enableSwitchColor;
 	public PlayScreen(Pyramid gsm) {
 		
-		atlas = new TextureAtlas("Animation/pinkPlayer_test.pack");
+		atlas = new TextureAtlas("Animation/Player.pack");
 		
 		this.game = gsm;
 		
@@ -169,19 +169,15 @@ public class PlayScreen implements Screen {
 		world.step(1/60f, 6, 2);
 		
 		pinkPlayer.update(dt);
-		
+		bluePlayer.update(dt);
 //		gameCam.position.x = playerPink.b2body.getPosition().x;
-		
-		
 		
 //		update our gamecam with correct coordinates after changes.
 		gameCam.update();
 		
 		// tell our render to draw only what our camers can see in our game world.
 		tmr.setView(gameCam);
-		
-		
-		
+			
 	}
 	
 
@@ -205,9 +201,8 @@ public class PlayScreen implements Screen {
 		game.sb.setProjectionMatrix(gameCam.combined);
 		game.sb.begin();
 		pinkPlayer.draw(game.sb);
+		bluePlayer.draw(game.sb);
 		game.sb.end();
-		
-		
 		
 	}
 	

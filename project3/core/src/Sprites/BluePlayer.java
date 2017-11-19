@@ -3,6 +3,7 @@ package Sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -19,6 +20,7 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Pyramid;
 
 import Screens.PlayScreen;
+import Sprites.PinkPlayer.State;
 import Tools.B2WorldCreator;
 
 public class BluePlayer extends Sprite{
@@ -42,11 +44,20 @@ public class BluePlayer extends Sprite{
 	private Array<TextureRegion> playerRunLeft = new Array<TextureRegion>();
 	
 	public BluePlayer(World world, PlayScreen screen) {
-		super(screen.getAtlas().findRegion("pink_test"));
+		super(screen.getAtlas().findRegion("boy"));
 		this.world = world;
+		
+		currentState = State.STANDING;
+		previousState = State.STANDING;
+		stateTimer = 0;
+		runningRight = true;
+		stateRunRight = true;
+		
+		state();
+		
 		defineBluePlayer();
 		
-		setBounds(0, 0, 40 / Pyramid.PPM, 60 / Pyramid.PPM);
+		setBounds(0, 0, 50 / Pyramid.PPM, 80 / Pyramid.PPM);
 	}
 
 	public enum State {
@@ -60,29 +71,29 @@ public class BluePlayer extends Sprite{
 
 	public void state() {
 		if (runningRight == true) {
-			for (int i = 0; i < 4; i++) {
-				playerStandRight.add(new TextureRegion(getTexture(),(i * 40), 0, 40, 60));
+			for (int i = 0; i < 5; i++) {
+				playerStandRight.add(new TextureRegion(getTexture(),(i * 60), 695, 60, 90));
 			}
-			bluePlayerStand = new Animation(0.1f, playerStandRight);
+			bluePlayerStand = new Animation(1f, playerStandRight);
 			playerStandRight.clear();
 			if (stateRunRight==true) {
-				for (int i = 1; i < 7; i++) {
-					playerRunRight.add(new TextureRegion(getTexture(),502 + (i * 54), 332, 55, 92));
+				for (int i = 0; i < 4; i++) {
+					playerRunRight.add(new TextureRegion(getTexture(),(i * 60), 510, 60, 90));
 				}
 				bluePlayerRunRight = new Animation(0.1f, playerRunRight);
 				playerRunRight.clear();
 			}
 		}
 		else {
-			for (int i = 0; i < 2; i++) {
-				playerStandLeft.add(new TextureRegion(getTexture(),500 + (i * 54), 48, 55, 92));
+			for (int i = 0; i < 5; i++) {
+				playerStandLeft.add(new TextureRegion(getTexture(),(i * 60), 695, 60, 90));
 			}
 			bluePlayerStand = new Animation(1f, playerStandLeft);
 			playerStandLeft.clear();
 			runningRight = true;
 			if (stateRunRight==false) {
-				for (int i = 1; i < 7; i++) {
-					playerRunLeft.add(new TextureRegion(getTexture(),504 + (i * 54), 240, 55, 92));
+				for (int i = 0; i < 4; i++) {
+					playerRunLeft.add(new TextureRegion(getTexture(),(i * 60), 600, 60, 90));
 				}
 				bluePlayerRunRight = new Animation(0.1f, playerRunLeft);
 				playerRunRight.clear();
@@ -100,7 +111,7 @@ public class BluePlayer extends Sprite{
 				region = (TextureRegion) bluePlayerRunRight.getKeyFrame(stateTimer, true);
 				break;
 			case STANDING:
-				default:
+			default:
 					region = (TextureRegion) bluePlayerStand.getKeyFrame(stateTimer, true);
 					break;
 		}
@@ -139,8 +150,6 @@ public class BluePlayer extends Sprite{
 		FixtureDef fdef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();
 		shape.setAsBox(15/Pyramid.PPM, 15/Pyramid.PPM);
-
-		
 		fdef.shape = shape;
 		fdef.filter.groupIndex = -1;
 		Fixture body  = b2body.createFixture(fdef);
@@ -162,6 +171,7 @@ public class BluePlayer extends Sprite{
 		
 		// control our player using inmudiate impulse 
 		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && currentY% 4 == 0) {
+			Pyramid.manager.get("sounds/jump.wav", Sound.class).play();
 			b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
 		}
 		

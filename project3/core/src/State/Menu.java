@@ -48,7 +48,7 @@ public class Menu implements Screen{
 		buttonStage.addActor(playButton);
 		
 		//Play music
-				Pyramid.manager.get("music/music3.ogg", Music.class).play();
+				Pyramid.manager.get("music/music_start.ogg", Music.class).play();
 	}
 
 

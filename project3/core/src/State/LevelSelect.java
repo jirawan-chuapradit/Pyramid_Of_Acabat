@@ -21,12 +21,16 @@ public class LevelSelect implements Screen {
 	private Texture background;
 	private Stage buttonStage;
 	private ImageButton level1Button;
-
+	private ImageButton level2Button;
+	private ImageButton level3Button;
+	private ImageButton level4Button;
+	private ImageButton level5Button;
+	private ImageButton level6Button;
+	private ImageButton level7Button;
+	private ImageButton level8Button;
+	private ImageButton level9Button;
+	private ImageButton level10Button;
 	
-	
-	
-	
-
 //	private Menu menu;
 	
 	private Pyramid game;
@@ -42,26 +46,78 @@ public class LevelSelect implements Screen {
 
 		background = new Texture("StartGame/levelSelect.png");
 		
-			
+		//level1-Link	
 		level1Button = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/button-level-01-out.png")))));
 		level1Button.setBounds((Pyramid.V_WIDTH / 2) - 100, 500, 50, 50);
-
+		level1Button.setPosition(165, 480);
+		//level2-Link
+		level2Button = new ImageButton(
+				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/button-level-02-out.png")))));
+		level2Button.setBounds((Pyramid.V_WIDTH / 2) - 100, 500, 50, 50);
+		level2Button.setPosition(265, 480);
+		//level3-Link
+		level3Button = new ImageButton(
+				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/button-level-03-out.png")))));
+		level3Button.setBounds((Pyramid.V_WIDTH / 2) - 100, 500, 50, 50);
+		level3Button.setPosition(365, 480);
+		//level4-Link
+		level4Button = new ImageButton(
+				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/button-level-04-out.png")))));
+		level4Button.setBounds((Pyramid.V_WIDTH / 2) - 100, 500, 50, 50);
+		level4Button.setPosition(465, 480);
+		//level5-Link
+		level5Button = new ImageButton(
+				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/button-level-05-out.png")))));
+		level5Button.setBounds((Pyramid.V_WIDTH / 2) - 100, 500, 50, 50);
+		level5Button.setPosition(565, 480);
+		//level6-Link
+		level6Button = new ImageButton(
+				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/button-level-06-out.png")))));
+		level6Button.setBounds((Pyramid.V_WIDTH / 2) - 100, 500, 50, 50);
+		level6Button.setPosition(665, 480);
+		//level7-Link
+		level7Button = new ImageButton(
+				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/button-level-07-out.png")))));
+		level7Button.setBounds((Pyramid.V_WIDTH / 2) - 100, 500, 50, 50);
+		level7Button.setPosition(765, 480);
+		//level8-Link
+		level8Button = new ImageButton(
+				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/button-level-08-out.png")))));
+		level8Button.setBounds((Pyramid.V_WIDTH / 2) - 100, 500, 50, 50);
+		level8Button.setPosition(865, 480);
+		//level9-Link
+		level9Button = new ImageButton(
+				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/button-level-09-out.png")))));
+		level9Button.setBounds((Pyramid.V_WIDTH / 2) - 100, 500, 50, 50);
+		level9Button.setPosition(965, 480);
+		//level10-Link
+		level10Button = new ImageButton(
+				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/button-level-10-out.png")))));
+		level10Button.setBounds((Pyramid.V_WIDTH / 2) - 100, 500, 50, 50);
+		level10Button.setPosition(1065, 480);
 		
 		level1Button.addListener(new ClickListener() {
 			
 			public void clicked(InputEvent event, float x, float y) {
 				//Stop music
-				Pyramid.manager.get("music/music3.ogg", Music.class).stop();
+				Pyramid.manager.get("music/music_start.ogg", Music.class).stop();
 				super.clicked(event, x, y);
-				
 				Pyramid.manager.get("sounds/button1.wav", Sound.class).play();
 				game.setScreen(new PlayScreen(game));
 			}
 		});
 
 		buttonStage.addActor(level1Button);
-
+		buttonStage.addActor(level2Button);
+		buttonStage.addActor(level3Button);
+		buttonStage.addActor(level4Button);
+		buttonStage.addActor(level5Button);
+		buttonStage.addActor(level6Button);
+		buttonStage.addActor(level7Button);
+		buttonStage.addActor(level8Button);
+		buttonStage.addActor(level9Button);
+		buttonStage.addActor(level10Button);
 	}
 
 	@Override

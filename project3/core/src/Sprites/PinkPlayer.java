@@ -47,8 +47,7 @@ public class PinkPlayer extends Sprite {
 	public static int count;
 
 	public PinkPlayer(World world, PlayScreen screen) {
-
-		super(screen.getAtlas().findRegion("pink_test"));
+		super(screen.getAtlas().findRegion("girl"));
 		this.world = world;
 
 		currentState = State.STANDING;
@@ -61,7 +60,7 @@ public class PinkPlayer extends Sprite {
 
 		definePinkPlayr();
 
-		setBounds(0, 0, 50 / Pyramid.PPM, 65 / Pyramid.PPM);
+		setBounds(0, 0, 50 / Pyramid.PPM, 75 / Pyramid.PPM);
 
 	}
 
@@ -77,28 +76,28 @@ public class PinkPlayer extends Sprite {
 	public void state() {
 		if (runningRight == true) {
 			for (int i = 0; i < 5; i++) {
-				playerStandRight.add(new TextureRegion(getTexture(), (i * 59), 190, 65, 95));
+				playerStandRight.add(new TextureRegion(getTexture(), (i * 60), 188, 60, 90));
 			}
 			pinkPlayerStand = new Animation(1f, playerStandRight);
 			playerStandRight.clear();
 
 			if (stateRunRight == true) {
-				for (int i = 1; i < 7; i++) {
-					playerRunRight.add(new TextureRegion(getTexture(), (i * 54), 521, 55, 92));
+				for (int i = 0; i < 4; i++) {
+					playerRunRight.add(new TextureRegion(getTexture(),(i * 60), 8, 60, 90));
 				}
 				pinkPlayerRunRight = new Animation(0.1f, playerRunRight);
 				playerRunRight.clear();
 			}
 		} else {
 			for (int i = 0; i < 5; i++) {
-				playerStandLeft.add(new TextureRegion(getTexture(), (i * 59), 190, 65, 95));
+				playerStandLeft.add(new TextureRegion(getTexture(), (i * 60), 188, 60, 90));
 			}
 			pinkPlayerStand = new Animation(1f, playerStandLeft);
 			playerStandLeft.clear();
 			runningRight = true;
 			if (stateRunRight == false) {
-				for (int i = 1; i < 7; i++) {
-					playerRunLeft.add(new TextureRegion(getTexture(), (i * 54), 422, 55, 92));
+				for (int i = 0; i < 4; i++) {
+					playerRunLeft.add(new TextureRegion(getTexture(), (i * 60), 98, 60, 90));
 				}
 				pinkPlayerRunRight = new Animation(0.1f, playerRunLeft);
 				playerRunRight.clear();
@@ -145,7 +144,6 @@ public class PinkPlayer extends Sprite {
 	}
 
 	private void definePinkPlayr() {
-
 		BodyDef bdef = new BodyDef();
 		bdef.position.set(30 / Pyramid.PPM, 700 / Pyramid.PPM); // Set new position
 		bdef.type = BodyDef.BodyType.DynamicBody;
@@ -175,7 +173,7 @@ public class PinkPlayer extends Sprite {
 		// control our player using inmudiate impulse
 		if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && currentY % 4 == 0) {
 			Pyramid.manager.get("sounds/jump.wav", Sound.class).play();
-			b2body.applyLinearImpulse(new Vector2(0, 5f), b2body.getWorldCenter(), true);
+			b2body.applyLinearImpulse(new Vector2(0, 4f), b2body.getWorldCenter(), true);
 		}
 
 		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && b2body.getLinearVelocity().x <= 2) {
@@ -184,12 +182,6 @@ public class PinkPlayer extends Sprite {
 		if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && b2body.getLinearVelocity().x >= -2) {
 			b2body.applyLinearImpulse(new Vector2(-0.1f, 0), b2body.getWorldCenter(), true);
 		}
-	}
-
-	public TextureRegion getFramePink(float dt) {
-		TextureRegion region;
-		region = (TextureRegion) animation.getKeyFrame(dt, false);
-		return region;
 	}
 
 	public void switchTypePlayer() {

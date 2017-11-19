@@ -39,14 +39,15 @@ public void create () {
 		manager = new AssetManager();
 		manager.load("music/music1.ogg", Music.class);
 		manager.load("music/music2.ogg", Music.class);
-		manager.load("music/music3.ogg", Music.class);
-		manager.load("music/music4.ogg", Music.class);
+		//manager.load("music/music3.ogg", Music.class);
+		manager.load("music/music_start.ogg", Music.class);
 		manager.load("music/music_end.ogg", Music.class);
 		manager.load("sounds/jump.wav", Sound.class);
 		manager.load("sounds/win_stage.wav", Sound.class);
 		manager.load("sounds/shift.wav", Sound.class);
 		manager.load("sounds/button1.wav", Sound.class);
 		manager.load("sounds/button2.wav", Sound.class);
+		manager.load("sounds/endSound.wav", Sound.class);
 		manager.finishLoading();
 		
 		Gdx.gl.glClearColor(0, 1, 0, 1);
