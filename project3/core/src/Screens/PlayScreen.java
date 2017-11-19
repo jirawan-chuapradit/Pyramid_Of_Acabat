@@ -25,10 +25,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Pyramid;
-
 import Sprites.BluePlayer;
 import Sprites.PinkPlayer;
-import State.LevelSelect;
 import Tools.B2WorldCreator;
 import Tools.WorldContactListener;
 
@@ -66,6 +64,8 @@ public class PlayScreen implements Screen {
 
 	public static BluePlayer bluePlayer;
 	public static PinkPlayer pinkPlayer;
+	private ImageButton clockButton;
+	private ImageButton hpButton;
 
 	public static B2WorldCreator b2WorldCreator;
 
@@ -100,13 +100,27 @@ public class PlayScreen implements Screen {
 		enableSwitchColor = true;
 
 		world = new World(new Vector2(0, -10), true);
+		
+		// Create Icon
+		// HP Button
+		hpButton = new ImageButton(new TextureRegionDrawable(
+				new TextureRegion(new Texture(Gdx.files.internal("StartGame/health3.png")))
+						));
+		hpButton.setBounds(20, 700, 5, 20);
+		
+		// Clock Icon
+		clockButton = new ImageButton(new TextureRegionDrawable(
+				new TextureRegion(new Texture(Gdx.files.internal("StartGame/clock.png")))
+				));
+		hpButton.setBounds(1000, 1200, 100, 25);
+
 
 		// buttonStage
 		Gdx.input.setInputProcessor(buttonStage);
 		levelStage = new ImageButton(new TextureRegionDrawable(
 				new TextureRegion(new Texture(Gdx.files.internal("StartGame/level-stage.png")))));
 		levelStage.setBounds(0, 0, 125, 100);
-
+		
 		levelStage.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				keep_count = 0;
@@ -116,7 +130,7 @@ public class PlayScreen implements Screen {
 				game.setScreen(new LevelSelect(game));
 			}
 		});
-		buttonStage.addActor(levelStage);
+		
 		// button switch blue
 		switchBlueButton = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("switch/sb.png")))));
@@ -126,6 +140,10 @@ public class PlayScreen implements Screen {
 				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("switch/sp.png")))));
 		switchPinkButton.setBounds(100, 600, 100, 100);
 
+		buttonStage.addActor(levelStage);
+		buttonStage.addActor(hpButton);
+		buttonStage.addActor(clockButton);
+		
 		// allows for debug lines of our box2d world
 		b2dr = new Box2DDebugRenderer();
 
@@ -134,6 +152,7 @@ public class PlayScreen implements Screen {
 		sb = new SpriteBatch();
 
 		hud = new Hud();
+		
 		// create BluePlayer and PinkPlayer in our game world
 		bluePlayer = new BluePlayer(world, this);
 		pinkPlayer = new PinkPlayer(world, this);
@@ -202,6 +221,29 @@ public class PlayScreen implements Screen {
 
 		// tell our render to draw only what our camers can see in our game world.
 		tmr.setView(gameCam);
+		
+		
+		if(Hud.health == 2) {
+			hpButton = new ImageButton(new TextureRegionDrawable(
+					new TextureRegion(new Texture(Gdx.files.internal("StartGame/health2.png")))
+							));
+			
+		}
+		else if(Hud.health == 1) {
+			hpButton = new ImageButton(new TextureRegionDrawable(
+					new TextureRegion(new Texture(Gdx.files.internal("StartGame/health1.png")))
+					));
+		}
+		else if(Hud.health == 0)
+		{
+			hpButton = new ImageButton(new TextureRegionDrawable(
+					new TextureRegion(new Texture(Gdx.files.internal("StartGame/health0.png")))
+					));
+		
+		}
+		
+		hpButton.setBounds(500, Pyramid.PPM, 400, 100);
+		buttonStage.addActor(hpButton);
 
 	}
 
@@ -299,6 +341,9 @@ public class PlayScreen implements Screen {
 
 	@Override
 	public void dispose() {
+		sb.dispose();
+		hud.dispose();
+		atlas.dispose();
 		map.dispose();
 		tmr.dispose();
 		world.dispose();

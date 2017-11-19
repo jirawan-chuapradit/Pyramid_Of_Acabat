@@ -21,7 +21,7 @@
    eJztwTEBAAAAwqD1T20IX6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgNcA4QAAAQ==
   </data>
  </layer>
- <objectgroup name="groundOb" visible="0">
+ <objectgroup name="groundOb">
   <object id="2" x="-31.5" y="8.1666" width="38.6667" height="711.667"/>
   <object id="5" x="1273.17" y="0.16667" width="32" height="722.667"/>
   <object id="37" x="8.545" y="558.167" width="158.91" height="31.6667"/>
@@ -29,8 +29,7 @@
   <object id="102" x="112" y="280" width="48" height="40"/>
   <object id="104" x="248" y="280" width="48" height="40"/>
  </objectgroup>
- <objectgroup name="pinkOb" visible="0">
-  <object id="24" x="832.833" y="352.833" width="31.1212" height="37.3333"/>
+ <objectgroup name="pinkOb">
   <object id="70" x="688" y="530" width="101.5" height="35.5"/>
   <object id="72" x="930.667" y="473.333" width="115" height="35.6667"/>
   <object id="91" x="528" y="320" width="72" height="40"/>
@@ -49,7 +48,7 @@
   <object id="130" x="384" y="192" width="160" height="40"/>
   <object id="133" x="864" y="392" width="40" height="40"/>
  </objectgroup>
- <objectgroup name="blueOb" visible="0">
+ <objectgroup name="blueOb">
   <object id="18" x="968.333" y="240" width="39.2122" height="39.5757"/>
   <object id="19" x="657" y="272" width="215.091" height="39"/>
   <object id="26" x="1064.73" y="303.25" width="45.4375" height="39"/>
@@ -61,11 +60,12 @@
   <object id="143" x="1034" y="334.5" width="2" height="8.5"/>
   <object id="145" x="1144" y="448" width="56" height="40"/>
  </objectgroup>
- <objectgroup name="GameOverOb" visible="0">
+ <objectgroup name="flagOb"/>
+ <objectgroup name="GameOverOb">
   <object id="106" x="160" y="280" width="88" height="40"/>
+  <object id="45" x="3" y="703" width="1273" height="32"/>
  </objectgroup>
  <objectgroup name="thorn">
-  <object id="45" x="3" y="703" width="1273" height="32"/>
   <object id="51" x="1080" y="535.75" width="39.25" height="31.75"/>
   <object id="54" x="1117" y="555" width="10.75" height="12.5"/>
   <object id="55" x="1072" y="559.75" width="16" height="16.75"/>

@@ -9,7 +9,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import State.Menu;
+import Screens.Menu;
 import handles.Content;
 
 public class Pyramid extends Game {

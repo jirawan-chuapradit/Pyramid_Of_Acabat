@@ -1,10 +1,11 @@
-package State;
+package Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,6 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Pyramid;
 
 import Screens.Hud;
@@ -33,6 +36,9 @@ public class LevelSelect implements Screen {
 	private ImageButton level8Button;
 	private ImageButton level9Button;
 	private ImageButton level10Button;
+	
+	private OrthographicCamera gameCam;
+	private Viewport gamePort;
 
 	// private Menu menu;
 
@@ -48,8 +54,11 @@ public class LevelSelect implements Screen {
 
 		this.game = p;
 		buttonStage = new Stage();
+		
 
-//		hud = new Hud(game.sb);
+		gameCam = new OrthographicCamera();
+		// create a FitViewport to maintain virtual aspect ratio despite screen
+		gamePort = new FitViewport(Pyramid.V_WIDTH / Pyramid.PPM, Pyramid.V_HEIGHT / Pyramid.PPM, gameCam);
 		
 		Gdx.input.setInputProcessor(buttonStage);
 
@@ -198,6 +207,9 @@ public class LevelSelect implements Screen {
 		
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		// Set our batch to now draw what the Hud camera see.
+		game.sb.setProjectionMatrix(gameCam.combined);
 
 		update(delta);
 
@@ -214,8 +226,7 @@ public class LevelSelect implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-
+		gamePort.update(width, height);
 	}
 
 	@Override

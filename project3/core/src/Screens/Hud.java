@@ -1,23 +1,24 @@
 package Screens;
 
-import java.awt.Font;
-
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Pyramid;
 
-import State.Menu;
 import Tools.WorldContactListener;
 
 
-public class Hud {
+public class Hud{
 
 	public Stage stage;
 	private Viewport viewport;
@@ -25,7 +26,12 @@ public class Hud {
 	
 	private Integer worldTimer;
 	private float timeCount;
-	private Integer health;
+	protected static int health;
+	
+	private Stage buttonStage;
+	private ImageButton clockButton;
+	private ImageButton hpButton;
+	
 	
 	private WorldContactListener worldContactListener;
 	
@@ -39,13 +45,16 @@ public class Hud {
 	Label worldLabel;
 	Label playerLabel;
 	
+	
+	
 	public Hud() {
 		
-		worldTimer = 500;
+		worldTimer = 120;
 		timeCount = 0;
 		health = 3;
 		timeHealth = 0;
 		
+		buttonStage = new Stage();
 		worldContactListener = new WorldContactListener();
 		
 //		setup the HUD viewport using a new camera seperate from our gamecam
@@ -61,35 +70,49 @@ public class Hud {
         //make the table fill the entire stage
         table.setFillParent(true);
 
-		
-		BitmapFont font = new BitmapFont();
 		game = new Pyramid();
 	
 		
 	
 		//define our labels using the String, and a Label style consisting of a font and color
-		coundownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(font, Color.GOLDENROD));
+		coundownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.GOLDENROD));
 		scoreLabel = new Label(String.format("%06d", health), new Label.LabelStyle(new BitmapFont(), Color.GOLDENROD));
 		timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.GOLDENROD));
 		levelLabel = new Label("Level " + PlayScreen.keep_count, new Label.LabelStyle(new BitmapFont(), Color.GOLDENROD));
 		worldLabel = new Label("STAGE", new Label.LabelStyle(new BitmapFont(), Color.GOLDENROD));
 		playerLabel = new Label("Health", new Label.LabelStyle(new BitmapFont(), Color.GOLDENROD));
 		
-		playerLabel.setSize(200f, 200f);
-		
-		 //add our labels to our table, padding the top, and giving them all equal width with expandX
+//		 add our labels to our table, padding the top, and giving them all equal width with expandX
 		table.add(playerLabel).expandX().padTop(10);
 		table.add(worldLabel).expandX().padTop(10);
 		table.add(timeLabel).expandX().padTop(10);
 		
-	    //add a second row to our table
+//	    add a second row to our table
 		table.row();
 		table.add(scoreLabel).expandX();
 		table.add(levelLabel).expandX();
 		table.add(coundownLabel).expandX();
 		
-		 //add our table to the stage
+//		 add our table to the stage
 		stage.addActor(table);
+		
+
+		
+		// Create Icon
+		// HP Button
+		hpButton = new ImageButton(new TextureRegionDrawable(
+				new TextureRegion(new Texture(Gdx.files.internal("StartGame/health3.png")))
+						));
+		hpButton.setBounds(500, 500, 400, 100);
+		
+		// Clock Icon
+		clockButton = new ImageButton(new TextureRegionDrawable(
+				new TextureRegion(new Texture(Gdx.files.internal("StartGame/clock.png")))
+				));
+		hpButton.setBounds(1000, 500, 400, 100);
+		
+		buttonStage.addActor(hpButton);
+		buttonStage.addActor(clockButton);
 
 		
 	}
@@ -115,12 +138,11 @@ public class Hud {
 		else {
 			timeHealth =  0;
 		}
+		
 	}
 	
 	
-	public void dispose() {
-		stage.dispose();
-	}
+
 
 	public Integer getWorldTimer() {
 		return worldTimer;
@@ -139,6 +161,15 @@ public class Hud {
 	public void setHealth(Integer healths) {
 		this.health = healths;
 		health--;
+	}
+	
+	public void dispose() {
+		
+		game.dispose();
+		stage.dispose();
+		buttonStage.dispose();
+		
+		
 	}
 
 	

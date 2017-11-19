@@ -31,5 +31,4 @@ public abstract class InteractiveTileObject {
 	
 	public abstract void underFootHit();
 	
-	
 }
