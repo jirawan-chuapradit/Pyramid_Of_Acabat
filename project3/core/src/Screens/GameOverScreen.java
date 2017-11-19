@@ -2,11 +2,11 @@ package Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Pyramid;
 
-import State.LevelSelect;
+
 
 public class GameOverScreen implements Screen {
 
@@ -35,6 +35,7 @@ public class GameOverScreen implements Screen {
 		this.game = gsm;
 		
 		gameCam = new OrthographicCamera();
+		
 		// create a FitViewport to maintain virtual aspect ratio despite screen
 		gamePort = new FitViewport(Pyramid.V_WIDTH / Pyramid.PPM, Pyramid.V_HEIGHT / Pyramid.PPM, gameCam);
 		
@@ -80,18 +81,25 @@ public class GameOverScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
+		// Clear the game screen with Black
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		game.sb.setProjectionMatrix(gameCam.combined);
+		
+		
+		
 		sb.begin();
 		sb.draw(background, 0, 0, Pyramid.V_WIDTH, Pyramid.V_HEIGHT);
 		sb.end();
 		
 		buttonStage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
-		buttonStage.draw();		
+		buttonStage.draw();	
+	
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-		
+		gamePort.update(width, height);
 	}
 
 	@Override
@@ -114,6 +122,7 @@ public class GameOverScreen implements Screen {
 
 	@Override
 	public void dispose() {
+		
 		sb.dispose();
 		buttonStage.dispose();
 		background.dispose();		

@@ -1,34 +1,35 @@
-package State;
+package Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Pyramid;
-//import com.badlogic.gdx.scenes.scene2d.ui.Button;
+
 
 public class Menu implements Screen{
 	
-
-
 	private Texture background;
 	private Stage buttonStage;
 	private ImageButton startButton;
 	private ImageButton helpButton;
 	private ImageButton exitButton;
-	private ImageButton levelStage;
 	
+	private OrthographicCamera gameCam;
+	private Viewport gamePort;
 	
 	final Pyramid game;
 	public SpriteBatch sb;
@@ -37,6 +38,10 @@ public class Menu implements Screen{
 		this.game = gsm;
 		buttonStage = new Stage();
 		
+		gameCam = new OrthographicCamera();
+		// create a FitViewport to maintain virtual aspect ratio despite screen
+		gamePort = new FitViewport(Pyramid.V_WIDTH / Pyramid.PPM, Pyramid.V_HEIGHT / Pyramid.PPM, gameCam);
+
 		Gdx.input.setInputProcessor(buttonStage);	
 		
 		background = new Texture("StartGame/GUI.png");
@@ -106,6 +111,12 @@ public class Menu implements Screen{
 
 	@Override
 	public void render(float delta) {
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		game.sb.setProjectionMatrix(gameCam.combined);
+
+		
 		buttonStage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
 		
 		sb.begin();
@@ -119,8 +130,7 @@ public class Menu implements Screen{
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-		
+		gamePort.update(width, height);
 	}
 
 	@Override

@@ -26,7 +26,7 @@ public class Hud{
 	
 	private Integer worldTimer;
 	private float timeCount;
-	static  int health;
+	protected static int health;
 	
 	private Stage buttonStage;
 	private ImageButton clockButton;
@@ -49,7 +49,7 @@ public class Hud{
 	
 	public Hud() {
 		
-		worldTimer = 180;
+		worldTimer = 120;
 		timeCount = 0;
 		health = 3;
 		timeHealth = 0;
@@ -82,19 +82,19 @@ public class Hud{
 		worldLabel = new Label("STAGE", new Label.LabelStyle(new BitmapFont(), Color.GOLDENROD));
 		playerLabel = new Label("Health", new Label.LabelStyle(new BitmapFont(), Color.GOLDENROD));
 		
-		 //add our labels to our table, padding the top, and giving them all equal width with expandX
-//		table.add(playerLabel).expandX().padTop(10);
-//		table.add(worldLabel).expandX().padTop(10);
-//		table.add(timeLabel).expandX().padTop(10);
+//		 add our labels to our table, padding the top, and giving them all equal width with expandX
+		table.add(playerLabel).expandX().padTop(10);
+		table.add(worldLabel).expandX().padTop(10);
+		table.add(timeLabel).expandX().padTop(10);
 		
-	    //add a second row to our table
-//		table.row();
-//		table.add(scoreLabel).expandX();
-//		table.add(levelLabel).expandX();
-//		table.add(coundownLabel).expandX();
+//	    add a second row to our table
+		table.row();
+		table.add(scoreLabel).expandX();
+		table.add(levelLabel).expandX();
+		table.add(coundownLabel).expandX();
 		
-		 //add our table to the stage
-//		stage.addActor(table);
+//		 add our table to the stage
+		stage.addActor(table);
 		
 
 		

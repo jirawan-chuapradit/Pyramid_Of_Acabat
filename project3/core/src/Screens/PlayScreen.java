@@ -25,10 +25,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Pyramid;
-
 import Sprites.BluePlayer;
 import Sprites.PinkPlayer;
-import State.LevelSelect;
 import Tools.B2WorldCreator;
 import Tools.WorldContactListener;
 
