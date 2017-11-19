@@ -37,10 +37,6 @@ public class PlayScreen implements Screen {
 	private Texture background;
 	private Pyramid game;
 	private GameOverScreen gameOverScreen;
-<<<<<<< HEAD
-	Texture texture;
-=======
->>>>>>> e6f1f19f23fe9b61dd840d39aa1ade9600d193dc
 
 	// beer
 	private TextureAtlas atlas;
@@ -62,16 +58,13 @@ public class PlayScreen implements Screen {
 	private Box2DDebugRenderer b2dr;
 
 	private SpriteBatch sb;
-<<<<<<< HEAD
-=======
 	private Hud hud;
->>>>>>> e6f1f19f23fe9b61dd840d39aa1ade9600d193dc
 
 	private BluePlayer bluePlayer;
 	private PinkPlayer pinkPlayer;
 
 	private B2WorldCreator b2WorldCreator;
-
+	
 	private float time;
 
 	private Music music;
@@ -90,11 +83,8 @@ public class PlayScreen implements Screen {
 		// create a FitViewport to maintain virtual aspect ratio despite screen
 		gamePort = new FitViewport(Pyramid.V_WIDTH / Pyramid.PPM, Pyramid.V_HEIGHT / Pyramid.PPM, gameCam);
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> e6f1f19f23fe9b61dd840d39aa1ade9600d193dc
 		keep_count = LevelSelect.count;
 		// load our map and setup our map renderer
 		maploader = new TmxMapLoader();
@@ -113,22 +103,12 @@ public class PlayScreen implements Screen {
 		Gdx.input.setInputProcessor(buttonStage);
 		levelStage = new ImageButton(new TextureRegionDrawable(
 				new TextureRegion(new Texture(Gdx.files.internal("StartGame/level-stage.png")))));
-<<<<<<< HEAD
-		levelStage.setBounds(1125, 0, 125, 100);
-=======
 		levelStage.setBounds(0, 0, 125, 100);
->>>>>>> e6f1f19f23fe9b61dd840d39aa1ade9600d193dc
 
 		levelStage.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				keep_count = 0;
-<<<<<<< HEAD
-				music.stop();
-				// Stop music
-				Pyramid.manager.get("music/music_start.ogg", Music.class).stop();
-=======
 				// Stop music Pyramid.manager.get("music/music_start.ogg", Music.class).stop();
->>>>>>> e6f1f19f23fe9b61dd840d39aa1ade9600d193dc
 				super.clicked(event, x, y);
 				Pyramid.manager.get("sounds/button1.wav", Sound.class).play();
 				game.setScreen(new LevelSelect(game));
@@ -143,25 +123,15 @@ public class PlayScreen implements Screen {
 
 		sb = new SpriteBatch();
 
-<<<<<<< HEAD
-=======
 		hud = new Hud();
->>>>>>> e6f1f19f23fe9b61dd840d39aa1ade9600d193dc
 		// create BluePlayer and PinkPlayer in our game world
 		bluePlayer = new BluePlayer(world, this);
 		pinkPlayer = new PinkPlayer(world, this);
 
 		// load music Game
-		if (keep_count == 1) {
-			music = Pyramid.manager.get("music/music1.ogg", Music.class);
-			music.setLooping(true);
-			music.play();
-		}
-		else if (keep_count == 2) {
-			music = Pyramid.manager.get("music/music2.ogg", Music.class);
-			music.setLooping(true);
-			music.play();
-		}
+		music = Pyramid.manager.get("music/music1.ogg", Music.class);
+		music.setLooping(true);
+		music.play();
 
 		world.setContactListener(new WorldContactListener());
 
@@ -177,15 +147,12 @@ public class PlayScreen implements Screen {
 	}
 
 	public void update(float dt) {
-<<<<<<< HEAD
-=======
 
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		hud.update(dt);
 		
->>>>>>> e6f1f19f23fe9b61dd840d39aa1ade9600d193dc
 		keep_count = LevelSelect.count;
 
 		if (enableSwitchColor) {
@@ -217,11 +184,6 @@ public class PlayScreen implements Screen {
 		// check two player Stay on the Flag
 		CheckNextLevel();
 
-<<<<<<< HEAD
-		// checking player don't on ground
-		CheckPlayerOnGround();
-
-=======
 		// GameOver
 		CheckGameOver();
 
@@ -229,17 +191,12 @@ public class PlayScreen implements Screen {
 		
 
 		// tekes 1 step in the physics simulation(60 times per second
->>>>>>> e6f1f19f23fe9b61dd840d39aa1ade9600d193dc
 		world.step(1 / 60f, 6, 2);
 
 		pinkPlayer.update(dt);
 		bluePlayer.update(dt);
-<<<<<<< HEAD
-		// gameCam.position.x = playerPink.b2body.getPosition().x;
-=======
 		
 		hud.update(dt);
->>>>>>> e6f1f19f23fe9b61dd840d39aa1ade9600d193dc
 
 		// update our gamecam with correct coordinates after changes.
 		gameCam.update();
@@ -252,22 +209,13 @@ public class PlayScreen implements Screen {
 	@Override
 	public void render(float delta) {
 
-<<<<<<< HEAD
-		// separate our update screen logic from render
-		update(delta);
-
-=======
->>>>>>> e6f1f19f23fe9b61dd840d39aa1ade9600d193dc
 		// Clear the game screen with Black
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-<<<<<<< HEAD
-=======
 		// separate our update screen logic from render
 		update(delta);
 
->>>>>>> e6f1f19f23fe9b61dd840d39aa1ade9600d193dc
 		// render buttonStage
 		buttonStage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
 
@@ -286,13 +234,6 @@ public class PlayScreen implements Screen {
 
 		// draw buttonStage
 		buttonStage.draw();
-<<<<<<< HEAD
-	}
-
-	public void CheckNextLevel() {
-		// System.out.println(WorldContactListener.checkPink);
-		// System.out.println(WorldContactListener.checkBlue);
-=======
 
 		game.sb.setProjectionMatrix(hud.stage.getCamera().combined);
 		hud.stage.draw();
@@ -301,7 +242,6 @@ public class PlayScreen implements Screen {
 
 	public void CheckNextLevel() {
 
->>>>>>> e6f1f19f23fe9b61dd840d39aa1ade9600d193dc
 		// check Next Stage
 		if (WorldContactListener.ischeckPink() == true && WorldContactListener.ischeckBlue() == true) {
 
@@ -312,21 +252,13 @@ public class PlayScreen implements Screen {
 		}
 	}
 
-<<<<<<< HEAD
-	private void CheckPlayerOnGround() {
-
-		// check GameOver
-=======
 	private void CheckGameOver() {
 
 		// check player is on Grounds
->>>>>>> e6f1f19f23fe9b61dd840d39aa1ade9600d193dc
 		if (WorldContactListener.isCheckGameOver() == true) {
 			WorldContactListener.setCheckGameOver(false);
 			game.setScreen(new GameOverScreen(game));
 		}
-<<<<<<< HEAD
-=======
 		
 		// check player Time up
 		if (hud.getWorldTimer() == 0) {
@@ -337,7 +269,6 @@ public class PlayScreen implements Screen {
 		if(hud.getHealth() == 0) {
 			game.setScreen(new GameOverScreen(game));
 		}
->>>>>>> e6f1f19f23fe9b61dd840d39aa1ade9600d193dc
 
 	}
 	
