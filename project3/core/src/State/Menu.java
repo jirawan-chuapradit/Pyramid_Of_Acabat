@@ -10,8 +10,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.mygdx.game.Pyramid;
 //import com.badlogic.gdx.scenes.scene2d.ui.Button;
 
@@ -21,12 +24,15 @@ public class Menu implements Screen{
 
 	private Texture background;
 	private Stage buttonStage;
-	private ImageButton playButton;
+	private ImageButton startButton;
+	private ImageButton helpButton;
+	private ImageButton exitButton;
+	private ImageButton levelStage;
+	
 	
 	final Pyramid game;
 	public SpriteBatch sb;
 	public Menu(final Pyramid gsm) {
-		
 		
 		this.game = gsm;
 		buttonStage = new Stage();
@@ -34,9 +40,13 @@ public class Menu implements Screen{
 		Gdx.input.setInputProcessor(buttonStage);	
 		
 		background = new Texture("StartGame/GUI.png");
-		playButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("StartGame/start.png")))));
-		playButton.setBounds(40, 40, 200, 180);
-		playButton.addListener(new ClickListener()   {
+		
+		// Create start Button
+		startButton = new ImageButton(new TextureRegionDrawable(
+				new TextureRegion(new Texture(Gdx.files.internal("StartGame/start.png")))
+				));
+		startButton.setBounds(100, 0, 240, 220);
+		startButton.addListener(new ClickListener()   {
 			
 			public void clicked(InputEvent event  , float x , float y) {
 				Pyramid.manager.get("sounds/button2.wav", Sound.class).play();
@@ -45,10 +55,38 @@ public class Menu implements Screen{
 			}
 		});
 		
-		buttonStage.addActor(playButton);
 		
+		// Create Help Buutton
+		helpButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("StartGame/help.png")))));
+		helpButton.setBounds((Pyramid.V_WIDTH / 2) - 150 , 0, 240, 220);
+	
+		helpButton.addListener(new ClickListener()   {
+			
+			public void clicked(InputEvent event  , float x , float y) {
+				Pyramid.manager.get("sounds/button2.wav", Sound.class).play();
+				super.clicked(event, x , y);
+//				game.setScreen(new LevelSelect(game));
+			}
+		});
+		
+		// Create Exit Button
+		 exitButton = new  ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("StartGame/Exit.png")))));
+		 exitButton.setBounds((Pyramid.V_WIDTH / 2) + 200, 0, 240, 220);
+		 exitButton.addListener(new ClickListener() {
+	         
+             public void clicked(InputEvent event, float x , float y) {
+                  super.clicked(event, x, y);
+                  Gdx.app.exit();
+          
+             }
+           });
+		 
 		//Play music
-				Pyramid.manager.get("music/music_start.ogg", Music.class).play();
+			Pyramid.manager.get("music/music_start.ogg", Music.class).play();
+
+			buttonStage.addActor(startButton);
+			buttonStage.addActor(helpButton);
+			buttonStage.addActor(exitButton);
 	}
 
 
@@ -61,7 +99,6 @@ public class Menu implements Screen{
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
 		
 		sb = new SpriteBatch();
 	}

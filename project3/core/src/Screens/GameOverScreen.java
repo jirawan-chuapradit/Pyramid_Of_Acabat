@@ -32,11 +32,11 @@ public class GameOverScreen implements Screen {
 		
 		Gdx.input.setInputProcessor(buttonStage);
 		
-		background = new Texture("gameOverTest.png");
+		background = new Texture("GameOver/gameover.png");
 		
 		NextButton = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("StartGame/right.png")))));
-		NextButton.setBounds((Pyramid.V_WIDTH / 2) - 100, 100, 50, 50);
+		NextButton.setBounds((Pyramid.V_WIDTH / 2) - 100, 100, 200, 280);
 
 		
 		NextButton.addListener(new ClickListener() {

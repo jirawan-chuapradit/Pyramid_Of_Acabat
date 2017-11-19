@@ -1,5 +1,6 @@
 package Sprites;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -29,6 +30,13 @@ public class GroundBlock extends InteractiveTileObject {
 		fdef.shape = shape;
 		
 		fixture = body.createFixture(fdef);
+		body.setUserData("Ground");
+	}
+
+	@Override
+	public void underFootHit() {
+		Gdx.app.log("Gronnd", "Collision");
+		
 	}
 
 }

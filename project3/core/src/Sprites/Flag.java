@@ -32,6 +32,7 @@ public class Flag extends InteractiveTileObject{
 		shape.setAsBox(bounds.getWidth() / 2 / Pyramid.PPM, bounds.getHeight() / 2 / Pyramid.PPM);
 		fdef.shape = shape;
 		
+		
 		fixture = body.createFixture(fdef);
 		fixture.setUserData("Flag");
 	}

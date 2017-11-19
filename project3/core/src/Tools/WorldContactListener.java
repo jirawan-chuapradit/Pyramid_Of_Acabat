@@ -22,12 +22,15 @@ public class WorldContactListener implements ContactListener {
 		Fixture fixB = contact.getFixtureB();
 		
 		if(fixA.getUserData() == "footBlue" || fixA.getUserData() == "footPink") {
+
 			Fixture foot = fixA.getUserData() == "foot" ? fixA : fixB;
 			Fixture object = foot == fixA ? fixB : fixA;
+			
 			if(object.getUserData() != null && InteractiveTileObject.class.isAssignableFrom(object.getUserData().getClass())) {
 				((InteractiveTileObject) object.getUserData()).underFootHit();
 			}
 		}
+	
 		
 		// check Blue  on the Flage
 		if(fixA.getUserData() == "footBlue" && fixB.getUserData() == "Flag") {
@@ -53,6 +56,7 @@ public class WorldContactListener implements ContactListener {
 		}
 			
 		System.out.println("Pink : "+checkPink + "Blue: "+ checkBlue);
+		System.out.println("A:" + fixA.getUserData() + " B: "+ fixB.getUserData());
 
 		
 		
@@ -80,6 +84,7 @@ public class WorldContactListener implements ContactListener {
 	}
 
 	public static void setcheckPink(boolean checkPinks) {
+		
 		checkPink = checkPinks;
 	}
 

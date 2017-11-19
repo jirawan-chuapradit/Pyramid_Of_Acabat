@@ -153,12 +153,17 @@ public class BluePlayer extends Sprite{
 		fdef.shape = shape;
 		fdef.filter.groupIndex = -1;
 		Fixture body  = b2body.createFixture(fdef);
-	
+		b2body.setUserData("footBlue");
+		fdef.isSensor = true;
 		// foot sensor 
 		EdgeShape foot = new EdgeShape();
-		foot.set(new Vector2( -10/ Pyramid.PPM, -15 / Pyramid.PPM), new Vector2( 10/ Pyramid.PPM, -15 / Pyramid.PPM));
+//		foot.setAsBox( 15/ Pyramid.PPM, 20 / Pyramid.PPM);
+		foot.set(new Vector2( -10/ Pyramid.PPM, -20 / Pyramid.PPM), new Vector2( 10/ Pyramid.PPM, -20 / Pyramid.PPM));
 		fdef.shape = foot;
 		fdef.isSensor = true;
+		
+		
+		
 		
 		b2body.createFixture(fdef).setUserData("footBlue");
 				

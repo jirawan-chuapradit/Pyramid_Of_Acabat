@@ -155,11 +155,11 @@ public class PinkPlayer extends Sprite {
 		shape.setAsBox(15 / Pyramid.PPM, 20 / Pyramid.PPM);
 		fdef.shape = shape;
 		fdef.filter.groupIndex = -2;
-		b2body.createFixture(fdef);
+		b2body.createFixture(fdef).setUserData("footPink");;
 
 		// foot sensor
 		EdgeShape foot = new EdgeShape();
-		foot.set(new Vector2(-10 / Pyramid.PPM, -15 / Pyramid.PPM), new Vector2(10 / Pyramid.PPM, -15 / Pyramid.PPM));
+		foot.set(new Vector2(-10 / Pyramid.PPM, -20 / Pyramid.PPM), new Vector2(10 / Pyramid.PPM, -20 / Pyramid.PPM));
 		fdef.shape = foot;
 		fdef.isSensor = true;
 
