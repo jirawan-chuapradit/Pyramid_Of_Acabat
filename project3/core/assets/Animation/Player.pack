@@ -1,0 +1,19 @@
+
+Player.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+boy
+  rotate: false
+  xy: 1, 503
+  size: 600, 500
+  orig: 600, 500
+  offset: 0, 0
+  index: -1
+girl
+  rotate: false
+  xy: 1, 1
+  size: 600, 500
+  orig: 600, 500
+  offset: 0, 0
+  index: -1
