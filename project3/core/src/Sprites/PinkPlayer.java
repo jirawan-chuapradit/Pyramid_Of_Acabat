@@ -164,7 +164,6 @@ public class PinkPlayer extends Sprite {
 		fdef.isSensor = true;
 
 		b2body.createFixture(fdef).setUserData("footPink");
-
 	}
 
 	public void handleInput(float dt) {

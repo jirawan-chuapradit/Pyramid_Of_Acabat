@@ -43,7 +43,11 @@ public class PlayScreen implements Screen {
 
 	public static int keep_count;
 	private ImageButton levelStage;
-	private Stage buttonStage;
+	// switch
+	public static ImageButton switchBlueButton;
+	public static ImageButton switchPinkButton;
+	public static Stage buttonStage;
+	private Switch sw;
 
 	private OrthographicCamera gameCam;
 	private Viewport gamePort;
@@ -60,16 +64,16 @@ public class PlayScreen implements Screen {
 	private SpriteBatch sb;
 	private Hud hud;
 
-	private BluePlayer bluePlayer;
-	private PinkPlayer pinkPlayer;
+	public static BluePlayer bluePlayer;
+	public static PinkPlayer pinkPlayer;
 
-	private B2WorldCreator b2WorldCreator;
-	
-	private float time;
+	public static B2WorldCreator b2WorldCreator;
+
+	public static float time;
 
 	private Music music;
 
-	private boolean enableSwitchColor;
+	public static boolean enableSwitchColor;
 
 	public PlayScreen(Pyramid gsm) {
 
@@ -82,8 +86,6 @@ public class PlayScreen implements Screen {
 		gameCam = new OrthographicCamera();
 		// create a FitViewport to maintain virtual aspect ratio despite screen
 		gamePort = new FitViewport(Pyramid.V_WIDTH / Pyramid.PPM, Pyramid.V_HEIGHT / Pyramid.PPM, gameCam);
-
-
 
 		keep_count = LevelSelect.count;
 		// load our map and setup our map renderer
@@ -115,6 +117,14 @@ public class PlayScreen implements Screen {
 			}
 		});
 		buttonStage.addActor(levelStage);
+		// button switch blue
+		switchBlueButton = new ImageButton(
+				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("switch/sb.png")))));
+		switchBlueButton.setBounds(100, 600, 100, 100);
+		// button switch pink
+		switchPinkButton = new ImageButton(
+				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("switch/sp.png")))));
+		switchPinkButton.setBounds(100, 600, 100, 100);
 
 		// allows for debug lines of our box2d world
 		b2dr = new Box2DDebugRenderer();
@@ -127,6 +137,9 @@ public class PlayScreen implements Screen {
 		// create BluePlayer and PinkPlayer in our game world
 		bluePlayer = new BluePlayer(world, this);
 		pinkPlayer = new PinkPlayer(world, this);
+
+		// Object switch
+		sw = new Switch();
 
 		// load music Game
 		music = Pyramid.manager.get("music/music1.ogg", Music.class);
@@ -152,34 +165,23 @@ public class PlayScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		hud.update(dt);
-		
+
 		keep_count = LevelSelect.count;
 
-		if (enableSwitchColor) {
-			if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-
-				Pyramid.manager.get("sounds/shift.wav", Sound.class).play();
-
-				b2WorldCreator.switchColor();
-
-				enableSwitchColor = false;
-			}
-		} else {
-			if (time >= 2) {
-				enableSwitchColor = true;
-				time = 0;
-			} else {
-				time += dt;
-			}
+		// case press click
+		switch (B2WorldCreator.currentColor) {
+		case 0:
+			buttonStage.addActor(switchBlueButton);
+			sw.switchBlueButton();
+			break;
+		case 1:
+			buttonStage.addActor(switchPinkButton);
+			sw.switchPinkButton();
+			break;
 		}
-
-		// handle user input first
-
-		if (b2WorldCreator.getCurrentColor() != 0) {
-			pinkPlayer.handleInput(dt);
-		} else {
-			bluePlayer.handleInput(dt);
-		}
+		//System.out.println(B2WorldCreator.currentColor);
+		// case press shift
+		sw.update(dt);
 
 		// check two player Stay on the Flag
 		CheckNextLevel();
@@ -187,15 +189,12 @@ public class PlayScreen implements Screen {
 		// GameOver
 		CheckGameOver();
 
-		
-		
-
 		// tekes 1 step in the physics simulation(60 times per second
 		world.step(1 / 60f, 6, 2);
 
 		pinkPlayer.update(dt);
 		bluePlayer.update(dt);
-		
+
 		hud.update(dt);
 
 		// update our gamecam with correct coordinates after changes.
@@ -259,19 +258,18 @@ public class PlayScreen implements Screen {
 			WorldContactListener.setCheckGameOver(false);
 			game.setScreen(new GameOverScreen(game));
 		}
-		
+
 		// check player Time up
 		if (hud.getWorldTimer() == 0) {
 			game.setScreen(new GameOverScreen(game));
 		}
-		
-		// check Health  is zero
-		if(hud.getHealth() == 0) {
+
+		// check Health is zero
+		if (hud.getHealth() == 0) {
 			game.setScreen(new GameOverScreen(game));
 		}
 
 	}
-	
 
 	@Override
 	public void resize(int width, int height) {
