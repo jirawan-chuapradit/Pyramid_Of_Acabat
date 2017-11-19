@@ -27,7 +27,7 @@ public class Pyramid extends Game {
 	public static AssetManager manager;
 	
 	public Pyramid() {
-		
+	
 	}
 	
 	@Override
@@ -52,11 +52,7 @@ public void create () {
 	
 		Gdx.gl.glClearColor(0, 1, 0, 1);
 		this.setScreen(new Menu(this));
-	
-		sb = new SpriteBatch();
-		Gdx.gl.glClearColor(0, 1, 0, 1);
-		this.setScreen(new Menu(this));
-	
+
 		
 		
 	}

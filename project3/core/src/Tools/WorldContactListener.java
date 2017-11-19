@@ -7,7 +7,9 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 
+import Screens.Hud;
 import Sprites.InteractiveTileObject;
+import Sprites.Thorn;
 
 public class WorldContactListener implements ContactListener {
 
@@ -15,9 +17,16 @@ public class WorldContactListener implements ContactListener {
 	public static boolean checkPink = false;
 	public static boolean checkBlue = false;
 	public static boolean checkGameOver = false;
+	public static boolean checkHitHealth = false;
+	
+	
+	private Hud hud;
+	
 	
 	@Override
 	public void beginContact(Contact contact) {
+		
+		
 		Fixture fixA = contact.getFixtureA();
 		Fixture fixB = contact.getFixtureB();
 		
@@ -31,7 +40,7 @@ public class WorldContactListener implements ContactListener {
 			}
 		}
 	
-		
+	
 		// check Blue  on the Flage
 		if(fixA.getUserData() == "footBlue" && fixB.getUserData() == "Flag") {
 			setcheckBlue(true);
@@ -58,6 +67,13 @@ public class WorldContactListener implements ContactListener {
 		System.out.println("Pink : "+checkPink + "Blue: "+ checkBlue);
 		System.out.println("A:" + fixA.getUserData() + " B: "+ fixB.getUserData());
 
+		if((fixA.getUserData() == "footPink" || fixA.getUserData() == "footBlue") && fixB.getUserData() == "Thorn") {
+			setCheckHitHealth(true);
+			System.out.println(checkHitHealth);
+		}
+		else {
+			setCheckHitHealth(false);
+		}
 		
 		
 	}
@@ -102,6 +118,14 @@ public class WorldContactListener implements ContactListener {
 
 	public static void setCheckGameOver(boolean checkGameOver) {
 		WorldContactListener.checkGameOver = checkGameOver;
+	}
+
+	public boolean isCheckHitHealth() {
+		return checkHitHealth;
+	}
+
+	public void setCheckHitHealth(boolean checkHitHealths) {
+		this.checkHitHealth = checkHitHealths;
 	}
 
 }

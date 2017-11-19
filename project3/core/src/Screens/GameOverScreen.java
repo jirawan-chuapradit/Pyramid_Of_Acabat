@@ -43,6 +43,7 @@ public class GameOverScreen implements Screen {
 			
 			public void clicked(InputEvent event, float x, float y) {
 
+		
 				super.clicked(event, x, y);
 				game.setScreen(new LevelSelect(game));
 			}
