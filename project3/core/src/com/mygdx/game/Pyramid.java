@@ -53,7 +53,6 @@ public void create () {
 		Gdx.gl.glClearColor(0, 1, 0, 1);
 		this.setScreen(new Menu(this));
 
-	
 		
 		
 	}

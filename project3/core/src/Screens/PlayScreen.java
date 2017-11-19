@@ -64,7 +64,7 @@ public class PlayScreen implements Screen {
 	private PinkPlayer pinkPlayer;
 
 	private B2WorldCreator b2WorldCreator;
-
+	
 	private float time;
 
 	private Music music;
@@ -103,7 +103,7 @@ public class PlayScreen implements Screen {
 		Gdx.input.setInputProcessor(buttonStage);
 		levelStage = new ImageButton(new TextureRegionDrawable(
 				new TextureRegion(new Texture(Gdx.files.internal("StartGame/level-stage.png")))));
-		levelStage.setBounds(1125, 0, 125, 100);
+		levelStage.setBounds(0, 0, 125, 100);
 
 		levelStage.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
@@ -151,6 +151,8 @@ public class PlayScreen implements Screen {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+		hud.update(dt);
+		
 		keep_count = LevelSelect.count;
 
 		if (enableSwitchColor) {
@@ -182,14 +184,19 @@ public class PlayScreen implements Screen {
 		// check two player Stay on the Flag
 		CheckNextLevel();
 
-		// checking player don't on ground
-		CheckPlayerOnGround();
+		// GameOver
+		CheckGameOver();
 
+		
+		
+
+		// tekes 1 step in the physics simulation(60 times per second
 		world.step(1 / 60f, 6, 2);
 
 		pinkPlayer.update(dt);
 		bluePlayer.update(dt);
-		// gameCam.position.x = playerPink.b2body.getPosition().x;
+		
+		hud.update(dt);
 
 		// update our gamecam with correct coordinates after changes.
 		gameCam.update();
@@ -223,20 +230,18 @@ public class PlayScreen implements Screen {
 		game.sb.begin();
 		pinkPlayer.draw(game.sb);
 		bluePlayer.draw(game.sb);
-		hud.stage.draw();
-		
 		game.sb.end();
 
 		// draw buttonStage
 		buttonStage.draw();
 
 		game.sb.setProjectionMatrix(hud.stage.getCamera().combined);
+		hud.stage.draw();
 
 	}
 
 	public void CheckNextLevel() {
-		// System.out.println(WorldContactListener.checkPink);
-		// System.out.println(WorldContactListener.checkBlue);
+
 		// check Next Stage
 		if (WorldContactListener.ischeckPink() == true && WorldContactListener.ischeckBlue() == true) {
 
@@ -247,15 +252,26 @@ public class PlayScreen implements Screen {
 		}
 	}
 
-	private void CheckPlayerOnGround() {
+	private void CheckGameOver() {
 
-		// check GameOver
+		// check player is on Grounds
 		if (WorldContactListener.isCheckGameOver() == true) {
 			WorldContactListener.setCheckGameOver(false);
 			game.setScreen(new GameOverScreen(game));
 		}
+		
+		// check player Time up
+		if (hud.getWorldTimer() == 0) {
+			game.setScreen(new GameOverScreen(game));
+		}
+		
+		// check Health  is zero
+		if(hud.getHealth() == 0) {
+			game.setScreen(new GameOverScreen(game));
+		}
 
 	}
+	
 
 	@Override
 	public void resize(int width, int height) {
