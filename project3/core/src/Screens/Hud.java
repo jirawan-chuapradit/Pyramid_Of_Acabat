@@ -130,6 +130,7 @@ public class Hud {
 			timeHealth += dt;
 		} else {
 			timeHealth = 0;
+			
 			// Check hit Health
 			if (worldContactListener.isCheckHitHealth() == true) {
 

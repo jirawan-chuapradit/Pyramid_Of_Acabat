@@ -37,10 +37,10 @@ public class GameOverScreen implements Screen {
 		gameCam = new OrthographicCamera();
 		
 		// create a FitViewport to maintain virtual aspect ratio despite screen
-		gamePort = new FitViewport(Pyramid.V_WIDTH / Pyramid.PPM, Pyramid.V_HEIGHT / Pyramid.PPM, gameCam);
+		gamePort = new FitViewport(Pyramid.V_WIDTH, Pyramid.V_HEIGHT , gameCam);
 		
 		// initially set our gamcam to be centered correctly at the start of of map
-				gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
+		gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 		
 		buttonStage = new Stage();
 		
