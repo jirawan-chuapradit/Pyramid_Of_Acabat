@@ -36,6 +36,7 @@ public class LevelSelect implements Screen {
 	private ImageButton level8Button;
 	private ImageButton level9Button;
 	private ImageButton level10Button;
+	private ImageButton menuButton;
 	
 	private OrthographicCamera gameCam;
 	private Viewport gamePort;
@@ -115,6 +116,18 @@ public class LevelSelect implements Screen {
 		level10Button = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/10Click.png")))));
 		level10Button.setBounds((Pyramid.V_WIDTH /2) +  300,(Pyramid.V_HEIGHT / 2) - 150, Pyramid.PPM + 100, Pyramid.PPM + 100);
+		
+		menuButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/left.png")))));
+		menuButton.setBounds((Pyramid.V_WIDTH / 2) - 150 , 0, 240, 220);
+	
+		menuButton.addListener(new ClickListener()   {
+			
+			public void clicked(InputEvent event  , float x , float y) {
+				Pyramid.manager.get("sounds/button2.wav", Sound.class).play();
+				super.clicked(event, x , y);
+				game.setScreen(new Menu(game));
+			}
+		});
 
 		level1Button.addListener(new ClickListener() {
 
@@ -191,6 +204,7 @@ public class LevelSelect implements Screen {
 		buttonStage.addActor(level8Button);
 		buttonStage.addActor(level9Button);
 		buttonStage.addActor(level10Button);
+		buttonStage.addActor(menuButton);
 	}
 
 	// beer

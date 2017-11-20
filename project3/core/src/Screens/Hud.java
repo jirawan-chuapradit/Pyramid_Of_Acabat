@@ -1,6 +1,7 @@
 package Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -115,7 +116,7 @@ public class Hud {
 		if (timeCount >= 1) {
 			setWorldTimer(worldTimer);
 			if (worldTimer <= 6) {
-				// add sound time
+				Pyramid.manager.get("sounds/time_alarm.wav", Sound.class).play();
 			}
 			coundownLabel.setText(String.format("%03d", worldTimer));
 			timeCount = 0;

@@ -45,6 +45,7 @@ public void create () {
 		manager.load("music/music_start.ogg", Music.class);
 		manager.load("music/music_end.ogg", Music.class);
 		manager.load("sounds/jump.wav", Sound.class);
+		manager.load("sounds/time_alarm.wav", Sound.class);
 		manager.load("sounds/endSound.wav", Sound.class);
 		manager.load("sounds/win_stage.wav", Sound.class);
 		manager.load("sounds/shift.wav", Sound.class);

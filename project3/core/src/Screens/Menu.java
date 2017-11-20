@@ -71,7 +71,7 @@ public class Menu implements Screen{
 			public void clicked(InputEvent event  , float x , float y) {
 				Pyramid.manager.get("sounds/button2.wav", Sound.class).play();
 				super.clicked(event, x , y);
-//				game.setScreen(new LevelSelect(game));
+				game.setScreen(new Help(game));
 			}
 		});
 		
