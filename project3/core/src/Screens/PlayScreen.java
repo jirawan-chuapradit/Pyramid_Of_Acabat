@@ -327,7 +327,10 @@ public class PlayScreen implements Screen {
 		tmr.dispose();
 		world.dispose();
 		b2dr.dispose();
-
+		game.dispose();
+		tmr.dispose();
+		sw.dispose();
+		
 		hp0Icon.dispose();
 		hp1Icon.dispose();
 		hp2Button.dispose();
