@@ -88,6 +88,7 @@ public class PlayScreen implements Screen {
 
 		this.game = gsm;
 		buttonStage = new Stage();
+		
 		gameCam = new OrthographicCamera();
 		// create a FitViewport to maintain virtual aspect ratio despite screen
 		gamePort = new FitViewport(Pyramid.V_WIDTH / Pyramid.PPM, Pyramid.V_HEIGHT / Pyramid.PPM, gameCam);
@@ -254,7 +255,7 @@ public class PlayScreen implements Screen {
 
 		// Draw Switch
 		// case press
-		switch (B2WorldCreator.currentColor) {
+		switch (b2WorldCreator.currentColor) {
 		case 0:
 			game.sb.draw(switchBlueIcon, 150 / Pyramid.PPM, 10 / Pyramid.PPM, 70 / Pyramid.PPM, 70 / Pyramid.PPM);
 			break;
@@ -267,6 +268,7 @@ public class PlayScreen implements Screen {
 		// draw buttonStage
 
 		game.sb.setProjectionMatrix(hud.stage.getCamera().combined);
+		
 		hud.stage.draw();
 		buttonStage.draw();
 	}

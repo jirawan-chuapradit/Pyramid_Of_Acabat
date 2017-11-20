@@ -163,8 +163,6 @@ public class BluePlayer extends Sprite{
 		fdef.isSensor = true;
 		
 		
-		
-		
 		b2body.createFixture(fdef).setUserData("footBlue");
 				
 		

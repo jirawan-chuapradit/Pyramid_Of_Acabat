@@ -99,9 +99,9 @@ public class GameOverScreen implements Screen {
 		
 		
 		
-		sb.begin();
-		sb.draw(background, 0, 0, Pyramid.V_WIDTH, Pyramid.V_HEIGHT);
-		sb.end();
+		game.sb.begin();
+		game.sb.draw(background, 0, 0, Pyramid.V_WIDTH, Pyramid.V_HEIGHT);
+		game.sb.end();
 		
 		buttonStage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
 		buttonStage.draw();	

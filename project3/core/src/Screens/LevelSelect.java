@@ -55,10 +55,13 @@ public class LevelSelect implements Screen {
 		this.game = p;
 		buttonStage = new Stage();
 		
-
 		gameCam = new OrthographicCamera();
 		// create a FitViewport to maintain virtual aspect ratio despite screen
-		gamePort = new FitViewport(Pyramid.V_WIDTH / Pyramid.PPM, Pyramid.V_HEIGHT / Pyramid.PPM, gameCam);
+		gamePort = new FitViewport(Pyramid.V_WIDTH, Pyramid.V_HEIGHT, gameCam);
+		
+		// initially set our gamcam to be centered correctly at the start of of map
+		gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
+				
 		
 		Gdx.input.setInputProcessor(buttonStage);
 
@@ -67,52 +70,52 @@ public class LevelSelect implements Screen {
 		// level1-Link
 		level1Button = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/1.png")))));
-		level1Button.setBounds(165, 400, 100, 100);
+		level1Button.setBounds((Pyramid.V_WIDTH /2) -  500,(Pyramid.V_HEIGHT / 2), Pyramid.PPM + 100, Pyramid.PPM + 100);
 
 		// level2-Link
 		level2Button = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/2.png")))));
-		level2Button.setBounds(365, 400, 100, 100);
+		level2Button.setBounds((Pyramid.V_WIDTH /2) -  325,(Pyramid.V_HEIGHT / 2), Pyramid.PPM + 100, Pyramid.PPM + 100);
 
 		// level3-Link
 		level3Button = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/3.png")))));
-		level3Button.setBounds(565, 400, 100, 100);
+		level3Button.setBounds((Pyramid.V_WIDTH /2) -  150,(Pyramid.V_HEIGHT / 2), Pyramid.PPM + 100, Pyramid.PPM + 100);
 
 		// level4-Link
 		level4Button = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/4.png")))));
-		level4Button.setBounds(765, 400, 100, 100);
+		level4Button.setBounds((Pyramid.V_WIDTH /2) + 25,(Pyramid.V_HEIGHT / 2), Pyramid.PPM + 100, Pyramid.PPM + 100);
 
 		// level5-Link
 		level5Button = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/5.png")))));
-		level5Button.setBounds(965, 400, 100, 100);
+		level5Button.setBounds((Pyramid.V_WIDTH /2) +  200,(Pyramid.V_WIDTH / 2), Pyramid.PPM + 100, Pyramid.PPM + 100);
 
 		// level6-Link
 		level6Button = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/6Click.png")))));
-		level6Button.setBounds(165, 250, 100, 100);
+		level6Button.setBounds((Pyramid.V_WIDTH /2) -  500,(Pyramid.V_HEIGHT / 2)  - 150, Pyramid.PPM + 100, Pyramid.PPM + 100);
 
 		// level7-Link
 		level7Button = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/7Click.png")))));
-		level7Button.setBounds(365, 250, 100, 100);
+		level7Button.setBounds((Pyramid.V_WIDTH /2) -  325,(Pyramid.V_HEIGHT / 2) - 150, Pyramid.PPM + 100, Pyramid.PPM + 100);
 
 		// level8-Link
 		level8Button = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/8Click.png")))));
-		level8Button.setBounds(565, 250, 100, 100);
+		level8Button.setBounds((Pyramid.V_WIDTH /2)-150,(Pyramid.V_HEIGHT / 2) - 150, Pyramid.PPM + 100, Pyramid.PPM + 100);
 
 		// level9-Link
 		level9Button = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/9Click.png")))));
-		level9Button.setBounds(765, 250, 100, 100);
+		level9Button.setBounds((Pyramid.V_WIDTH /2) +25,(Pyramid.V_HEIGHT / 2) - 150, Pyramid.PPM + 100, Pyramid.PPM + 100);
 
 		// level10-Link
 		level10Button = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/10Click.png")))));
-		level10Button.setBounds(965, 250, 100, 100);
+		level10Button.setBounds((Pyramid.V_WIDTH /2) +  200,(Pyramid.V_HEIGHT / 2) - 150, Pyramid.PPM + 100, Pyramid.PPM + 100);
 
 		level1Button.addListener(new ClickListener() {
 
@@ -193,13 +196,22 @@ public class LevelSelect implements Screen {
 
 	// beer
 	public void update(float dt) {
+		
 		count = PlayScreen.keep_count;
+		
+
+		// update our gamecam with correct coordinates after changes.
+		gameCam.update();
+
+
+		
+		
 	}
 
 	@Override
 	public void show() {
 		sb = new SpriteBatch();
-//		hud = new Hud(sb);
+
 	}
 
 	@Override
@@ -207,18 +219,18 @@ public class LevelSelect implements Screen {
 		
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		gameCam.update();
+
 		// Set our batch to now draw what the Hud camera see.
 		game.sb.setProjectionMatrix(gameCam.combined);
 
 		update(delta);
 		
+		
+		game.sb.begin();
+		game.sb.draw(background, 0, 0, Pyramid.V_WIDTH, Pyramid.V_HEIGHT);
+		game.sb.end();
+		
 		buttonStage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
-
-		sb.begin();
-		sb.draw(background, 0, 0, Pyramid.V_WIDTH, Pyramid.V_HEIGHT);
-		sb.end();
-
 		buttonStage.draw();
 
 
