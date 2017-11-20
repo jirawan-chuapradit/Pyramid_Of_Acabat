@@ -164,7 +164,7 @@ public class Hud {
 	}
 
 	public void setHealth(Integer healths) {
-		this.health = healths;
+		Hud.health = healths;
 		health--;
 	}
 

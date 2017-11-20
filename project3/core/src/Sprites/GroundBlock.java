@@ -4,15 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.Pyramid;
 
 public class GroundBlock extends InteractiveTileObject {
-	
-	private Fixture fixture;
 	
 	public GroundBlock (World world, TiledMap map, Rectangle bounds) {
 		super(world, map, bounds);
@@ -29,7 +26,7 @@ public class GroundBlock extends InteractiveTileObject {
 		shape.setAsBox(bounds.getWidth() /2/Pyramid.PPM, bounds.getHeight() /2/Pyramid.PPM);
 		fdef.shape = shape;
 		
-		fixture = body.createFixture(fdef);
+		body.createFixture(fdef);
 		body.setUserData("Ground");
 	}
 

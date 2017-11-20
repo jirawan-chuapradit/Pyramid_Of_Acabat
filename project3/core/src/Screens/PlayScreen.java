@@ -2,7 +2,6 @@ package Screens;
 
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -20,7 +19,6 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -34,9 +32,7 @@ import Tools.B2WorldCreator;
 import Tools.WorldContactListener;
 
 public class PlayScreen implements Screen {
-
 	private Pyramid game;
-	private GameOverScreen gameOverScreen;
 
 	// beer
 	private TextureAtlas atlas;
@@ -264,7 +260,7 @@ public class PlayScreen implements Screen {
 		
 		// Draw Switch
 		// case press
-		switch (b2WorldCreator.currentColor) {
+		switch (B2WorldCreator.currentColor) {
 		case 0:
 			game.sb.draw(switchBlueIcon, 150 / Pyramid.PPM, 10 / Pyramid.PPM, 60 / Pyramid.PPM, 60 / Pyramid.PPM);
 			break;
