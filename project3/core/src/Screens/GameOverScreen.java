@@ -51,12 +51,12 @@ public class GameOverScreen implements Screen {
 		background = new Texture("GameOver/gameover.png");
 		
 		NextButton = new ImageButton(
-				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("StartGame/right.png")))));
-		NextButton.setBounds((Pyramid.V_WIDTH / 2), 100, 200, 280);
+				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/left.png")))));
+		NextButton.setBounds((Pyramid.V_WIDTH / 2) - 150, 100, 120, 120);
 		
 		replayButton = new ImageButton(
-				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("GameOver/replay.png")))));
-		replayButton.setBounds((Pyramid.V_WIDTH / 2) - 150, 180, 120, 120);
+				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("congrate/re.png")))));
+		replayButton.setBounds((Pyramid.V_WIDTH / 2), 100, 120, 120);
 		
 		NextButton.addListener(new ClickListener() {
 			
