@@ -19,6 +19,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -54,6 +55,7 @@ public class PlayScreen implements Screen {
 
 	public static int keep_count;
 	private ImageButton levelStage;
+	private ImageButton replayButton;
 	private Stage buttonStage;
 
 	private OrthographicCamera gameCam;
@@ -128,7 +130,12 @@ public class PlayScreen implements Screen {
 		levelStage = new ImageButton(new TextureRegionDrawable(
 				new TextureRegion(new Texture(Gdx.files.internal("StartGame/level-stage.png")))));
 		levelStage.setBounds(0, 0, 125, 100);
-
+		
+		// button replay
+		replayButton = new ImageButton(new TextureRegionDrawable(
+				new TextureRegion(new Texture(Gdx.files.internal("StartGame/level-stage.png")))));
+		replayButton.setBounds(0, 0, 125, 100);
+		
 		levelStage.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				music.stop();
@@ -137,10 +144,9 @@ public class PlayScreen implements Screen {
 				Pyramid.manager.get("sounds/button1.wav", Sound.class).play();
 				Pyramid.manager.get("music/music_start.ogg", Music.class).play();
 				game.setScreen(new LevelSelect(game));
-				keep_count = 0;
 			}
 		});
-
+		
 		buttonStage.addActor(levelStage);
 
 		// allows for debug lines of our box2d world
@@ -282,7 +288,8 @@ public class PlayScreen implements Screen {
 
 			WorldContactListener.setcheckPink(false);
 			WorldContactListener.setcheckBlue(false);
-
+			music.stop();
+			Pyramid.manager.get("music/music_start.ogg", Music.class).play();
 			game.setScreen(new LevelSelect(game));
 		}
 	}
@@ -293,10 +300,14 @@ public class PlayScreen implements Screen {
 		// check player is on Grounds
 		if (WorldContactListener.isCheckGameOver() == true) {
 			WorldContactListener.setCheckGameOver(false);
+			music.stop();
+			Pyramid.manager.get("sounds/endSound.wav", Sound.class).play();
 			game.setScreen(new GameOverScreen(game));
 		}
 		// player Timeup OR Health has zero
 		else if ((hud.getWorldTimer() == 0) || (hud.getHealth() == 0)) {
+			music.stop();
+			Pyramid.manager.get("sounds/endSound.wav", Sound.class).play();
 			game.setScreen(new GameOverScreen(game));
 		}
 

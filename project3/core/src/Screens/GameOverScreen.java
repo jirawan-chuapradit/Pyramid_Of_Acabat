@@ -30,7 +30,8 @@ public class GameOverScreen implements Screen {
 	private Stage buttonStage;
 	
 	private ImageButton NextButton;
-
+	private ImageButton replayButton;
+	
 	public GameOverScreen(Pyramid gsm) {
 		this.game = gsm;
 		
@@ -50,21 +51,31 @@ public class GameOverScreen implements Screen {
 		
 		NextButton = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("StartGame/right.png")))));
-		NextButton.setBounds(300 / 2 / Pyramid.PPM, 500 / 2 / Pyramid.PPM, 150 / Pyramid.PPM, 100 / Pyramid.PPM);
-
+		NextButton.setBounds((Pyramid.V_WIDTH / 2), 100, 200, 280);
+		
+		replayButton = new ImageButton(
+				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("GameOver/replay.png")))));
+		replayButton.setBounds((Pyramid.V_WIDTH / 2) - 150, 180, 120, 120);
 		
 		NextButton.addListener(new ClickListener() {
 			
 			public void clicked(InputEvent event, float x, float y) {
-
-		
 				super.clicked(event, x, y);
 				game.setScreen(new LevelSelect(game));
 			}
 		});
+		
+		replayButton.addListener(new ClickListener() {
+			
+			public void clicked(InputEvent event, float x, float y) {
+		
+				super.clicked(event, x, y);
+				game.setScreen(new PlayScreen(game));
+			}
+		});
 
 		buttonStage.addActor(NextButton);
-		
+		buttonStage.addActor(replayButton);
 
 	}
 	
