@@ -61,7 +61,6 @@ public class Menu implements Screen{
 			}
 		});
 		
-		
 		// Create Help Buutton
 		helpButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("StartGame/help.png")))));
 		helpButton.setBounds((Pyramid.V_WIDTH / 2) - 150 , 0, 240, 220);
