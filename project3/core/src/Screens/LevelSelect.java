@@ -7,7 +7,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -18,8 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Pyramid;
-
-import Screens.Hud;
 import Screens.PlayScreen;
 
 public class LevelSelect implements Screen {
@@ -41,12 +38,9 @@ public class LevelSelect implements Screen {
 	private OrthographicCamera gameCam;
 	private Viewport gamePort;
 
-	// private Menu menu;
-
 	private Pyramid game;
 
 	public SpriteBatch sb;
-	private Hud hud;
 	
 
 	public static int count;
@@ -161,7 +155,7 @@ public class LevelSelect implements Screen {
 		level3Button.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				count = 3;
-//				hud.setLevel(count);
+
 				
 				// Stop music
 				Pyramid.manager.get("music/music_start.ogg", Music.class).stop();
@@ -174,7 +168,6 @@ public class LevelSelect implements Screen {
 		level4Button.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				count = 4;
-//				hud.setLevel(count);
 				
 				// Stop music
 				Pyramid.manager.get("music/music_start.ogg", Music.class).stop();
@@ -187,7 +180,6 @@ public class LevelSelect implements Screen {
 		level5Button.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				count = 5;
-//				hud.setLevel(count);
 				// Stop music
 				Pyramid.manager.get("music/music_start.ogg", Music.class).stop();
 				super.clicked(event, x, y);
@@ -214,13 +206,9 @@ public class LevelSelect implements Screen {
 		
 		count = PlayScreen.keep_count;
 		
-
 		// update our gamecam with correct coordinates after changes.
 		gameCam.update();
 
-
-		
-		
 	}
 
 	@Override
@@ -240,14 +228,12 @@ public class LevelSelect implements Screen {
 
 		update(delta);
 		
-		
 		game.sb.begin();
 		game.sb.draw(background, 0, 0, Pyramid.V_WIDTH, Pyramid.V_HEIGHT);
 		game.sb.end();
 		
 		buttonStage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
 		buttonStage.draw();
-
 
 	}
 

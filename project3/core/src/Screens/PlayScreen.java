@@ -1,8 +1,6 @@
 package Screens;
 
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -20,7 +18,6 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -36,7 +33,6 @@ import Tools.WorldContactListener;
 public class PlayScreen implements Screen {
 
 	private Pyramid game;
-	private GameOverScreen gameOverScreen;
 
 	// beer
 	private TextureAtlas atlas;
@@ -273,12 +269,10 @@ public class PlayScreen implements Screen {
 			break;
 		}
 		game.sb.end();
-
-		// draw buttonStage
-
 		game.sb.setProjectionMatrix(hud.stage.getCamera().combined);
 		
 		hud.stage.draw();
+		// draw buttonStage
 		buttonStage.draw();
 	}
 
@@ -311,7 +305,6 @@ public class PlayScreen implements Screen {
 			Pyramid.manager.get("sounds/endSound.wav", Sound.class).play();
 			game.setScreen(new GameOverScreen(game));
 		}
-
 	}
 
 	@Override
@@ -319,7 +312,6 @@ public class PlayScreen implements Screen {
 
 		// update our game viewport
 		gamePort.update(width, height);
-
 	}
 
 	@Override

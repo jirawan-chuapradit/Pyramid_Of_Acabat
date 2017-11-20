@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import Screens.Menu;
-import handles.Content;
 
 public class Pyramid extends Game {
 	
@@ -22,7 +21,6 @@ public class Pyramid extends Game {
 	
 	private Texture img;
 	
-	public static Content res;
 	//music
 	public static AssetManager manager;
 	
