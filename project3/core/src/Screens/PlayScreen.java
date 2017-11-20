@@ -228,7 +228,7 @@ public class PlayScreen implements Screen {
 		tmr.render();
 
 		// renderer our Box2DDubugLines
-		b2dr.render(world, gameCam.combined);
+//		b2dr.render(world, gameCam.combined);
 
 		// Set our batch to now draw what the Hud camera see.
 		game.sb.setProjectionMatrix(gameCam.combined);
