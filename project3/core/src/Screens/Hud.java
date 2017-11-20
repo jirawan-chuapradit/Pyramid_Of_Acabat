@@ -134,7 +134,7 @@ public class Hud {
 			// Check hit Health
 			if (worldContactListener.isCheckHitHealth() == true) {
 
-				if (timeHealth >= 1) {
+				if (timeHealth > 0) {
 					setHealth(health);
 					timeHealth = 0;
 					worldContactListener.setCheckHitHealth(false);
