@@ -45,6 +45,7 @@ public class PlayScreen implements Screen {
 	private Texture hp1Icon;
 	private Texture hp0Icon;
 	private Texture clockIcon;
+	private Texture levelIcon;
 
 	private Texture switchBlueIcon;
 	private Texture switchPinkIcon;
@@ -118,6 +119,9 @@ public class PlayScreen implements Screen {
 		// switch Icon
 		switchBlueIcon = new Texture("Switch/sb.png");
 		switchPinkIcon = new Texture("Switch/sp.png");
+		
+		//  Level Icon
+		levelIcon = new Texture("StartGame/levelIcon.png");
 
 		// buttonStage
 		Gdx.input.setInputProcessor(buttonStage);
@@ -247,6 +251,10 @@ public class PlayScreen implements Screen {
 		// Draw Clock
 		game.sb.draw(clockIcon, 2000 / 2 / Pyramid.PPM, 1325 / 2 / Pyramid.PPM, 150 / Pyramid.PPM, 38 / Pyramid.PPM);
 
+		// Draw level Icon
+		game.sb.draw(levelIcon, 950 / 2 / Pyramid.PPM, 1200 / 2 / Pyramid.PPM, 300 / Pyramid.PPM, 200 / Pyramid.PPM);
+
+		
 		// Draw Switch
 		// case press
 		switch (b2WorldCreator.currentColor) {
@@ -339,6 +347,7 @@ public class PlayScreen implements Screen {
 		hp3Icon.dispose();
 		switchBlueIcon.dispose();
 		switchPinkIcon.dispose();
+		levelIcon.dispose();
 
 	}
 
