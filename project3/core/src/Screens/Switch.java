@@ -13,27 +13,6 @@ public class Switch implements Screen {
 	public Switch() {
 		keep_enableSwitchColor = PlayScreen.enableSwitchColor;
 	}
-	
-	public void switchPinkButton() {
-		PlayScreen.switchPinkButton.addListener(new ClickListener() {
-			public void clicked(InputEvent event, float x, float y) {
-				super.clicked(event, x, y);
-				Pyramid.manager.get("sounds/button1.wav", Sound.class).play();
-				PlayScreen.b2WorldCreator.switchColor();
-			}
-		});
-	}
-	
-	public void switchBlueButton() {
-		PlayScreen.switchBlueButton.addListener(new ClickListener() {
-			public void clicked(InputEvent event, float x, float y) {
-				super.clicked(event, x, y);
-				Pyramid.manager.get("sounds/button1.wav", Sound.class).play();
-				PlayScreen.b2WorldCreator.switchColor();
-			}
-		});
-	}
-	
 	public void update(float dt) {
 		if (keep_enableSwitchColor) {
 			if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT)) {
@@ -98,7 +77,6 @@ public class Switch implements Screen {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
 	}
 	
 }

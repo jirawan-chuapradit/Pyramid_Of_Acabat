@@ -106,6 +106,6 @@ public class B2WorldCreator {
 	}
 
 	public void setCurrentColor(int currentColor) {
-		this.currentColor = currentColor;
+		B2WorldCreator.currentColor = currentColor;
 	}
 }

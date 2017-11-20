@@ -19,6 +19,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -33,32 +34,28 @@ import Tools.WorldContactListener;
 
 public class PlayScreen implements Screen {
 
-
 	private Pyramid game;
 	private GameOverScreen gameOverScreen;
 
 	// beer
 	private TextureAtlas atlas;
-
+	
 	// switch
 	private Texture hp3Icon;
 	private Texture hp2Button;
 	private Texture hp1Icon;
 	private Texture hp0Icon;
 	private Texture clockIcon;
-	
+	private Texture levelIcon;
+
 	private Texture switchBlueIcon;
 	private Texture switchPinkIcon;
-	
-	public static ImageButton switchBlueButton;
-	public static ImageButton switchPinkButton;
-	private ImageButton clockButton;
 
-	
 	private Switch sw;
-	
+
 	public static int keep_count;
 	private ImageButton levelStage;
+	private ImageButton replayButton;
 	private Stage buttonStage;
 
 	private OrthographicCamera gameCam;
@@ -78,28 +75,24 @@ public class PlayScreen implements Screen {
 
 	public static BluePlayer bluePlayer;
 	public static PinkPlayer pinkPlayer;
-	
+
 	public static boolean enableSwitchColor;
 
 	public static float time;
 	public static B2WorldCreator b2WorldCreator;
-	
-	private Music music;
 
+	private Music music;
 
 	public PlayScreen(Pyramid gsm) {
 
 		atlas = new TextureAtlas("Animation/Player.pack");
 
-		buttonStage = new Stage();
-
 		this.game = gsm;
-
+		buttonStage = new Stage();
+		
 		gameCam = new OrthographicCamera();
 		// create a FitViewport to maintain virtual aspect ratio despite screen
 		gamePort = new FitViewport(Pyramid.V_WIDTH / Pyramid.PPM, Pyramid.V_HEIGHT / Pyramid.PPM, gameCam);
-
-
 
 		keep_count = LevelSelect.count;
 		// load our map and setup our map renderer
@@ -114,7 +107,7 @@ public class PlayScreen implements Screen {
 		enableSwitchColor = true;
 
 		world = new World(new Vector2(0, -10), true);
-		
+
 		// Create Icon
 		// HP Icon
 		hp3Icon = new Texture("StartGame/health3.png");
@@ -125,9 +118,12 @@ public class PlayScreen implements Screen {
 		// Clock Icon
 		clockIcon = new Texture("StartGame/clock.png");
 
-		// switch  Icon
+		// switch Icon
 		switchBlueIcon = new Texture("Switch/sb.png");
 		switchPinkIcon = new Texture("Switch/sp.png");
+		
+		//  Level Icon
+		levelIcon = new Texture("StartGame/levelIcon.png");
 
 		// buttonStage
 		Gdx.input.setInputProcessor(buttonStage);
@@ -135,48 +131,40 @@ public class PlayScreen implements Screen {
 				new TextureRegion(new Texture(Gdx.files.internal("StartGame/level-stage.png")))));
 		levelStage.setBounds(0, 0, 125, 100);
 		
+		// button replay
+		replayButton = new ImageButton(new TextureRegionDrawable(
+				new TextureRegion(new Texture(Gdx.files.internal("StartGame/level-stage.png")))));
+		replayButton.setBounds(0, 0, 125, 100);
+		
 		levelStage.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
-				keep_count = 0;
+				music.stop();
 				// Stop music Pyramid.manager.get("music/music_start.ogg", Music.class).stop();
 				super.clicked(event, x, y);
 				Pyramid.manager.get("sounds/button1.wav", Sound.class).play();
+				Pyramid.manager.get("music/music_start.ogg", Music.class).play();
 				game.setScreen(new LevelSelect(game));
 			}
 		});
 		
-		// button switch blue
-		switchBlueButton = new ImageButton(
-				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("switch/sb.png")))));
-		switchBlueButton.setBounds(150, 20, 60, 60);
-		
-		// button switch pink
-		switchPinkButton = new ImageButton(
-				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("switch/sp.png")))));
-		switchPinkButton.setBounds(150, 20, 60, 60);
-
-
 		buttonStage.addActor(levelStage);
-		
-		
+
 		// allows for debug lines of our box2d world
 		b2dr = new Box2DDebugRenderer();
 
 		b2WorldCreator = new B2WorldCreator(world, map);
 
-		
-
 		hud = new Hud();
-		
+
 		// create BluePlayer and PinkPlayer in our game world
 		bluePlayer = new BluePlayer(world, this);
 		pinkPlayer = new PinkPlayer(world, this);
 
 		// Object switch
-				sw = new Switch();
-		
+		sw = new Switch();
+
 		// load music Game
-		music = Pyramid.manager.get("music/music1.ogg", Music.class);
+		music = Pyramid.manager.get("music/music" + keep_count +  ".ogg", Music.class);
 		music.setLooping(true);
 		music.play();
 
@@ -199,13 +187,11 @@ public class PlayScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		hud.update(dt);
-		
-		keep_count = LevelSelect.count;
 
+		keep_count = LevelSelect.count;
 		
-				//System.out.println(B2WorldCreator.currentColor);
-				// case press shift
-				sw.update(dt);
+		// case press shift
+		sw.update(dt);
 
 		// check two player Stay on the Flag
 		CheckNextLevel();
@@ -213,14 +199,12 @@ public class PlayScreen implements Screen {
 		// GameOver
 		CheckGameOver();
 
-
-
 		// tekes 1 step in the physics simulation(60 times per second
 		world.step(1 / 60f, 6, 2);
 
 		pinkPlayer.update(dt);
 		bluePlayer.update(dt);
-		
+
 		hud.update(dt);
 
 		// update our gamecam with correct coordinates after changes.
@@ -228,7 +212,6 @@ public class PlayScreen implements Screen {
 
 		// tell our render to draw only what our camers can see in our game world.
 		tmr.setView(gameCam);
-		
 
 	}
 
@@ -253,52 +236,49 @@ public class PlayScreen implements Screen {
 
 		// Set our batch to now draw what the Hud camera see.
 		game.sb.setProjectionMatrix(gameCam.combined);
+		
 		game.sb.begin();
+		
 		pinkPlayer.draw(game.sb);
 		bluePlayer.draw(game.sb);
-		
+
 		// Draw HP
-		if(Hud.health == 3) {
-			game.sb.draw(hp3Icon, 300/2 /Pyramid.PPM, 1325/ 2 / Pyramid.PPM, 150 / Pyramid.PPM, 38 / Pyramid.PPM);
-		}
-		else if(Hud.health == 2) {
-			game.sb.draw(hp2Button, 300/2 /Pyramid.PPM, 1325/ 2 / Pyramid.PPM, 150 / Pyramid.PPM, 38 / Pyramid.PPM);
-			
-		}
-		else if(Hud.health == 1) {
-			game.sb.draw(hp1Icon, 300/2 /Pyramid.PPM, 1325/ 2 / Pyramid.PPM, 150 / Pyramid.PPM, 38 / Pyramid.PPM);
-		}
-		else if(Hud.health == 0)
-		{
-			game.sb.draw(hp0Icon, 300/2 /Pyramid.PPM, 1325/ 2 / Pyramid.PPM, 150 / Pyramid.PPM, 38 / Pyramid.PPM);
+		if (Hud.health == 3) {
+			game.sb.draw(hp3Icon, 300 / 2 / Pyramid.PPM, 1325 / 2 / Pyramid.PPM, 150 / Pyramid.PPM, 38 / Pyramid.PPM);
+		} else if (Hud.health == 2) {
+			game.sb.draw(hp2Button, 300 / 2 / Pyramid.PPM, 1325 / 2 / Pyramid.PPM, 150 / Pyramid.PPM, 38 / Pyramid.PPM);
+
+		} else if (Hud.health == 1) {
+			game.sb.draw(hp1Icon, 300 / 2 / Pyramid.PPM, 1325 / 2 / Pyramid.PPM, 150 / Pyramid.PPM, 38 / Pyramid.PPM);
+		} else if (Hud.health == 0) {
+			game.sb.draw(hp0Icon, 300 / 2 / Pyramid.PPM, 1325 / 2 / Pyramid.PPM, 150 / Pyramid.PPM, 38 / Pyramid.PPM);
 		}
 		
 		// Draw Clock
-		game.sb.draw(clockIcon, 2000/2 /Pyramid.PPM, 1325/ 2 / Pyramid.PPM, 150 / Pyramid.PPM, 38 / Pyramid.PPM);
+		game.sb.draw(clockIcon, 2000 / 2 / Pyramid.PPM, 1325 / 2 / Pyramid.PPM, 150 / Pyramid.PPM, 38 / Pyramid.PPM);
+
+		// Draw level Icon
+		game.sb.draw(levelIcon, 950 / 2 / Pyramid.PPM, 1200 / 2 / Pyramid.PPM, 300 / Pyramid.PPM, 200 / Pyramid.PPM);
+
 		
 		// Draw Switch
 		// case press
-		switch (B2WorldCreator.currentColor) {
+		switch (b2WorldCreator.currentColor) {
 		case 0:
-			game.sb.draw(switchBlueIcon, 0, 0, 70 / Pyramid.PPM, 70 / Pyramid.PPM);
-			sw.switchBlueButton();
+			game.sb.draw(switchBlueIcon, 150 / Pyramid.PPM, 10 / Pyramid.PPM, 50 / Pyramid.PPM, 60 / Pyramid.PPM);
 			break;
 		case 1:
-
-			game.sb.draw(switchPinkIcon, 0, 0, 70 / Pyramid.PPM, 70 / Pyramid.PPM);
-			sw.switchPinkButton();
+			game.sb.draw(switchPinkIcon, 150 / Pyramid.PPM, 10 / Pyramid.PPM, 50 / Pyramid.PPM, 60 / Pyramid.PPM);
 			break;
 		}
 		game.sb.end();
 
-		
-		
 		// draw buttonStage
-		buttonStage.draw();
 
 		game.sb.setProjectionMatrix(hud.stage.getCamera().combined);
+		
 		hud.stage.draw();
-
+		buttonStage.draw();
 	}
 
 	public void CheckNextLevel() {
@@ -308,26 +288,30 @@ public class PlayScreen implements Screen {
 
 			WorldContactListener.setcheckPink(false);
 			WorldContactListener.setcheckBlue(false);
-
+			music.stop();
+			Pyramid.manager.get("music/music_start.ogg", Music.class).play();
 			game.setScreen(new LevelSelect(game));
 		}
 	}
 
 	private void CheckGameOver() {
-		
+
 		// check Game Over case
 		// check player is on Grounds
 		if (WorldContactListener.isCheckGameOver() == true) {
 			WorldContactListener.setCheckGameOver(false);
+			music.stop();
+			Pyramid.manager.get("sounds/endSound.wav", Sound.class).play();
 			game.setScreen(new GameOverScreen(game));
 		}
 		// player Timeup OR Health has zero
-		else if((hud.getWorldTimer() == 0) || (hud.getHealth() == 0)) {
+		else if ((hud.getWorldTimer() == 0) || (hud.getHealth() == 0)) {
+			music.stop();
+			Pyramid.manager.get("sounds/endSound.wav", Sound.class).play();
 			game.setScreen(new GameOverScreen(game));
 		}
 
 	}
-	
 
 	@Override
 	public void resize(int width, int height) {
@@ -364,14 +348,18 @@ public class PlayScreen implements Screen {
 		tmr.dispose();
 		world.dispose();
 		b2dr.dispose();
-
+		game.dispose();
+		tmr.dispose();
+		sw.dispose();
+		
 		hp0Icon.dispose();
 		hp1Icon.dispose();
 		hp2Button.dispose();
 		hp3Icon.dispose();
 		switchBlueIcon.dispose();
 		switchPinkIcon.dispose();
-		
+		levelIcon.dispose();
+
 	}
 
 }

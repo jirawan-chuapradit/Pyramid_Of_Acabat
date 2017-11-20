@@ -30,17 +30,18 @@ public class GameOverScreen implements Screen {
 	private Stage buttonStage;
 	
 	private ImageButton NextButton;
-
+	private ImageButton replayButton;
+	
 	public GameOverScreen(Pyramid gsm) {
 		this.game = gsm;
 		
 		gameCam = new OrthographicCamera();
 		
 		// create a FitViewport to maintain virtual aspect ratio despite screen
-		gamePort = new FitViewport(Pyramid.V_WIDTH / Pyramid.PPM, Pyramid.V_HEIGHT / Pyramid.PPM, gameCam);
+		gamePort = new FitViewport(Pyramid.V_WIDTH, Pyramid.V_HEIGHT , gameCam);
 		
 		// initially set our gamcam to be centered correctly at the start of of map
-				gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
+		gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 		
 		buttonStage = new Stage();
 		
@@ -50,21 +51,31 @@ public class GameOverScreen implements Screen {
 		
 		NextButton = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("StartGame/right.png")))));
-		NextButton.setBounds((Pyramid.V_WIDTH / 2) - 100, 100, 200, 280);
-
+		NextButton.setBounds((Pyramid.V_WIDTH / 2), 100, 200, 280);
+		
+		replayButton = new ImageButton(
+				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("GameOver/replay.png")))));
+		replayButton.setBounds((Pyramid.V_WIDTH / 2) - 150, 180, 120, 120);
 		
 		NextButton.addListener(new ClickListener() {
 			
 			public void clicked(InputEvent event, float x, float y) {
-
-		
 				super.clicked(event, x, y);
 				game.setScreen(new LevelSelect(game));
 			}
 		});
+		
+		replayButton.addListener(new ClickListener() {
+			
+			public void clicked(InputEvent event, float x, float y) {
+		
+				super.clicked(event, x, y);
+				game.setScreen(new PlayScreen(game));
+			}
+		});
 
 		buttonStage.addActor(NextButton);
-		
+		buttonStage.addActor(replayButton);
 
 	}
 	
@@ -88,9 +99,9 @@ public class GameOverScreen implements Screen {
 		
 		
 		
-		sb.begin();
-		sb.draw(background, 0, 0, Pyramid.V_WIDTH, Pyramid.V_HEIGHT);
-		sb.end();
+		game.sb.begin();
+		game.sb.draw(background, 0, 0, Pyramid.V_WIDTH, Pyramid.V_HEIGHT);
+		game.sb.end();
 		
 		buttonStage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
 		buttonStage.draw();	
