@@ -50,6 +50,7 @@ public void create () {
 		manager.load("sounds/button1.wav", Sound.class);
 		manager.load("sounds/button2.wav", Sound.class);
 		manager.load("sounds/endSound.wav", Sound.class);
+		manager.load("sounds/hit.wav", Sound.class);
 		manager.finishLoading();
 	
 		Gdx.gl.glClearColor(0, 1, 0, 1);

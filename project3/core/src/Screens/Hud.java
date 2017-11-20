@@ -164,7 +164,12 @@ public class Hud {
 	}
 
 	public void setHealth(Integer healths) {
+<<<<<<< HEAD
+		Hud.health = healths;
+		Pyramid.manager.get("sounds/hit.wav", Sound.class).play();
+=======
 		this.health = healths;
+>>>>>>> 17a97bcd5e68e993495ef52dcf0ec8213c5c4b53
 		health--;
 	}
 
