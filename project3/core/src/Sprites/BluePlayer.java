@@ -12,32 +12,27 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.EdgeShape;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Pyramid;
-
 import Screens.PlayScreen;
-import Sprites.PinkPlayer.State;
-import Tools.B2WorldCreator;
 
 public class BluePlayer extends Sprite{
 	
 	public World world;
 	public Body b2body;
-	private B2WorldCreator b2WorldCreator;
 	public int currentColorBlue = 1;
 
 	// animation --- beer
 	public State currentState;
 	public State previousState;
-	private Animation bluePlayerRunRight;
+	private Animation<Object> bluePlayerRunRight;
 	private float stateTimer;
 	private boolean runningRight;
 	private boolean stateRunRight;
-	private Animation bluePlayerStand;
+	private Animation<Object> bluePlayerStand;
 	private Array<TextureRegion> playerStandRight = new Array<TextureRegion>();
 	private Array<TextureRegion> playerStandLeft = new Array<TextureRegion>();
 	private Array<TextureRegion> playerRunRight = new Array<TextureRegion>();
@@ -69,18 +64,19 @@ public class BluePlayer extends Sprite{
 		setRegion(getFrame(dt));
 	}
 
+
 	public void state() {
 		if (runningRight == true) {
 			for (int i = 0; i < 5; i++) {
 				playerStandRight.add(new TextureRegion(getTexture(),(i * 60), 695, 60, 90));
 			}
-			bluePlayerStand = new Animation(1f, playerStandRight);
+			bluePlayerStand = new Animation<Object>(1f, playerStandRight);
 			playerStandRight.clear();
 			if (stateRunRight==true) {
 				for (int i = 0; i < 4; i++) {
 					playerRunRight.add(new TextureRegion(getTexture(),(i * 60), 510, 60, 90));
 				}
-				bluePlayerRunRight = new Animation(0.1f, playerRunRight);
+				bluePlayerRunRight = new Animation<Object>(0.1f, playerRunRight);
 				playerRunRight.clear();
 			}
 		}
@@ -88,14 +84,14 @@ public class BluePlayer extends Sprite{
 			for (int i = 0; i < 5; i++) {
 				playerStandLeft.add(new TextureRegion(getTexture(),(i * 60), 695, 60, 90));
 			}
-			bluePlayerStand = new Animation(1f, playerStandLeft);
+			bluePlayerStand = new Animation<Object>(1f, playerStandLeft);
 			playerStandLeft.clear();
 			runningRight = true;
 			if (stateRunRight==false) {
 				for (int i = 0; i < 4; i++) {
 					playerRunLeft.add(new TextureRegion(getTexture(),(i * 60), 600, 60, 90));
 				}
-				bluePlayerRunRight = new Animation(0.1f, playerRunLeft);
+				bluePlayerRunRight = new Animation<Object>(0.1f, playerRunLeft);
 				playerRunRight.clear();
 			}
 			stateRunRight = true;
@@ -152,9 +148,8 @@ public class BluePlayer extends Sprite{
 		shape.setAsBox(15/Pyramid.PPM, 20/Pyramid.PPM);
 		fdef.shape = shape;
 		fdef.filter.groupIndex = -1;
-		Fixture body  = b2body.createFixture(fdef);
-		b2body.setUserData("footBlue");
-		fdef.isSensor = true;
+		b2body.createFixture(fdef).setUserData("footBlue");
+		
 		// foot sensor 
 		EdgeShape foot = new EdgeShape();
 //		foot.setAsBox( 15/ Pyramid.PPM, 20 / Pyramid.PPM);
@@ -162,10 +157,7 @@ public class BluePlayer extends Sprite{
 		fdef.shape = foot;
 		fdef.isSensor = true;
 		
-		
 		b2body.createFixture(fdef).setUserData("footBlue");
-				
-		
 	}
 	
 	public void handleInput(float dt) {

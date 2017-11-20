@@ -16,34 +16,26 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Pyramid;
-
 import Screens.PlayScreen;
-import Tools.B2WorldCreator;
 
 public class PinkPlayer extends Sprite {
 	public World world;
 	public Body b2body;
 
-	private B2WorldCreator b2WorldCreator;
-
 	public int currentColorPink = 0;
 
 	public State currentState;
 	public State previousState;
-	private Animation pinkPlayerRunRight;
+	private Animation<Object> pinkPlayerRunRight;
 	private float stateTimer;
 	private boolean runningRight;
 	private boolean stateRunRight;
-	private Animation pinkPlayerStand;
+	private Animation<Object> pinkPlayerStand;
 	private Array<TextureRegion> playerStandRight = new Array<TextureRegion>();
 	private Array<TextureRegion> playerStandLeft = new Array<TextureRegion>();
 	private Array<TextureRegion> playerRunRight = new Array<TextureRegion>();
 	private Array<TextureRegion> playerRunLeft = new Array<TextureRegion>();
-	private Animation animation;
-
-	private int checkPink = 0;
-
-	private float check_posision;
+	
 	public static int count;
 
 	public PinkPlayer(World world, PlayScreen screen) {
@@ -78,28 +70,28 @@ public class PinkPlayer extends Sprite {
 			for (int i = 0; i < 5; i++) {
 				playerStandRight.add(new TextureRegion(getTexture(), (i * 60), 188, 60, 90));
 			}
-			pinkPlayerStand = new Animation(1f, playerStandRight);
+			pinkPlayerStand = new Animation<Object>(1f, playerStandRight);
 			playerStandRight.clear();
 
 			if (stateRunRight == true) {
 				for (int i = 0; i < 4; i++) {
 					playerRunRight.add(new TextureRegion(getTexture(),(i * 60), 8, 60, 90));
 				}
-				pinkPlayerRunRight = new Animation(0.1f, playerRunRight);
+				pinkPlayerRunRight = new Animation<Object>(0.1f, playerRunRight);
 				playerRunRight.clear();
 			}
 		} else {
 			for (int i = 0; i < 5; i++) {
 				playerStandLeft.add(new TextureRegion(getTexture(), (i * 60), 188, 60, 90));
 			}
-			pinkPlayerStand = new Animation(1f, playerStandLeft);
+			pinkPlayerStand = new Animation<Object>(1f, playerStandLeft);
 			playerStandLeft.clear();
 			runningRight = true;
 			if (stateRunRight == false) {
 				for (int i = 0; i < 4; i++) {
 					playerRunLeft.add(new TextureRegion(getTexture(), (i * 60), 98, 60, 90));
 				}
-				pinkPlayerRunRight = new Animation(0.1f, playerRunLeft);
+				pinkPlayerRunRight = new Animation<Object>(0.1f, playerRunLeft);
 				playerRunRight.clear();
 			}
 			stateRunRight = true;

@@ -31,7 +31,6 @@ import Tools.B2WorldCreator;
 import Tools.WorldContactListener;
 
 public class PlayScreen implements Screen {
-
 	private Pyramid game;
 
 	// beer
@@ -260,7 +259,7 @@ public class PlayScreen implements Screen {
 		
 		// Draw Switch
 		// case press
-		switch (b2WorldCreator.currentColor) {
+		switch (B2WorldCreator.currentColor) {
 		case 0:
 			game.sb.draw(switchBlueIcon, 150 / Pyramid.PPM, 10 / Pyramid.PPM, 60 / Pyramid.PPM, 60 / Pyramid.PPM);
 			break;

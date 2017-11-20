@@ -41,7 +41,10 @@ public class LevelSelect implements Screen {
 	private Pyramid game;
 
 	public SpriteBatch sb;
+<<<<<<< HEAD
 	
+=======
+>>>>>>> f5db41a7e7e132ba55089644fee3074ab83fe312
 
 	public static int count;
 

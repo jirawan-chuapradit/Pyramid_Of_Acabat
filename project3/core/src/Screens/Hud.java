@@ -115,7 +115,7 @@ public class Hud {
 
 		if (timeCount >= 1) {
 			setWorldTimer(worldTimer);
-			if (worldTimer <= 6) {
+			if (worldTimer == 10) {
 				Pyramid.manager.get("sounds/time_alarm.wav", Sound.class).play();
 			}
 			coundownLabel.setText(String.format("%03d", worldTimer));
@@ -164,7 +164,7 @@ public class Hud {
 	}
 
 	public void setHealth(Integer healths) {
-		this.health = healths;
+		Hud.health = healths;
 		health--;
 	}
 
