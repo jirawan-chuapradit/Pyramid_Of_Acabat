@@ -135,6 +135,7 @@ public class Congrate implements Screen {
 		sb.dispose();
 		background.dispose();
 		buttonStage.dispose();
+		game.dispose();
 
 	}
 

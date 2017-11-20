@@ -30,9 +30,9 @@ public class Menu implements Screen{
 	private OrthographicCamera gameCam;
 	private Viewport gamePort;
 	
-	final Pyramid game;
+	private Pyramid game;
 	public SpriteBatch sb;
-	public Menu(final Pyramid gsm) {
+	public Menu(Pyramid gsm) {
 		
 		this.game = gsm;
 		buttonStage = new Stage();

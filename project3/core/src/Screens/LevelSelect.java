@@ -38,11 +38,10 @@ public class LevelSelect implements Screen {
 	private OrthographicCamera gameCam;
 	private Viewport gamePort;
 
-	// private Menu menu;
-
 	private Pyramid game;
 
 	public SpriteBatch sb;
+
 
 	public static int count;
 
@@ -156,7 +155,7 @@ public class LevelSelect implements Screen {
 		level3Button.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				count = 3;
-//				hud.setLevel(count);
+
 				
 				// Stop music
 				Pyramid.manager.get("music/music_start.ogg", Music.class).stop();
@@ -169,7 +168,6 @@ public class LevelSelect implements Screen {
 		level4Button.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				count = 4;
-//				hud.setLevel(count);
 				
 				// Stop music
 				Pyramid.manager.get("music/music_start.ogg", Music.class).stop();
@@ -182,7 +180,6 @@ public class LevelSelect implements Screen {
 		level5Button.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				count = 5;
-//				hud.setLevel(count);
 				// Stop music
 				Pyramid.manager.get("music/music_start.ogg", Music.class).stop();
 				super.clicked(event, x, y);
@@ -209,13 +206,9 @@ public class LevelSelect implements Screen {
 		
 		count = PlayScreen.keep_count;
 		
-
 		// update our gamecam with correct coordinates after changes.
 		gameCam.update();
 
-
-		
-		
 	}
 
 	@Override
@@ -235,14 +228,12 @@ public class LevelSelect implements Screen {
 
 		update(delta);
 		
-		
 		game.sb.begin();
 		game.sb.draw(background, 0, 0, Pyramid.V_WIDTH, Pyramid.V_HEIGHT);
 		game.sb.end();
 		
 		buttonStage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
 		buttonStage.draw();
-
 
 	}
 

@@ -6,10 +6,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import Screens.Menu;
-import handles.Content;
 
 public class Pyramid extends Game {
 	
@@ -19,7 +19,8 @@ public class Pyramid extends Game {
 	
 	public SpriteBatch sb;
 	
-	public static Content res;
+	
+
 	//music
 	public static AssetManager manager;
 	

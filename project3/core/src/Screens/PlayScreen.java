@@ -1,6 +1,5 @@
 package Screens;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
@@ -104,7 +103,7 @@ public class PlayScreen implements Screen {
 		enableSwitchColor = true;
 
 		world = new World(new Vector2(0, -10), true);
-
+		
 		// Create Icon
 		// HP Icon
 		hp3Icon = new Texture("StartGame/health3.png");
@@ -269,12 +268,10 @@ public class PlayScreen implements Screen {
 			break;
 		}
 		game.sb.end();
-
-		// draw buttonStage
-
 		game.sb.setProjectionMatrix(hud.stage.getCamera().combined);
 		
 		hud.stage.draw();
+		// draw buttonStage
 		buttonStage.draw();
 	}
 
@@ -307,7 +304,6 @@ public class PlayScreen implements Screen {
 			Pyramid.manager.get("sounds/endSound.wav", Sound.class).play();
 			game.setScreen(new GameOverScreen(game));
 		}
-
 	}
 
 	@Override
@@ -315,7 +311,6 @@ public class PlayScreen implements Screen {
 
 		// update our game viewport
 		gamePort.update(width, height);
-
 	}
 
 	@Override

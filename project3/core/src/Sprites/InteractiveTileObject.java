@@ -21,7 +21,6 @@ public abstract class InteractiveTileObject {
 		this.map = map;
 		this.bounds = bounds;
 		
-		
 	}
 	
 	public abstract void underFootHit();

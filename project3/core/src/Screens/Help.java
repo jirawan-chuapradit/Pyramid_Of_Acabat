@@ -148,6 +148,7 @@ public class Help implements Screen {
 		sb.dispose();
 		background.dispose();
 		buttonStage.dispose();
+		game.dispose();
 
 	}
 

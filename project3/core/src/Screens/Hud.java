@@ -57,7 +57,7 @@ public class Hud {
 		// define our stage using that viewport and our games spritebatch
 		viewport = new FitViewport(Pyramid.V_WIDTH, Pyramid.V_HEIGHT, new OrthographicCamera());
 		stage = new Stage(viewport);
-
+		
 		// define a table used to organize our hud's labels
 		Table table = new Table();
 		// Top-Align table
@@ -115,7 +115,7 @@ public class Hud {
 
 		if (timeCount >= 1) {
 			setWorldTimer(worldTimer);
-			if (worldTimer == 10) {
+			if (worldTimer <= 6) {
 				Pyramid.manager.get("sounds/time_alarm.wav", Sound.class).play();
 			}
 			coundownLabel.setText(String.format("%03d", worldTimer));
@@ -164,8 +164,12 @@ public class Hud {
 	}
 
 	public void setHealth(Integer healths) {
+<<<<<<< HEAD
 		Hud.health = healths;
 		Pyramid.manager.get("sounds/hit.wav", Sound.class).play();
+=======
+		this.health = healths;
+>>>>>>> 17a97bcd5e68e993495ef52dcf0ec8213c5c4b53
 		health--;
 	}
 
