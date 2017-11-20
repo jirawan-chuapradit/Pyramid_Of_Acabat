@@ -36,7 +36,6 @@ public class GameOverScreen implements Screen {
 	
 	public GameOverScreen(Pyramid gsm) {
 		this.game = gsm;
-		
 		gameCam = new OrthographicCamera();
 		
 		// create a FitViewport to maintain virtual aspect ratio despite screen
@@ -68,7 +67,7 @@ public class GameOverScreen implements Screen {
 				game.setScreen(new LevelSelect(game));
 			}
 		});
-		
+
 		replayButton.addListener(new ClickListener() {
 			
 			public void clicked(InputEvent event, float x, float y) {

@@ -42,6 +42,8 @@ public class Menu implements Screen{
 		// create a FitViewport to maintain virtual aspect ratio despite screen
 		gamePort = new FitViewport(Pyramid.V_WIDTH / Pyramid.PPM, Pyramid.V_HEIGHT / Pyramid.PPM, gameCam);
 
+		gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
+		
 		Gdx.input.setInputProcessor(buttonStage);	
 		
 		background = new Texture("StartGame/GUI.png");
@@ -94,14 +96,8 @@ public class Menu implements Screen{
 			buttonStage.addActor(exitButton);
 	}
 
-
-
-	@Override
-	public void dispose() {
-		buttonStage.dispose();
-		sb.dispose();
-		background.dispose();
-		
+	public void update(float dt) {
+		gameCam.update();
 	}
 
 	@Override
@@ -116,14 +112,14 @@ public class Menu implements Screen{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		game.sb.setProjectionMatrix(gameCam.combined);
-
 		
-		buttonStage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
+		update(delta);
 		
 		sb.begin();
 		sb.draw(background, 0, 0, Pyramid.V_WIDTH, Pyramid.V_HEIGHT);
 		sb.end();
 		
+		buttonStage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
 		buttonStage.draw();
 		
 	}
@@ -149,6 +145,14 @@ public class Menu implements Screen{
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void dispose() {
+		buttonStage.dispose();
+		sb.dispose();
+		background.dispose();
 		
 	}
 }
