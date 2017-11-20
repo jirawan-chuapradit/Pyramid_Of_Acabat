@@ -59,7 +59,10 @@ public class Congrate implements Screen {
 				// Stop music
 				super.clicked(event, x, y);
 				PlayScreen.keep_count++;
+				LevelSelect.count++;
+				System.out.println(PlayScreen.keep_count);
 				Pyramid.manager.get("sounds/button1.wav", Sound.class).play();
+				Pyramid.manager.get("sounds/win_stage.wav", Sound.class).stop();
 				game.setScreen(new PlayScreen(game));
 			}
 		});
@@ -69,6 +72,7 @@ public class Congrate implements Screen {
 				// Stop music
 				super.clicked(event, x, y);
 				Pyramid.manager.get("sounds/button1.wav", Sound.class).play();
+				Pyramid.manager.get("sounds/win_stage.wav", Sound.class).stop();
 				game.setScreen(new PlayScreen(game));
 			}
 		});
