@@ -75,8 +75,8 @@ public class Hud {
 		scoreLabel = new Label(String.format("%06d", health), new Label.LabelStyle(new BitmapFont(), Color.GOLDENROD));
 		timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.GOLDENROD));
 		levelLabel = new Label("Level " + PlayScreen.keep_count,
-				new Label.LabelStyle(new BitmapFont(), Color.GOLDENROD));
-		worldLabel = new Label("STAGE", new Label.LabelStyle(new BitmapFont(), Color.GOLDENROD));
+				new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+		worldLabel = new Label("STAGE", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 		playerLabel = new Label("Health", new Label.LabelStyle(new BitmapFont(), Color.GOLDENROD));
 
 		// add our labels to our table, padding the top, and giving them all equal width
