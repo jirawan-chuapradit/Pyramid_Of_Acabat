@@ -254,7 +254,7 @@ public class PlayScreen implements Screen {
 		game.sb.draw(clockIcon, 2000 / 2 / Pyramid.PPM, 1325 / 2 / Pyramid.PPM, 150 / Pyramid.PPM, 38 / Pyramid.PPM);
 
 		// Draw level Icon
-		game.sb.draw(levelIcon, 950 / 2 / Pyramid.PPM, 1200 / 2 / Pyramid.PPM, 300 / Pyramid.PPM, 200 / Pyramid.PPM);
+		game.sb.draw(levelIcon, 1140 / 2 / Pyramid.PPM, 1320 / 2 / Pyramid.PPM, 150 / Pyramid.PPM, 65 / Pyramid.PPM);
 
 		
 		// Draw Switch
