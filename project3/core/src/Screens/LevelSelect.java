@@ -129,7 +129,7 @@ public class LevelSelect implements Screen {
 
 			public void clicked(InputEvent event, float x, float y) {
 				count = 1;
-//				hud.setLevel(count);
+
 				
 				// Stop music
 				Pyramid.manager.get("music/music_start.ogg", Music.class).stop();
@@ -142,7 +142,6 @@ public class LevelSelect implements Screen {
 		level2Button.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				count = 2;	
-//				hud.setLevel(count);
 				
 				// Stop music
 				Pyramid.manager.get("music/music_start.ogg", Music.class).stop();
