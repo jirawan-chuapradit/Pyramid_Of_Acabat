@@ -159,7 +159,7 @@ public class PinkPlayer extends Sprite {
 
 		// foot sensor
 		EdgeShape foot = new EdgeShape();
-		foot.set(new Vector2(-15 / Pyramid.PPM, -20 / Pyramid.PPM), new Vector2(15 / Pyramid.PPM, -20 / Pyramid.PPM));
+		foot.set(new Vector2(-17 / Pyramid.PPM, -20 / Pyramid.PPM), new Vector2(17 / Pyramid.PPM, -20 / Pyramid.PPM));
 		fdef.shape = foot;
 		fdef.isSensor = true;
 

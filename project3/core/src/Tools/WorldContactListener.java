@@ -64,7 +64,13 @@ public class WorldContactListener implements ContactListener {
 			// add sound hit
 			setCheckHitHealth(true);
 			System.out.println(checkHitHealth);
-		} else {
+				
+		}else if((fixA.getUserData() == "footPink" || fixA.getUserData() == "footBlue")
+				&& fixB.getUserData() == "Thorn") {
+			setCheckHitHealth(true);
+		}
+		
+		else {
 			setCheckHitHealth(false);
 		}
 	}
