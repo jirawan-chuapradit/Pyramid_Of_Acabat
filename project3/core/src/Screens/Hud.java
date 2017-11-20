@@ -115,7 +115,7 @@ public class Hud {
 
 		if (timeCount >= 1) {
 			setWorldTimer(worldTimer);
-			if (worldTimer <= 10) {
+			if (worldTimer == 10) {
 				Pyramid.manager.get("sounds/time_alarm.wav", Sound.class).play();
 			}
 			coundownLabel.setText(String.format("%03d", worldTimer));

@@ -52,7 +52,8 @@ public class Menu implements Screen{
 				new TextureRegion(new Texture(Gdx.files.internal("StartGame/start.png")))
 				));
 
-		startButton.setBounds(100, 0, 240, 220);
+		startButton.setBounds((Pyramid.V_WIDTH /2) -550,(Pyramid.V_WIDTH / 2) - 650, Pyramid.PPM + 100, Pyramid.PPM + 100);
+	
 		startButton.addListener(new ClickListener()   {
 			
 			public void clicked(InputEvent event  , float x , float y) {
@@ -64,7 +65,7 @@ public class Menu implements Screen{
 		
 		// Create Help Buutton
 		helpButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("StartGame/help.png")))));
-		helpButton.setBounds((Pyramid.V_WIDTH / 2) - 150 , 0, 240, 220);
+		helpButton.setBounds((Pyramid.V_WIDTH /2) -  130,(Pyramid.V_WIDTH / 2) - 650, Pyramid.PPM + 100, Pyramid.PPM + 100);
 	
 		helpButton.addListener(new ClickListener()   {
 			
@@ -77,7 +78,7 @@ public class Menu implements Screen{
 		
 		// Create Exit Button
 		 exitButton = new  ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("StartGame/Exit.png")))));
-		 exitButton.setBounds((Pyramid.V_WIDTH / 2) + 200, 0, 240, 220);
+		 exitButton.setBounds((Pyramid.V_WIDTH /2) +200,(Pyramid.V_WIDTH / 2) - 650, Pyramid.PPM + 100, Pyramid.PPM + 100);
 		 exitButton.addListener(new ClickListener() {
 	         
              public void clicked(InputEvent event, float x , float y) {
