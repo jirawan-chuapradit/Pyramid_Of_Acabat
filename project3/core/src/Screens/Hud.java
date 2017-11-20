@@ -78,7 +78,7 @@ public class Hud{
 		coundownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.GOLDENROD));
 		scoreLabel = new Label(String.format("%06d", health), new Label.LabelStyle(new BitmapFont(), Color.GOLDENROD));
 		timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.GOLDENROD));
-		levelLabel = new Label("Level 1", new Label.LabelStyle(new BitmapFont(), Color.GOLDENROD));
+		levelLabel = new Label("Level " + PlayScreen.keep_count, new Label.LabelStyle(new BitmapFont(), Color.GOLDENROD));
 		worldLabel = new Label("STAGE", new Label.LabelStyle(new BitmapFont(), Color.GOLDENROD));
 		playerLabel = new Label("Health", new Label.LabelStyle(new BitmapFont(), Color.GOLDENROD));
 		
@@ -89,7 +89,7 @@ public class Hud{
 		
 //	    add a second row to our table
 		table.row();
-		table.add(scoreLabel).expandX();
+		table.add().expandX();
 		table.add(levelLabel).expandX();
 		table.add(coundownLabel).expandX();
 		
@@ -164,6 +164,8 @@ public class Hud{
 	}
 	
 	public void dispose() {
+		
+		game.dispose();
 		stage.dispose();
 		buttonStage.dispose();
 		

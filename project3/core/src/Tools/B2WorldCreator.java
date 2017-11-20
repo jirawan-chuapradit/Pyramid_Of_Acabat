@@ -21,7 +21,7 @@ import Sprites.Thorn;
 
 public class B2WorldCreator {
 
-	private int currentColor;
+	public static int currentColor;
 	private ArrayList<BlueBlock> blueBlocks;
 	private ArrayList<PinkBlock> pinkBlocks;
 	private ArrayList<GroundBlock> groundBlock;

@@ -122,7 +122,6 @@ public class GameOverScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		
 		sb.dispose();
 		buttonStage.dispose();
 		background.dispose();		
