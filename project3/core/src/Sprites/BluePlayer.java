@@ -158,7 +158,7 @@ public class BluePlayer extends Sprite{
 		// foot sensor 
 		EdgeShape foot = new EdgeShape();
 //		foot.setAsBox( 15/ Pyramid.PPM, 20 / Pyramid.PPM);
-		foot.set(new Vector2( -17/ Pyramid.PPM, -20 / Pyramid.PPM), new Vector2( 17/ Pyramid.PPM, -20 / Pyramid.PPM));
+		foot.set(new Vector2( -18/ Pyramid.PPM, -20 / Pyramid.PPM), new Vector2( 18/ Pyramid.PPM, -20 / Pyramid.PPM));
 		fdef.shape = foot;
 		fdef.isSensor = true;
 		

@@ -23,17 +23,15 @@
   <object id="2" x="1271.5" y="9.1667" width="32.6667" height="711.5"/>
   <object id="3" x="2.5" y="-23.5" width="1280" height="32"/>
   <object id="4" x="0.666667" y="0.5833" width="7.4167" height="720.083"/>
-  <object id="39" x="550" y="304" width="32" height="40"/>
-  <object id="42" x="686" y="304" width="48" height="40"/>
  </objectgroup>
- <objectgroup name="pink_Ob" visible="0">
+ <objectgroup name="pink_Ob">
   <object id="46" x="758" y="272" width="120" height="40"/>
   <object id="57" x="720" y="528" width="40" height="40"/>
   <object id="58" x="800" y="504" width="152" height="40"/>
   <object id="61" x="936" y="408" width="168" height="40"/>
   <object id="63" x="984" y="320" width="40" height="40"/>
  </objectgroup>
- <objectgroup name="blue_Ob" visible="0">
+ <objectgroup name="blue_Ob">
   <object id="22" x="382.515" y="542.515" width="31.8182" height="97.9091"/>
   <object id="23" x="350.697" y="578.197" width="31.0909" height="62.0909"/>
   <object id="24" x="319.378" y="609.515" width="31.8182" height="30.4545"/>
@@ -46,8 +44,8 @@
   <object id="55" x="456" y="304" width="48" height="40"/>
  </objectgroup>
  <objectgroup name="flag_Ob">
-  <object id="41" x="582" y="304" width="104" height="40"/>
+  <object id="41" x="552" y="304" width="181" height="28"/>
  </objectgroup>
- <objectgroup name="GameOverOb" visible="0"/>
- <objectgroup name="thorn" visible="0"/>
+ <objectgroup name="GameOverOb"/>
+ <objectgroup name="thorn"/>
 </map>
