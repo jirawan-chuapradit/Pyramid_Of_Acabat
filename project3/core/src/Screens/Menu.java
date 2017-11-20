@@ -39,7 +39,7 @@ public class Menu implements Screen{
 		
 		gameCam = new OrthographicCamera();
 		// create a FitViewport to maintain virtual aspect ratio despite screen
-		gamePort = new FitViewport(Pyramid.V_WIDTH / Pyramid.PPM, Pyramid.V_HEIGHT / Pyramid.PPM, gameCam);
+		gamePort = new FitViewport(Pyramid.V_WIDTH, Pyramid.V_HEIGHT, gameCam);
 
 		gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 		
@@ -51,8 +51,8 @@ public class Menu implements Screen{
 		startButton = new ImageButton(new TextureRegionDrawable(
 				new TextureRegion(new Texture(Gdx.files.internal("StartGame/start.png")))
 				));
-		
-		startButton.setBounds(100, 0, 240, 220);
+
+		startButton.setBounds(100 /(Pyramid.V_WIDTH / Pyramid.PPM), 100 / (Pyramid.V_HEIGHT/  Pyramid.PPM), 240 / Pyramid.PPM, 220/Pyramid.PPM);
 		startButton.addListener(new ClickListener()   {
 			
 			public void clicked(InputEvent event  , float x , float y) {
@@ -96,6 +96,7 @@ public class Menu implements Screen{
 	}
 
 	public void update(float dt) {
+		// update our gamecam with correct coordinates after changes.
 		gameCam.update();
 	}
 
@@ -114,9 +115,9 @@ public class Menu implements Screen{
 		
 		update(delta);
 		
-		sb.begin();
-		sb.draw(background, 0, 0, Pyramid.V_WIDTH, Pyramid.V_HEIGHT);
-		sb.end();
+		game.sb.begin();
+		game.sb.draw(background, 0, 0, Pyramid.V_WIDTH, Pyramid.V_HEIGHT);
+		game.sb.end();
 		
 		buttonStage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
 		buttonStage.draw();
