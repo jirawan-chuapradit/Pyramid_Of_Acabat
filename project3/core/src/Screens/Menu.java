@@ -52,7 +52,7 @@ public class Menu implements Screen{
 				new TextureRegion(new Texture(Gdx.files.internal("StartGame/start.png")))
 				));
 
-		startButton.setBounds(100 /(Pyramid.V_WIDTH / Pyramid.PPM), 100 / (Pyramid.V_HEIGHT/  Pyramid.PPM), 240 / Pyramid.PPM, 220/Pyramid.PPM);
+		startButton.setBounds(100, 0, 240, 220);
 		startButton.addListener(new ClickListener()   {
 			
 			public void clicked(InputEvent event  , float x , float y) {

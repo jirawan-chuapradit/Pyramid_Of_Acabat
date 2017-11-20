@@ -130,7 +130,6 @@ public class BluePlayer extends Sprite{
 	}
 	
 	public State getState() {
-		System.out.println(b2body.getLinearVelocity().x);
 		if (b2body.getLinearVelocity().x != 0)
 			return State.RUNNING;
 		else
