@@ -9,10 +9,11 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		new LwjglApplication(new Pyramid(), config);
 		
-
+		config.resizable = false;
 		config.width = Pyramid.V_WIDTH;
 		config.height = Pyramid.V_HEIGHT;
 		config.title = "Pyramid Of Acabat V.test";
+
 	
 	}
 }
