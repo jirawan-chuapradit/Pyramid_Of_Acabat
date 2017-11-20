@@ -76,7 +76,7 @@ public class LevelSelect implements Screen {
 
 		// level3-Link
 		level3Button = new ImageButton(
-				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/2.png")))));
+				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/3.png")))));
 		level3Button.setBounds(565, 400, 100, 100);
 
 		// level4-Link
@@ -91,27 +91,27 @@ public class LevelSelect implements Screen {
 
 		// level6-Link
 		level6Button = new ImageButton(
-				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/6.png")))));
+				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/6Click.png")))));
 		level6Button.setBounds(165, 250, 100, 100);
 
 		// level7-Link
 		level7Button = new ImageButton(
-				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/7.png")))));
+				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/7Click.png")))));
 		level7Button.setBounds(365, 250, 100, 100);
 
 		// level8-Link
 		level8Button = new ImageButton(
-				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/8.png")))));
+				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/8Click.png")))));
 		level8Button.setBounds(565, 250, 100, 100);
 
 		// level9-Link
 		level9Button = new ImageButton(
-				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/9.png")))));
+				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/9Click.png")))));
 		level9Button.setBounds(765, 250, 100, 100);
 
 		// level10-Link
 		level10Button = new ImageButton(
-				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/10.png")))));
+				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/10Click.png")))));
 		level10Button.setBounds(965, 250, 100, 100);
 
 		level1Button.addListener(new ClickListener() {

@@ -121,6 +121,9 @@ public class Hud{
 		timeCount += dt;
 		if(timeCount >= 1) {
 			setWorldTimer(worldTimer);
+			if (worldTimer <= 6) {
+				// add sound time
+			}
 			coundownLabel.setText(String.format("%03d", worldTimer));
 			timeCount = 0;
 		}
@@ -129,8 +132,7 @@ public class Hud{
 			setHealth(health);
 			System.out.println(health);
 			scoreLabel.setText(String.format("%06d", health));
-			timeHealth = 0;	
-			
+			timeHealth = 0;
 		}
 		else if(worldContactListener.isCheckHitHealth() == true && timeHealth <= 2) {
 			timeHealth += dt;
