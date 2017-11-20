@@ -265,10 +265,10 @@ public class PlayScreen implements Screen {
 		// case press
 		switch (b2WorldCreator.currentColor) {
 		case 0:
-			game.sb.draw(switchBlueIcon, 150 / Pyramid.PPM, 10 / Pyramid.PPM, 50 / Pyramid.PPM, 60 / Pyramid.PPM);
+			game.sb.draw(switchBlueIcon, 150 / Pyramid.PPM, 10 / Pyramid.PPM, 60 / Pyramid.PPM, 60 / Pyramid.PPM);
 			break;
 		case 1:
-			game.sb.draw(switchPinkIcon, 150 / Pyramid.PPM, 10 / Pyramid.PPM, 50 / Pyramid.PPM, 60 / Pyramid.PPM);
+			game.sb.draw(switchPinkIcon, 150 / Pyramid.PPM, 10 / Pyramid.PPM, 60 / Pyramid.PPM, 60 / Pyramid.PPM);
 			break;
 		}
 		game.sb.end();
