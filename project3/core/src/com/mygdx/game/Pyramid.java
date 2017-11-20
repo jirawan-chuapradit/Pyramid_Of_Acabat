@@ -39,7 +39,9 @@ public void create () {
 		manager = new AssetManager();
 		manager.load("music/music1.ogg", Music.class);
 		manager.load("music/music2.ogg", Music.class);
-		//manager.load("music/music3.ogg", Music.class);
+		manager.load("music/music3.ogg", Music.class);
+		manager.load("music/music4.ogg", Music.class);
+		manager.load("music/music5.ogg", Music.class);
 		manager.load("music/music_start.ogg", Music.class);
 		manager.load("music/music_end.ogg", Music.class);
 		manager.load("sounds/jump.wav", Sound.class);
