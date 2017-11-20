@@ -2,6 +2,8 @@ package Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -61,6 +63,8 @@ public class GameOverScreen implements Screen {
 			
 			public void clicked(InputEvent event, float x, float y) {
 				super.clicked(event, x, y);
+				Pyramid.manager.get("sounds/button1.wav", Sound.class).play();
+				Pyramid.manager.get("music/music_start.ogg", Music.class).play();
 				game.setScreen(new LevelSelect(game));
 			}
 		});
@@ -68,8 +72,8 @@ public class GameOverScreen implements Screen {
 		replayButton.addListener(new ClickListener() {
 			
 			public void clicked(InputEvent event, float x, float y) {
-		
 				super.clicked(event, x, y);
+				Pyramid.manager.get("sounds/button1.wav", Sound.class).play();
 				game.setScreen(new PlayScreen(game));
 			}
 		});
