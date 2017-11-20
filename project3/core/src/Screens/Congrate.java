@@ -52,14 +52,11 @@ public class Congrate implements Screen {
 				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("congrate/re.png")))));
 		replay.setBounds((Pyramid.V_WIDTH / 2) - 150, 180, 120, 120);
 
-		
 		nextStage.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				// Stop music
 				super.clicked(event, x, y);
-				PlayScreen.keep_count++;
 				LevelSelect.count++;
-				System.out.println(PlayScreen.keep_count);
 				Pyramid.manager.get("sounds/button1.wav", Sound.class).play();
 				Pyramid.manager.get("sounds/win_stage.wav", Sound.class).stop();
 				game.setScreen(new PlayScreen(game));
