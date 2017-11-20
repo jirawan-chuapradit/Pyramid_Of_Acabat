@@ -65,7 +65,11 @@ public class LevelSelect implements Screen {
 		// level1-Link
 		level1Button = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("levelButton/1.png")))));
+<<<<<<< HEAD
 		level1Button.setBounds((Pyramid.V_WIDTH /2) -  500,(Pyramid.V_WIDTH / 2)- 275, Pyramid.PPM + 100, Pyramid.PPM + 100);
+=======
+		level1Button.setBounds((Pyramid.V_WIDTH /8),(Pyramid.V_HEIGHT / 2), Pyramid.PPM + 100, Pyramid.PPM + 100);
+>>>>>>> 2c518e91ce960ccb0145b42e3571ce25d32fce53
 
 		// level2-Link
 		level2Button = new ImageButton(
