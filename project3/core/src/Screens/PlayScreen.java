@@ -130,9 +130,9 @@ public class PlayScreen implements Screen {
 				// Stop music Pyramid.manager.get("music/music_start.ogg", Music.class).stop();
 				super.clicked(event, x, y);
 				Pyramid.manager.get("sounds/button1.wav", Sound.class).play();
+				Pyramid.manager.get("music/music_start.ogg", Music.class).play();
 				game.setScreen(new LevelSelect(game));
 				keep_count = 0;
-				Pyramid.manager.get("music/music_start.ogg", Music.class).play();
 			}
 		});
 
