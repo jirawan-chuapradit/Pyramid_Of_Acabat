@@ -103,7 +103,7 @@ public class PlayScreen implements Screen {
 		enableSwitchColor = true;
 
 		world = new World(new Vector2(0, -10), true);
-
+		
 		// Create Icon
 		// HP Icon
 		hp3Icon = new Texture("StartGame/health3.png");

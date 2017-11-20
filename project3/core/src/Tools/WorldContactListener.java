@@ -6,7 +6,10 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+
+import Screens.Hud;
 import Sprites.InteractiveTileObject;
+import Sprites.Thorn;
 
 public class WorldContactListener implements ContactListener {
 
@@ -15,6 +18,8 @@ public class WorldContactListener implements ContactListener {
 	public static boolean checkBlue = false;
 	public static boolean checkGameOver = false;
 	public static boolean checkHitHealth = false;
+
+	private Hud hud;
 
 	@Override
 	public void beginContact(Contact contact) {
@@ -38,7 +43,6 @@ public class WorldContactListener implements ContactListener {
 			setcheckBlue(true);
 		} else if (fixA.getUserData() == "footBlue" && fixB.getUserData() != "Flag") {
 			setcheckBlue(false);
-
 		}
 
 		// check Pink on the Flage
