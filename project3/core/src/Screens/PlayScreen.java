@@ -39,7 +39,7 @@ public class PlayScreen implements Screen {
 
 	// beer
 	private TextureAtlas atlas;
-
+	
 	// switch
 	private Texture hp3Icon;
 	private Texture hp2Button;
@@ -253,7 +253,9 @@ public class PlayScreen implements Screen {
 
 		// Set our batch to now draw what the Hud camera see.
 		game.sb.setProjectionMatrix(gameCam.combined);
+		
 		game.sb.begin();
+		
 		pinkPlayer.draw(game.sb);
 		bluePlayer.draw(game.sb);
 		

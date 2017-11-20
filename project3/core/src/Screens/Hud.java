@@ -119,25 +119,30 @@ public class Hud{
 
 	public void update(float dt){
 		timeCount += dt;
+
 		if(timeCount >= 1) {
 			setWorldTimer(worldTimer);
 			coundownLabel.setText(String.format("%03d", worldTimer));
 			timeCount = 0;
 		}
 		
-		if(worldContactListener.isCheckHitHealth() == true && timeHealth >= 2) {
-			setHealth(health);
-			System.out.println(health);
-			scoreLabel.setText(String.format("%06d", health));
-			timeHealth = 0;	
-			
+		// Check hit Health
+		if(worldContactListener.isCheckHitHealth() == true) {
+
+			if(timeHealth >= 1) {
+				setHealth(health);
+				timeHealth = 0;
+				worldContactListener.setCheckHitHealth(false);
+
+			}
+			else {
+				System.out.println(timeHealth);
+				timeHealth += dt;
+			}
+
+
 		}
-		else if(worldContactListener.isCheckHitHealth() == true && timeHealth <= 2) {
-			timeHealth += dt;
-		}
-		else {
-			timeHealth =  0;
-		}
+		
 		
 	}
 	

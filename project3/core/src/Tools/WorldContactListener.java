@@ -63,28 +63,23 @@ public class WorldContactListener implements ContactListener {
 		if((fixA.getUserData() == "footPink" || fixA.getUserData() == "footBlue") && fixB.getUserData() == "GameOver") {
 			setCheckGameOver(true);
 		}
-		else if((fixA.getUserData() == "footPink" || fixA.getUserData() == "footBlue") && fixB.getUserData() == "Thorn") {
+		
+		if((fixA.getUserData() == "footPink" || fixA.getUserData() == "footBlue") && fixB.getUserData() == "Thorn") {
 			setCheckHitHealth(true);
 			System.out.println(checkHitHealth);
 		}
 		else if((fixB.getUserData() == "footPink" || fixB.getUserData() == "footBlue") && fixB.getUserData() == "Thorn") {
-			
+			setCheckHitHealth(true);
 		}
-		else {
+		else{
 			setCheckHitHealth(false);
 		}
-			
-		System.out.println("Pink : "+checkPink + "Blue: "+ checkBlue);
-		System.out.println("A:" + fixA.getUserData() + " B: "+ fixB.getUserData());
 
-		// player hit Thorn
-		
-		
-		
 	}
 
 	@Override
 	public void endContact(Contact contact) {
+
 		Gdx.app.log("End Contact", "");		
 	}
 
