@@ -50,7 +50,7 @@ public class GameOverScreen implements Screen {
 		
 		NextButton = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("StartGame/right.png")))));
-		NextButton.setBounds((Pyramid.V_WIDTH / 2) - 100, 100, 200, 280);
+		NextButton.setBounds(300 / 2 / Pyramid.PPM, 500 / 2 / Pyramid.PPM, 150 / Pyramid.PPM, 100 / Pyramid.PPM);
 
 		
 		NextButton.addListener(new ClickListener() {
@@ -88,9 +88,9 @@ public class GameOverScreen implements Screen {
 		
 		
 		
-		sb.begin();
-		sb.draw(background, 0, 0, Pyramid.V_WIDTH, Pyramid.V_HEIGHT);
-		sb.end();
+		game.sb.begin();
+		game.sb.draw(background, 0, 0, Pyramid.V_WIDTH, Pyramid.V_HEIGHT);
+		game.sb.end();
 		
 		buttonStage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
 		buttonStage.draw();	

@@ -30,7 +30,6 @@ public class GameOver extends InteractiveTileObject  {
 
 		shape.setAsBox(bounds.getWidth() / 2 / Pyramid.PPM, bounds.getHeight() / 2 / Pyramid.PPM);
 		fdef.shape = shape;
-		// fdef.filter.groupIndex = 3;
 
 		fixture = body.createFixture(fdef);
 		fixture.setUserData("GameOver");
