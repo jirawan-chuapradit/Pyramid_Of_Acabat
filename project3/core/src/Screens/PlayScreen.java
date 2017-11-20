@@ -25,6 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Pyramid;
+
 import Sprites.BluePlayer;
 import Sprites.PinkPlayer;
 import Tools.B2WorldCreator;
@@ -32,20 +33,33 @@ import Tools.WorldContactListener;
 
 public class PlayScreen implements Screen {
 
-	private Texture background;
+
 	private Pyramid game;
 	private GameOverScreen gameOverScreen;
 
 	// beer
 	private TextureAtlas atlas;
 
-	public static int keep_count;
-	private ImageButton levelStage;
 	// switch
+	private Texture hp3Icon;
+	private Texture hp2Button;
+	private Texture hp1Icon;
+	private Texture hp0Icon;
+	private Texture clockIcon;
+	
+	private Texture switchBlueIcon;
+	private Texture switchPinkIcon;
+	
 	public static ImageButton switchBlueButton;
 	public static ImageButton switchPinkButton;
-	public static Stage buttonStage;
+	private ImageButton clockButton;
+
+	
 	private Switch sw;
+	
+	public static int keep_count;
+	private ImageButton levelStage;
+	private Stage buttonStage;
 
 	private OrthographicCamera gameCam;
 	private Viewport gamePort;
@@ -64,16 +78,14 @@ public class PlayScreen implements Screen {
 
 	public static BluePlayer bluePlayer;
 	public static PinkPlayer pinkPlayer;
-	private ImageButton clockButton;
-	private ImageButton hpButton;
-
-	public static B2WorldCreator b2WorldCreator;
+	
+	public static boolean enableSwitchColor;
 
 	public static float time;
-
+	public static B2WorldCreator b2WorldCreator;
+	
 	private Music music;
 
-	public static boolean enableSwitchColor;
 
 	public PlayScreen(Pyramid gsm) {
 
@@ -86,6 +98,8 @@ public class PlayScreen implements Screen {
 		gameCam = new OrthographicCamera();
 		// create a FitViewport to maintain virtual aspect ratio despite screen
 		gamePort = new FitViewport(Pyramid.V_WIDTH / Pyramid.PPM, Pyramid.V_HEIGHT / Pyramid.PPM, gameCam);
+
+
 
 		keep_count = LevelSelect.count;
 		// load our map and setup our map renderer
@@ -102,18 +116,18 @@ public class PlayScreen implements Screen {
 		world = new World(new Vector2(0, -10), true);
 		
 		// Create Icon
-		// HP Button
-		hpButton = new ImageButton(new TextureRegionDrawable(
-				new TextureRegion(new Texture(Gdx.files.internal("StartGame/health3.png")))
-						));
-//		hpButton.setBounds(500, Pyramid.PPM, 5, 20);
-		
-		// Clock Icon
-		clockButton = new ImageButton(new TextureRegionDrawable(
-				new TextureRegion(new Texture(Gdx.files.internal("StartGame/clock.png")))
-				));
-		clockButton.setBounds(1000, 1200, 100, 25);
+		// HP Icon
+		hp3Icon = new Texture("StartGame/health3.png");
+		hp2Button = new Texture("StartGame/health2.png");
+		hp1Icon = new Texture("StartGame/health1.png");
+		hp0Icon = new Texture("StartGame/health0.png");
 
+		// Clock Icon
+		clockIcon = new Texture("StartGame/clock.png");
+
+		// switch  Icon
+		switchBlueIcon = new Texture("Switch/sb.png");
+		switchPinkIcon = new Texture("Switch/sp.png");
 
 		// buttonStage
 		Gdx.input.setInputProcessor(buttonStage);
@@ -134,22 +148,23 @@ public class PlayScreen implements Screen {
 		// button switch blue
 		switchBlueButton = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("switch/sb.png")))));
-		switchBlueButton.setBounds(600, 570, 100, 100);
+		switchBlueButton.setBounds(150, 20, 60, 60);
+		
 		// button switch pink
 		switchPinkButton = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("switch/sp.png")))));
-		switchPinkButton.setBounds(600, 570, 100, 100);
+		switchPinkButton.setBounds(150, 20, 60, 60);
+
 
 		buttonStage.addActor(levelStage);
-//		buttonStage.addActor(hpButton);
-		buttonStage.addActor(clockButton);
+		
 		
 		// allows for debug lines of our box2d world
 		b2dr = new Box2DDebugRenderer();
 
 		b2WorldCreator = new B2WorldCreator(world, map);
 
-		sb = new SpriteBatch();
+		
 
 		hud = new Hud();
 		
@@ -158,8 +173,8 @@ public class PlayScreen implements Screen {
 		pinkPlayer = new PinkPlayer(world, this);
 
 		// Object switch
-		sw = new Switch();
-
+				sw = new Switch();
+		
 		// load music Game
 		music = Pyramid.manager.get("music/music1.ogg", Music.class);
 		music.setLooping(true);
@@ -175,7 +190,7 @@ public class PlayScreen implements Screen {
 
 	@Override
 	public void show() {
-
+		sb = new SpriteBatch();
 	}
 
 	public void update(float dt) {
@@ -184,23 +199,13 @@ public class PlayScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		hud.update(dt);
-
+		
 		keep_count = LevelSelect.count;
 
-		// case press click
-		switch (B2WorldCreator.currentColor) {
-		case 0:
-			buttonStage.addActor(switchBlueButton);
-			sw.switchBlueButton();
-			break;
-		case 1:
-			buttonStage.addActor(switchPinkButton);
-			sw.switchPinkButton();
-			break;
-		}
-		//System.out.println(B2WorldCreator.currentColor);
-		// case press shift
-		sw.update(dt);
+		
+				//System.out.println(B2WorldCreator.currentColor);
+				// case press shift
+				sw.update(dt);
 
 		// check two player Stay on the Flag
 		CheckNextLevel();
@@ -208,12 +213,14 @@ public class PlayScreen implements Screen {
 		// GameOver
 		CheckGameOver();
 
+
+
 		// tekes 1 step in the physics simulation(60 times per second
 		world.step(1 / 60f, 6, 2);
 
 		pinkPlayer.update(dt);
 		bluePlayer.update(dt);
-
+		
 		hud.update(dt);
 
 		// update our gamecam with correct coordinates after changes.
@@ -222,28 +229,6 @@ public class PlayScreen implements Screen {
 		// tell our render to draw only what our camers can see in our game world.
 		tmr.setView(gameCam);
 		
-		
-		if(Hud.health == 2) {
-			hpButton = new ImageButton(new TextureRegionDrawable(
-					new TextureRegion(new Texture(Gdx.files.internal("StartGame/health2.png")))
-							));
-			
-		}
-		else if(Hud.health == 1) {
-			hpButton = new ImageButton(new TextureRegionDrawable(
-					new TextureRegion(new Texture(Gdx.files.internal("StartGame/health1.png")))
-					));
-		}
-		else if(Hud.health == 0)
-		{
-			hpButton = new ImageButton(new TextureRegionDrawable(
-					new TextureRegion(new Texture(Gdx.files.internal("StartGame/health0.png")))
-					));
-		
-		}
-		
-		hpButton.setBounds(500, 500, 400, 100);
-		buttonStage.addActor(hpButton);
 
 	}
 
@@ -271,8 +256,43 @@ public class PlayScreen implements Screen {
 		game.sb.begin();
 		pinkPlayer.draw(game.sb);
 		bluePlayer.draw(game.sb);
+		
+		// Draw HP
+		if(Hud.health == 3) {
+			game.sb.draw(hp3Icon, 300/2 /Pyramid.PPM, 1325/ 2 / Pyramid.PPM, 150 / Pyramid.PPM, 38 / Pyramid.PPM);
+		}
+		else if(Hud.health == 2) {
+			game.sb.draw(hp2Button, 300/2 /Pyramid.PPM, 1325/ 2 / Pyramid.PPM, 150 / Pyramid.PPM, 38 / Pyramid.PPM);
+			
+		}
+		else if(Hud.health == 1) {
+			game.sb.draw(hp1Icon, 300/2 /Pyramid.PPM, 1325/ 2 / Pyramid.PPM, 150 / Pyramid.PPM, 38 / Pyramid.PPM);
+		}
+		else if(Hud.health == 0)
+		{
+			game.sb.draw(hp0Icon, 300/2 /Pyramid.PPM, 1325/ 2 / Pyramid.PPM, 150 / Pyramid.PPM, 38 / Pyramid.PPM);
+		}
+		
+		// Draw Clock
+		game.sb.draw(clockIcon, 2000/2 /Pyramid.PPM, 1325/ 2 / Pyramid.PPM, 150 / Pyramid.PPM, 38 / Pyramid.PPM);
+		
+		// Draw Switch
+		// case press
+		switch (B2WorldCreator.currentColor) {
+		case 0:
+			game.sb.draw(switchBlueIcon, 0, 0, 70 / Pyramid.PPM, 70 / Pyramid.PPM);
+			sw.switchBlueButton();
+			break;
+		case 1:
+
+			game.sb.draw(switchPinkIcon, 0, 0, 70 / Pyramid.PPM, 70 / Pyramid.PPM);
+			sw.switchPinkButton();
+			break;
+		}
 		game.sb.end();
 
+		
+		
 		// draw buttonStage
 		buttonStage.draw();
 
@@ -294,24 +314,20 @@ public class PlayScreen implements Screen {
 	}
 
 	private void CheckGameOver() {
-
+		
+		// check Game Over case
 		// check player is on Grounds
 		if (WorldContactListener.isCheckGameOver() == true) {
 			WorldContactListener.setCheckGameOver(false);
 			game.setScreen(new GameOverScreen(game));
 		}
-
-		// check player Time up
-		if (hud.getWorldTimer() == 0) {
-			game.setScreen(new GameOverScreen(game));
-		}
-
-		// check Health is zero
-		if (hud.getHealth() == 0) {
+		// player Timeup OR Health has zero
+		else if((hud.getWorldTimer() == 0) || (hud.getHealth() == 0)) {
 			game.setScreen(new GameOverScreen(game));
 		}
 
 	}
+	
 
 	@Override
 	public void resize(int width, int height) {
@@ -348,7 +364,14 @@ public class PlayScreen implements Screen {
 		tmr.dispose();
 		world.dispose();
 		b2dr.dispose();
-		background.dispose();
+
+		hp0Icon.dispose();
+		hp1Icon.dispose();
+		hp2Button.dispose();
+		hp3Icon.dispose();
+		switchBlueIcon.dispose();
+		switchPinkIcon.dispose();
+		
 	}
 
 }

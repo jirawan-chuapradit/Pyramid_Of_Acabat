@@ -89,7 +89,7 @@ public class Hud{
 		
 //	    add a second row to our table
 		table.row();
-		table.add(scoreLabel).expandX();
+		table.add().expandX();
 		table.add(levelLabel).expandX();
 		table.add(coundownLabel).expandX();
 		
