@@ -290,8 +290,8 @@ public class PlayScreen implements Screen {
 			WorldContactListener.setcheckPink(false);
 			WorldContactListener.setcheckBlue(false);
 			music.stop();
-			Pyramid.manager.get("music/music_start.ogg", Music.class).play();
-			game.setScreen(new LevelSelect(game));
+			Pyramid.manager.get("sounds/win_stage.wav", Sound.class).play();
+			game.setScreen(new Congrate(game));
 		}
 	}
 

@@ -18,127 +18,128 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Pyramid;
 
-
-
-public class GameOverScreen implements Screen {
-
+public class Congrate implements Screen {
 	private Texture background;
-	private SpriteBatch sb;
-	private Pyramid game;
-	
 	private OrthographicCamera gameCam;
 	private Viewport gamePort;
-	
+	private ImageButton nextStage;
+	private ImageButton replay;
+	private Pyramid game;
 	private Stage buttonStage;
+	public SpriteBatch sb;
 	
-	private ImageButton NextButton;
-	private ImageButton replayButton;
-	
-	public GameOverScreen(Pyramid gsm) {
-		this.game = gsm;
-		
+	public Congrate(Pyramid g) {
+		this.game = g;
 		gameCam = new OrthographicCamera();
-		
-		// create a FitViewport to maintain virtual aspect ratio despite screen
-		gamePort = new FitViewport(Pyramid.V_WIDTH, Pyramid.V_HEIGHT , gameCam);
-		
-		// initially set our gamcam to be centered correctly at the start of of map
-		gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
-		
 		buttonStage = new Stage();
 		
 		Gdx.input.setInputProcessor(buttonStage);
 		
-		background = new Texture("GameOver/gameover.png");
+		// create a FitViewport to maintain virtual aspect ratio despite screen
+		gamePort = new FitViewport(Pyramid.V_WIDTH, Pyramid.V_HEIGHT, gameCam);
+
+		// initially set our gamcam to be centered correctly at the start of of map
+		gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
+
+		background = new Texture("congrate/congrateBG.png");
+
+		// Next Stage Button
+		nextStage = new ImageButton(
+				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("congrate/right.png")))));
+		nextStage.setBounds((Pyramid.V_WIDTH / 2), 180, 120, 120);
 		
-		NextButton = new ImageButton(
-				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("StartGame/right.png")))));
-		NextButton.setBounds((Pyramid.V_WIDTH / 2), 100, 200, 280);
+		// Replay
+		replay = new ImageButton(
+				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("congrate/re.png")))));
+		replay.setBounds((Pyramid.V_WIDTH / 2) - 150, 180, 120, 120);
+
 		
-		replayButton = new ImageButton(
-				new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("GameOver/replay.png")))));
-		replayButton.setBounds((Pyramid.V_WIDTH / 2) - 150, 180, 120, 120);
-		
-		NextButton.addListener(new ClickListener() {
-			
+		nextStage.addListener(new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
+				// Stop music
 				super.clicked(event, x, y);
+				PlayScreen.keep_count++;
+				LevelSelect.count++;
+				System.out.println(PlayScreen.keep_count);
 				Pyramid.manager.get("sounds/button1.wav", Sound.class).play();
-				Pyramid.manager.get("music/music_start.ogg", Music.class).play();
-				game.setScreen(new LevelSelect(game));
-			}
-		});
-		
-		replayButton.addListener(new ClickListener() {
-			
-			public void clicked(InputEvent event, float x, float y) {
-				super.clicked(event, x, y);
-				Pyramid.manager.get("sounds/button1.wav", Sound.class).play();
+				Pyramid.manager.get("sounds/win_stage.wav", Sound.class).stop();
 				game.setScreen(new PlayScreen(game));
 			}
 		});
-
-		buttonStage.addActor(NextButton);
-		buttonStage.addActor(replayButton);
-
+		
+		replay.addListener(new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+				// Stop music
+				super.clicked(event, x, y);
+				Pyramid.manager.get("sounds/button1.wav", Sound.class).play();
+				Pyramid.manager.get("sounds/win_stage.wav", Sound.class).stop();
+				game.setScreen(new PlayScreen(game));
+			}
+		});
+		
+		buttonStage.addActor(nextStage);
+		buttonStage.addActor(replay);
 	}
-	
+
 	public void update(float dt) {
 		// update our gamecam with correct coordinates after changes.
-				gameCam.update();
-
+		gameCam.update();	
 	}
-
+	
 	@Override
 	public void show() {
-		sb = new SpriteBatch();		
+		sb = new SpriteBatch();
 	}
 
 	@Override
 	public void render(float delta) {
-		// Clear the game screen with Black
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		// Set our batch to now draw what the Hud camera see.
 		game.sb.setProjectionMatrix(gameCam.combined);
 		
-		
+		update(delta);
 		
 		game.sb.begin();
 		game.sb.draw(background, 0, 0, Pyramid.V_WIDTH, Pyramid.V_HEIGHT);
 		game.sb.end();
 		
 		buttonStage.getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
-		buttonStage.draw();	
-	
+		buttonStage.draw();
+
 	}
 
 	@Override
 	public void resize(int width, int height) {
 		gamePort.update(width, height);
+
 	}
 
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void resume() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void dispose() {
 		sb.dispose();
+		background.dispose();
 		buttonStage.dispose();
-		background.dispose();		
+
 	}
+
 }
