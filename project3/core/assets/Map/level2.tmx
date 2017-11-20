@@ -53,9 +53,10 @@
   <object id="142" x="872" y="160" width="64" height="40"/>
   <object id="145" x="1144" y="448" width="56" height="40"/>
  </objectgroup>
- <objectgroup name="flagOb"/>
- <objectgroup name="GameOverOb">
+ <objectgroup name="flagOb">
   <object id="106" x="160" y="280" width="88" height="40"/>
+ </objectgroup>
+ <objectgroup name="GameOverOb">
   <object id="45" x="3" y="703" width="1273" height="32"/>
  </objectgroup>
  <objectgroup name="thorn">
